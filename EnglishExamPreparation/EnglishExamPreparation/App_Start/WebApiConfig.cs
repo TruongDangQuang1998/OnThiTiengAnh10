@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EnglishExamPreparation.DAL;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
@@ -10,9 +11,12 @@ namespace EnglishExamPreparation
         public static void Register(HttpConfiguration config)
         {
             // Web API configuration and services
-
-            // Web API routes
-            config.MapHttpAttributeRoutes();
+            //using (var context = new EnglishExamPreparationContext())
+            //{
+            //    context.SaveChanges();
+            //}
+                // Web API routes
+                config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
