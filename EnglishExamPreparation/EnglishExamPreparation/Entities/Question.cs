@@ -15,5 +15,8 @@ namespace EnglishExamPreparation.Entities
         public string Answer3 { get; set; }
         public string Answer4 { get; set; }
         public int Answer { get; set; }
+        public int ExamId { get; set; }
+        public Exam Exam { get; set; }
+        public bool IsDelete { get; set; }
     }
 }

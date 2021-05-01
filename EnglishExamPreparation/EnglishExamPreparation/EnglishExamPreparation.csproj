@@ -172,6 +172,7 @@
     <Compile Include="Controllers\ExamsController.cs" />
     <Compile Include="Controllers\QuestionsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="DAL\DatabaseInitializer.cs" />
     <Compile Include="DAL\EnglishExamPreparationContext.cs" />
     <Compile Include="Entities\Exam.cs" />
     <Compile Include="Entities\ExamResult.cs" />
@@ -243,6 +244,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Services\" />
     <Folder Include="Views\ExamResult\" />
     <Folder Include="Views\Question\" />
     <Folder Include="Views\User\" />
