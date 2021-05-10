@@ -1,11 +1,13 @@
-﻿using System;
+﻿using EnglishV2.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
 namespace EnglishV2.Services
 {
-    public class ExamResultService
+    public class ExamResultService:BaseService<ExamResult>, IExamResultService
     {
+        
     }
 }
