@@ -9,9 +9,15 @@ namespace EnglishV2.Models
     #region Model
     public class ExamResultModel
     {
-
+        public int Id { get; set; }
+        public int UserId { get; set; }
+        public string UserName { get; set; }
+        public int ExamId { get; set; }
+        public string ExamName { get; set; }
+        public double ExamAnswer { get; set; }
+        public bool IsDelete { get; set; }
     }
-    public class ExamResultListModel
+    public class ExamResultListModel : ApiJsonResult
     {
         public ExamResultListModel()
         {
@@ -21,13 +27,36 @@ namespace EnglishV2.Models
         public List<ExamResultModel> ExamResultList { get; set; }
         public int Total { get; set; }
     }
-    public class ExamResultDetailModel
+    public class ExamResultDetailModel : ApiJsonResult
     {
-
+        public int Id { get; set; }
+        public int UserId { get; set; }
+        public string UserName { get; set; }
+        public int ExamId { get; set; }
+        public string ExamName { get; set; }
+        public double ExamAnswer { get; set; }
+        public bool IsDelete { get; set; }
     }
     public class ExamResultEditModel
     {
         public int Id { get; set; }
+        public int UserId { get; set; }
+        //public string UserName { get; set; }
+        public int ExamId { get; set; }
+        //public string ExamName { get; set; }
+        public double ExamAnswer { get; set; }
+        public bool IsDelete { get; set; }
+    }
+
+    public class ExamResultAddModel
+    {
+        public int Id { get; set; }
+        public int UserId { get; set; }
+        //public string UserName { get; set; }
+        public int ExamId { get; set; }
+        //public string ExamName { get; set; }
+        public double ExamAnswer { get; set; }
+        public bool IsDelete { get; set; }
     }
     #endregion
 

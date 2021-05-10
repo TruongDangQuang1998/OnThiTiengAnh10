@@ -9,9 +9,14 @@ namespace EnglishV2.Models
     #region Model
     public class UserModel
     {
-
+        public int Id { get; set; }
+        public string UserName { get; set; }
+        public string Password { get; set; }
+        public string Name { get; set; }
+        public int Role { get; set; }
+        public bool IsDelete { get; set; }
     }
-    public class UserListModel
+    public class UserListModel : ApiJsonResult
     {
         public UserListModel()
         {
@@ -21,13 +26,33 @@ namespace EnglishV2.Models
         public List<UserModel> UserList { get; set; }
         public int Total { get; set; }
     }
-    public class UserDetailModel
+    public class UserDetailModel : ApiJsonResult
     {
-
+        public int Id { get; set; }
+        public string UserName { get; set; }
+        public string Password { get; set; }
+        public string Name { get; set; }
+        public int Role { get; set; }
+        public bool IsDelete { get; set; }
     }
     public class UserEditModel
     {
         public int Id { get; set; }
+        public string UserName { get; set; }
+        public string Password { get; set; }
+        public string Name { get; set; }
+        public int Role { get; set; }
+        public bool IsDelete { get; set; }
+    }
+
+    public class UserAddModel
+    {
+        public int Id { get; set; }
+        public string UserName { get; set; }
+        public string Password { get; set; }
+        public string Name { get; set; }
+        public int Role { get; set; }
+        public bool IsDelete { get; set; }
     }
     #endregion
 

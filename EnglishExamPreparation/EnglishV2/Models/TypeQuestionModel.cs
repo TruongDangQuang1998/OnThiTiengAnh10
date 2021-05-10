@@ -9,9 +9,13 @@ namespace EnglishV2.Models
     #region Model
     public class TypeQuestionModel
     {
-
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public bool IsDelete { get; set; }
+        public List<QuestionModel> Questions { get; set; }
     }
-    public class TypeQuestionListModel
+    public class TypeQuestionListModel : ApiJsonResult
     {
         public TypeQuestionListModel()
         {
@@ -21,13 +25,28 @@ namespace EnglishV2.Models
         public List<TypeQuestionModel> TypeQuestionList { get; set; }
         public int Total { get; set; }
     }
-    public class TypeQuestionDetailModel
+    public class TypeQuestionDetailModel : ApiJsonResult
     {
-
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public bool IsDelete { get; set; }
+        public List<QuestionModel> Questions { get; set; }
     }
     public class TypeQuestionEditModel
     {
         public int Id { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public bool IsDelete { get; set; }
+        //public List<QuestionModel> Questions { get; set; }
+    }
+    public class TypeQuestionAddModel
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public bool IsDelete { get; set; }
     }
     #endregion
 

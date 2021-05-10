@@ -15,7 +15,7 @@ namespace EnglishV2.Models
         public List<QuestionModel> Questions { get; set; }
         public bool IsDelete { get; set; }
     }
-    public class ExamListModel
+    public class ExamListModel : ApiJsonResult
     {
         public ExamListModel()
         {
@@ -25,13 +25,30 @@ namespace EnglishV2.Models
         public List<ExamModel> ExamList { get; set; }
         public int Total { get; set; }
     }
-    public class ExamDetailModel
+    public class ExamDetailModel : ApiJsonResult
     {
-
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public List<QuestionModel> Questions { get; set; }
+        public bool IsDelete { get; set; }
     }
     public class ExamEditModel
     {
         public int Id { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        //public List<QuestionModel> Questions { get; set; }
+        public bool IsDelete { get; set; }
+    }
+
+    public class ExamAddModel
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        //public List<QuestionModel> Questions { get; set; }
+        public bool IsDelete { get; set; }
     }
     #endregion
 
