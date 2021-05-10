@@ -1,3 +1,4 @@
+using EnglishV2.DAL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,9 @@ namespace EnglishV2
         protected void Application_Start()
         {
             GlobalConfiguration.Configure(WebApiConfig.Register);
+
+
+            System.Data.Entity.Database.SetInitializer(new DatabaseInitializer());
         }
     }
 }
