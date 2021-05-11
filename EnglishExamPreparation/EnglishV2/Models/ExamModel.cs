@@ -9,6 +9,10 @@ namespace EnglishV2.Models
     #region Model
     public class ExamModel
     {
+        public ExamModel()
+        {
+            Questions = new List<QuestionModel>();
+        }
         public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
@@ -27,6 +31,10 @@ namespace EnglishV2.Models
     }
     public class ExamDetailModel : ApiJsonResult
     {
+        public ExamDetailModel()
+        {
+            Questions = new List<QuestionModel>();
+        }
         public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }

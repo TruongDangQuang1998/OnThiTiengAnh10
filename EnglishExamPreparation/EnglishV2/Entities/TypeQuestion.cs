@@ -11,6 +11,6 @@ namespace EnglishV2.Entities
         public string Name { get; set; }
         public string Description { get; set; }
         public bool IsDelete { get; set; }
-        public IEnumerable<Question> Questions { get; set; }
+        public virtual IEnumerable<Question> Questions { get; set; }
     }
 }

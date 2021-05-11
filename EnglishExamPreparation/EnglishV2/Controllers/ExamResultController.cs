@@ -23,6 +23,8 @@ namespace EnglishV2.Controllers
             _examResultService = new ExamResultService();
         }
         //public IHttpActionResult
+
+        [HttpGet]
         public IHttpActionResult GetAll()
         {
             var model = new ExamResultListModel();
@@ -62,6 +64,8 @@ namespace EnglishV2.Controllers
                 return new HttpApiActionResult(HttpStatusCode.BadRequest, model);
             }
         }
+
+        [HttpGet]
         public IHttpActionResult GetById(int id)
         {
             var model = new ExamResultDetailModel();
@@ -83,6 +87,8 @@ namespace EnglishV2.Controllers
                 return new HttpApiActionResult(HttpStatusCode.BadRequest, model);
             }
         }
+
+        [HttpDelete]
         public IHttpActionResult Delete(int id)
         {
             var res = new ApiJsonResult();
@@ -96,6 +102,8 @@ namespace EnglishV2.Controllers
                 return new HttpApiActionResult(HttpStatusCode.BadRequest, res);
             }
         }
+
+        [HttpDelete]
         public IHttpActionResult Delete(List<int> ids)
         {
             var res = new ApiJsonResult();
@@ -109,6 +117,8 @@ namespace EnglishV2.Controllers
                 return new HttpApiActionResult(HttpStatusCode.BadRequest, res);
             }
         }
+
+        [HttpPut]
         public IHttpActionResult Update(ExamResultModel entity)
         {
             var res = new ApiJsonResult();
@@ -122,6 +132,8 @@ namespace EnglishV2.Controllers
                 return new HttpApiActionResult(HttpStatusCode.BadRequest, res);
             }
         }
+
+        [HttpPut]
         public IHttpActionResult Update(List<ExamResultModel> entities)
         {
             var res = new ApiJsonResult();
@@ -135,6 +147,8 @@ namespace EnglishV2.Controllers
                 return new HttpApiActionResult(HttpStatusCode.BadRequest, res);
             }
         }
+
+        [HttpPost]
         public IHttpActionResult Insert(ExamResultModel entity)
         {
             var res = new ApiJsonResult();
@@ -148,6 +162,8 @@ namespace EnglishV2.Controllers
                 return new HttpApiActionResult(HttpStatusCode.BadRequest, res);
             }
         }
+
+        [HttpPut]
         public IHttpActionResult Insert(List<ExamResultModel> entities)
         {
             var res = new ApiJsonResult();

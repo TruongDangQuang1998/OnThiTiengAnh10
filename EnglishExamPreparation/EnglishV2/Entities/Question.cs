@@ -16,9 +16,9 @@ namespace EnglishV2.Entities
         public string Answer4 { get; set; }
         public int Answer { get; set; }
         public int ExamId { get; set; }
-        public Exam Exam { get; set; }
+        public virtual Exam Exam { get; set; }
         public int TypeQuestionId { get; set; }
-        public TypeQuestion TypeQuestion { get; set; }
+        public virtual TypeQuestion TypeQuestion { get; set; }
         public bool IsDelete { get; set; }
     }
 }
