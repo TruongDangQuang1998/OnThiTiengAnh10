@@ -13,7 +13,6 @@ namespace EnglishV2.DAL
             base.Seed(context);
             if (!context.Database.Exists())
                 context.Database.Create();
-            //context.Countries.Add(country);
             context.SaveChanges();
         }
     }

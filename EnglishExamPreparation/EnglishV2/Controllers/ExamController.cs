@@ -1,5 +1,6 @@
 ﻿using EnglishV2.Models;
 using EnglishV2.Services;
+using Swashbuckle.Swagger.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,12 @@ namespace EnglishV2.Controllers
             _examService = new ExamService();
         }
         //public IHttpActionResult
+        [Route("GetAll")]
+        [SwaggerResponse(200, "Returns the result of get list Line", typeof(ExamListModel))]
+        [SwaggerResponse(500, "Internal Server Error")]
+        [SwaggerResponse(400, "Bad Request")]
+        [SwaggerResponse(401, "Not Authorizated")]
+        [AllowAnonymous]
         [HttpGet]
         public IHttpActionResult GetAll()
         {
@@ -54,6 +61,40 @@ namespace EnglishV2.Controllers
                         });
                     }
                     model.ExamList.Add(examModel);
+                }
+                return new HttpApiActionResult(HttpStatusCode.OK, model);
+            }
+            catch (Exception ex)
+            {
+                model.ErrorMessages.Add(ex.Message);
+                return new HttpApiActionResult(HttpStatusCode.BadRequest, model);
+            }
+        }
+
+
+        [Route("GetAllTittle")]
+        [SwaggerResponse(200, "Returns the result of get list Line", typeof(ExamTittleListModel))]
+        [SwaggerResponse(500, "Internal Server Error")]
+        [SwaggerResponse(400, "Bad Request")]
+        [SwaggerResponse(401, "Not Authorizated")]
+        [AllowAnonymous]
+        [HttpGet]
+        public IHttpActionResult GetAllTittle()
+        {
+            var model = new ExamTittleListModel();
+            try
+            {
+                var exams = _examService.GetAll();
+                foreach (var exam in exams)
+                {
+                    var examModel = new ExamTittleModel()
+                    {
+                        Id = exam.Id,
+                        Description = exam.Description,
+                        Name = exam.Name,
+                        IsDelete = exam.IsDelete
+                    };
+                    model.ExamTittleList.Add(examModel);
                 }
                 return new HttpApiActionResult(HttpStatusCode.OK, model);
             }

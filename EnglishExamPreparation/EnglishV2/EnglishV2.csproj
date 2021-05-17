@@ -128,6 +128,7 @@
     <Compile Include="Models\EnumAnswer.cs" />
     <Compile Include="Models\ExamModel.cs" />
     <Compile Include="Models\ExamResultModel.cs" />
+    <Compile Include="Models\ExamTittleModel.cs" />
     <Compile Include="Models\HttpApiActionResult.cs" />
     <Compile Include="Models\QuestionModel.cs" />
     <Compile Include="Models\TypeQuestionModel.cs" />
