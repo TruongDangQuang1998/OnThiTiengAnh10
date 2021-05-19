@@ -10,7 +10,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitClient {
 
-    private static final String IP = "192.168.1.12";
+//    private static final String IP = "192.168.1.12";
+    private static final String IP = "192.168.1.156";
     public static final String API_BASE_URL = "https://" + IP + ":44329/";
 
     private static OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
