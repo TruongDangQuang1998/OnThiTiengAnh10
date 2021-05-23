@@ -6,7 +6,7 @@ using System.Web;
 
 namespace EnglishV2.Services
 {
-    //public partial interface IQuestionService : IBaseService<Question>
-    //{
-    //}
+    public partial interface IMultipleChoiceQuestionService : IBaseService<MultipleChoiceQuestion>
+    {
+    }
 }

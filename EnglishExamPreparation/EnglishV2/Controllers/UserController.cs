@@ -25,18 +25,18 @@ namespace EnglishV2.Controllers
             try
             {
                 var users = _userService.GetAll();
-                foreach (var user in users)
-                {
-                    var userModel = new UserModel() {
-                        Id = user.Id,
-                        Name = user.Name,
-                        Password = user.Password,
-                        Role = user.Role,
-                        UserName = user.UserName,
-                        IsDelete = user.IsDelete
-                    };
-                    model.UserList.Add(userModel);
-                }
+                //foreach (var user in users)
+                //{
+                //    var userModel = new UserModel() {
+                //        Id = user.Id,
+                //        Name = user.Name,
+                //        Password = user.Password,
+                //        Role = user.Role,
+                //        UserName = user.UserName,
+                //        IsDelete = user.IsDelete
+                //    };
+                //    model.UserList.Add(userModel);
+                //}
                 return new HttpApiActionResult(HttpStatusCode.OK, model);
             }
             catch (Exception ex)
@@ -55,12 +55,12 @@ namespace EnglishV2.Controllers
                 var userResult = _userService.GetById(id);
                 var userModel = new UserDetailModel()
                 {
-                    Id = userResult.Id,
-                    Name = userResult.Name,
-                    Password = userResult.Password,
-                    Role = userResult.Role,
-                    UserName = userResult.UserName,
-                    IsDelete = userResult.IsDelete
+                    //Id = userResult.Id,
+                    //Name = userResult.Name,
+                    //Password = userResult.Password,
+                    //Role = userResult.Role,
+                    //UserName = userResult.UserName,
+                    //IsDelete = userResult.IsDelete
                 };
                 model = userModel;
                 return new HttpApiActionResult(HttpStatusCode.OK, model);

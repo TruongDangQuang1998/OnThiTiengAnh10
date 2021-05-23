@@ -11,13 +11,14 @@ namespace EnglishV2.Models
     {
         public ExamModel()
         {
-            Questions = new List<QuestionModel>();
+            TypeQuestionModels = new List<TypeQuestionModel>();
         }
         public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public List<QuestionModel> Questions { get; set; }
+        public List<TypeQuestionModel>  TypeQuestionModels { get; set; }
         public bool IsDelete { get; set; }
+        //public virtual ICollection<Question> Questions { get; set; }
     }
     public class ExamListModel : ApiJsonResult
     {
@@ -33,12 +34,12 @@ namespace EnglishV2.Models
     {
         public ExamDetailModel()
         {
-            Questions = new List<QuestionModel>();
+            TypeQuestionModels = new List<TypeQuestionModel>();
         }
         public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public List<QuestionModel> Questions { get; set; }
+        public List<TypeQuestionModel> TypeQuestionModels { get; set; }
         public bool IsDelete { get; set; }
     }
     public class ExamEditModel

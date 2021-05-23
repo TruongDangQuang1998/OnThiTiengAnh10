@@ -15,7 +15,9 @@ namespace EnglishV2.DAL
         }
         public virtual DbSet<Exam> Exams { get; set; }
         public virtual DbSet<ExamResult> ExamResults { get; set; }
-        public virtual DbSet<Question> Questions { get; set; }
+        public virtual DbSet<MultipleChoiceQuestion> MultipleChoiceQuestions { get; set; }
+        public virtual DbSet<EssayQuestion> EssayQuestions { get; set; }
+        public virtual DbSet<UserRole> UserRoles { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<TypeQuestion> TypeQuestions { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

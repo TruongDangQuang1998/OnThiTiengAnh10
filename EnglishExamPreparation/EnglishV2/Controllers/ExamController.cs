@@ -36,29 +36,30 @@ namespace EnglishV2.Controllers
                     var examModel = new ExamModel()
                     {
                         Id = exam.Id,
-                        Description = exam.Description,
+                        Description = exam.Description;
                         Name = exam.Name,
                         IsDelete = exam.IsDelete,
                       
                     };
-                    foreach (var question in exam.Questions)
+                    //get typequestion ở đây
+                    foreach (var typeQuestion in exam.TypeQuestions)
                     {
-                        examModel.Questions.Add(new QuestionModel()
-                        {
-                            Id = question.Id,
-                            Answer = question.Answer,
-                            Answer1 = question.Answer1,
-                            Answer2 = question.Answer2,
-                            Answer3 = question.Answer3,
-                            Answer4 = question.Answer4,
-                            ExamId = question.ExamId,
-                            ExamName = question.Exam.Name,
-                            QuestionContent = question.QuestionContent,
-                            QuestionNumber = question.QuestionNumber,
-                            TypeQuestionId = question.TypeQuestionId,
-                            TypeQuestionName = question.TypeQuestion.Name,
-                            IsDelete = question.IsDelete
-                        });
+                        //examModel.Questions.Add(new QuestionModel()
+                        //{
+                        //    Id = question.Id,
+                        //    Answer = question.Answer,
+                        //    Answer1 = question.Answer1,
+                        //    Answer2 = question.Answer2,
+                        //    Answer3 = question.Answer3,
+                        //    Answer4 = question.Answer4,
+                        //    ExamId = question.ExamId,
+                        //    ExamName = question.Exam.Name,
+                        //    QuestionContent = question.QuestionContent,
+                        //    QuestionNumber = question.QuestionNumber,
+                        //    TypeQuestionId = question.TypeQuestionId,
+                        //    TypeQuestionName = question.TypeQuestion.Name,
+                        //    IsDelete = question.IsDelete
+                        //});
                     }
                     model.ExamList.Add(examModel);
                 }
@@ -120,25 +121,25 @@ namespace EnglishV2.Controllers
                     IsDelete = examResult.IsDelete,
 
                 };
-                foreach (var question in examResult.Questions)
-                {
-                    examModel.Questions.Add(new QuestionModel()
-                    {
-                        Id = question.Id,
-                        Answer = question.Answer,
-                        Answer1 = question.Answer1,
-                        Answer2 = question.Answer2,
-                        Answer3 = question.Answer3,
-                        Answer4 = question.Answer4,
-                        ExamId = question.ExamId,
-                        ExamName = question.Exam.Name,
-                        QuestionContent = question.QuestionContent,
-                        QuestionNumber = question.QuestionNumber,
-                        TypeQuestionId = question.TypeQuestionId,
-                        TypeQuestionName = question.TypeQuestion.Name,
-                        IsDelete = question.IsDelete
-                    });
-                }
+                //foreach (var question in examResult.Questions)
+                //{
+                //    examModel.Questions.Add(new QuestionModel()
+                //    {
+                //        Id = question.Id,
+                //        Answer = question.Answer,
+                //        Answer1 = question.Answer1,
+                //        Answer2 = question.Answer2,
+                //        Answer3 = question.Answer3,
+                //        Answer4 = question.Answer4,
+                //        ExamId = question.ExamId,
+                //        ExamName = question.Exam.Name,
+                //        QuestionContent = question.QuestionContent,
+                //        QuestionNumber = question.QuestionNumber,
+                //        TypeQuestionId = question.TypeQuestionId,
+                //        TypeQuestionName = question.TypeQuestion.Name,
+                //        IsDelete = question.IsDelete
+                //    });
+                //}
                 model = examModel;
                 return new HttpApiActionResult(HttpStatusCode.OK, model);
             }

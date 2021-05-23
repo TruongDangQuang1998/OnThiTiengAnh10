@@ -13,7 +13,9 @@ namespace EnglishV2.Models
         public string UserName { get; set; }
         public string Password { get; set; }
         public string Name { get; set; }
-        public int Role { get; set; }
+        public string Description { get; set; } = null;
+        public int UserRoleId { get; set; }
+        public string UserRoleName { get; set; }
         public bool IsDelete { get; set; }
     }
     public class UserListModel : ApiJsonResult
@@ -32,7 +34,9 @@ namespace EnglishV2.Models
         public string UserName { get; set; }
         public string Password { get; set; }
         public string Name { get; set; }
-        public int Role { get; set; }
+        public int UserRoleId { get; set; }
+        public string UserRoleName { get; set; }
+        public string Description { get; set; }
         public bool IsDelete { get; set; }
     }
     public class UserEditModel
@@ -41,7 +45,8 @@ namespace EnglishV2.Models
         public string UserName { get; set; }
         public string Password { get; set; }
         public string Name { get; set; }
-        public int Role { get; set; }
+        public int UserRoleId { get; set; }
+        public string Description { get; set; }
         public bool IsDelete { get; set; }
     }
 
@@ -51,7 +56,8 @@ namespace EnglishV2.Models
         public string UserName { get; set; }
         public string Password { get; set; }
         public string Name { get; set; }
-        public int Role { get; set; }
+        public int UserRoleId { get; set; }
+        public string Description { get; set; }
         public bool IsDelete { get; set; }
     }
     #endregion

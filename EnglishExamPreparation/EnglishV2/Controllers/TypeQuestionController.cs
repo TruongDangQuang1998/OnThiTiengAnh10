@@ -33,25 +33,25 @@ namespace EnglishV2.Controllers
                         Description = typeQuestion.Description,
                         Name = typeQuestion.Name
                     };
-                    foreach (var question in typeQuestion.Questions)
-                    {
-                        typeQuestionModel.Questions.Add(new QuestionModel()
-                        {
-                            Id = question.Id,
-                            Answer = question.Answer,
-                            Answer1 = question.Answer1,
-                            Answer2 = question.Answer2,
-                            Answer3 = question.Answer3,
-                            Answer4 = question.Answer4,
-                            ExamId = question.ExamId,
-                            ExamName = question.Exam.Name,
-                            QuestionContent = question.QuestionContent,
-                            QuestionNumber = question.QuestionNumber,
-                            TypeQuestionId = question.TypeQuestionId,
-                            TypeQuestionName = question.TypeQuestion.Name,
-                            IsDelete = question.IsDelete
-                        });
-                    }
+                    //foreach (var question in typeQuestion.Questions)
+                    //{
+                    //    typeQuestionModel.Questions.Add(new QuestionModel()
+                    //    {
+                    //        Id = question.Id,
+                    //        Answer = question.Answer,
+                    //        Answer1 = question.Answer1,
+                    //        Answer2 = question.Answer2,
+                    //        Answer3 = question.Answer3,
+                    //        Answer4 = question.Answer4,
+                    //        ExamId = question.ExamId,
+                    //        ExamName = question.Exam.Name,
+                    //        QuestionContent = question.QuestionContent,
+                    //        QuestionNumber = question.QuestionNumber,
+                    //        TypeQuestionId = question.TypeQuestionId,
+                    //        TypeQuestionName = question.TypeQuestion.Name,
+                    //        IsDelete = question.IsDelete
+                    //    });
+                    //}
                     model.TypeQuestionList.Add(typeQuestionModel);
                 }
                 return new HttpApiActionResult(HttpStatusCode.OK, model);
@@ -76,25 +76,25 @@ namespace EnglishV2.Controllers
                     Description = typeQuestionResult.Description,
                     Name = typeQuestionResult.Name
                 };
-                foreach (var question in typeQuestionResult.Questions)
-                {
-                    typeQuestionModel.Questions.Add(new QuestionModel()
-                    {
-                        Id = question.Id,
-                        Answer = question.Answer,
-                        Answer1 = question.Answer1,
-                        Answer2 = question.Answer2,
-                        Answer3 = question.Answer3,
-                        Answer4 = question.Answer4,
-                        ExamId = question.ExamId,
-                        ExamName = question.Exam.Name,
-                        QuestionContent = question.QuestionContent,
-                        QuestionNumber = question.QuestionNumber,
-                        TypeQuestionId = question.TypeQuestionId,
-                        TypeQuestionName = question.TypeQuestion.Name,
-                        IsDelete = question.IsDelete
-                    });
-                }
+                //foreach (var question in typeQuestionResult.Questions)
+                //{
+                //    typeQuestionModel.Questions.Add(new QuestionModel()
+                //    {
+                //        Id = question.Id,
+                //        Answer = question.Answer,
+                //        Answer1 = question.Answer1,
+                //        Answer2 = question.Answer2,
+                //        Answer3 = question.Answer3,
+                //        Answer4 = question.Answer4,
+                //        ExamId = question.ExamId,
+                //        ExamName = question.Exam.Name,
+                //        QuestionContent = question.QuestionContent,
+                //        QuestionNumber = question.QuestionNumber,
+                //        TypeQuestionId = question.TypeQuestionId,
+                //        TypeQuestionName = question.TypeQuestion.Name,
+                //        IsDelete = question.IsDelete
+                //    });
+                //}
                 model = typeQuestionModel;
                 return new HttpApiActionResult(HttpStatusCode.OK, model);
             }

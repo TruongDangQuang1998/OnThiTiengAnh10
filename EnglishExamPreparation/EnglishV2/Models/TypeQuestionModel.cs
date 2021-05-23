@@ -11,13 +11,15 @@ namespace EnglishV2.Models
     {
         public TypeQuestionModel()
         {
-            Questions = new List<QuestionModel>();
+            EssayQuestionModels = new List<EssayQuestionModel>();
+            MultipleChoiceQuestionModels = new List<MultipleChoiceQuestionModel>();
         }
         public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public bool IsDelete { get; set; }
-        public List<QuestionModel> Questions { get; set; }
+        public List<EssayQuestionModel>  EssayQuestionModels { get; set; }
+        public List<MultipleChoiceQuestionModel>  MultipleChoiceQuestionModels { get; set; }
     }
     public class TypeQuestionListModel : ApiJsonResult
     {
@@ -33,13 +35,15 @@ namespace EnglishV2.Models
     {
         public TypeQuestionDetailModel()
         {
-            Questions = new List<QuestionModel>();
+            EssayQuestionModels = new List<EssayQuestionModel>();
+            MultipleChoiceQuestionModels = new List<MultipleChoiceQuestionModel>();
         }
         public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public bool IsDelete { get; set; }
-        public List<QuestionModel> Questions { get; set; }
+        public List<EssayQuestionModel> EssayQuestionModels { get; set; }
+        public List<MultipleChoiceQuestionModel> MultipleChoiceQuestionModels { get; set; }
     }
     public class TypeQuestionEditModel
     {

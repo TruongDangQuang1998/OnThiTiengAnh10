@@ -32,30 +32,30 @@ namespace EnglishV2.Controllers
             {
                 var examResults = _examResultService.GetAll();
                 //Mapper.Map(examResults, model.ExamResultList);
-                foreach (var item in examResults)
-                {
-                    model.ExamResultList.Add(new ExamResultModel()
-                    {
-                        Id = item.Id,
-                        ExamAnswer = item.ExamAnswer,
-                        ExamId = item.ExamId,
-                        ExamName = item.Exam.Name,
-                        UserId = item.UserId,
-                        UserName = item.User.Name,
-                        IsDelete = item.IsDelete
-                    });
+                //foreach (var item in examResults)
+                //{
+                //    model.ExamResultList.Add(new ExamResultModel()
+                //    {
+                //        Id = item.Id,
+                //        ExamAnswer = item.ExamAnswer,
+                //        ExamId = item.ExamId,
+                //        ExamName = item.Exam.Name,
+                //        UserId = item.UserId,
+                //        UserName = item.User.Name,
+                //        IsDelete = item.IsDelete
+                //    });
 
-                }
-                model.ExamResultList.Add(new ExamResultModel()
-                {
-                    Id = 1,
-                    ExamAnswer = 123,
-                    ExamId = 123,
-                    ExamName = "",
-                    UserId = 123,
-                    UserName = "123",
-                    IsDelete = true
-                });
+                //}
+                //model.ExamResultList.Add(new ExamResultModel()
+                //{
+                //    Id = 1,
+                //    ExamAnswer = 123,
+                //    ExamId = 123,
+                //    ExamName = "",
+                //    UserId = 123,
+                //    UserName = "123",
+                //    IsDelete = true
+                //});
                 return new HttpApiActionResult(HttpStatusCode.OK, model);
             }
             catch (Exception ex)
@@ -72,13 +72,13 @@ namespace EnglishV2.Controllers
             try
             {
                 var examResult = _examResultService.GetById(id);
-                model.Id = examResult.Id;
-                model.ExamAnswer = examResult.ExamAnswer;
-                model.ExamId = examResult.ExamId;
-                model.ExamName = examResult.Exam.Name;
-                model.UserId = examResult.UserId;
-                model.UserName = examResult.User.Name;
-                model.IsDelete = examResult.IsDelete;
+                //model.Id = examResult.Id;
+                //model.ExamAnswer = examResult.ExamAnswer;
+                //model.ExamId = examResult.ExamId;
+                //model.ExamName = examResult.Exam.Name;
+                //model.UserId = examResult.UserId;
+                //model.UserName = examResult.User.Name;
+                //model.IsDelete = examResult.IsDelete;
                 return new HttpApiActionResult(HttpStatusCode.OK, model);
             }
             catch (Exception ex)
