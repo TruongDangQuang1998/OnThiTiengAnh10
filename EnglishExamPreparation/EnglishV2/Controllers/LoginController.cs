@@ -28,8 +28,31 @@ namespace EnglishV2.Controllers
             else
             {
                 var users = _userService.GetAll();
+                var user = users.FirstOrDefault(x => x.UserName == username);
+                if(user == null)
+                {
+                    model.ErrorMessages.Add("NotFound!");
+                    return new HttpApiActionResult(HttpStatusCode.NotFound, model) ;
+                }
+                else
+                {
+                    if (user.Password == password)
+                    {
+                        model.Id = user.Id;
+                        model.UserName = user.UserName;
+                        model.Name = user.Name;
+                        model.UserRoleId = user.UserRoleId;
+                        model.UserRoleName = user.UserRole.Name;
+                        model.Description = user.Description;
+                    }
+                    else
+                    {
+                        model.ErrorMessages.Add("User!");
+                        return new HttpApiActionResult(HttpStatusCode.NoContent, model);
+                    }
+                }
             }
-
+            return new HttpApiActionResult(HttpStatusCode.OK, model);
         }
     }
 }

@@ -13,6 +13,7 @@ namespace EnglishV2.Models
         public string QuestionContent { get; set; }
         public string Suggestions { get; set; }
         public string Answer { get; set; }
+        public string UserAnswer { get; set; }
         public int TypeQuestionId { get; set; }
         public string TypeQuestionName { get; set; }
         public bool IsDelete { get; set; }
@@ -33,6 +34,7 @@ namespace EnglishV2.Models
         public string QuestionContent { get; set; }
         public string Suggestions { get; set; }
         public string Answer { get; set; }
+        public string UserAnswer { get; set; }
         public int TypeQuestionId { get; set; }
         public string TypeQuestionName { get; set; }
         public bool IsDelete { get; set; }
