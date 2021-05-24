@@ -12,9 +12,7 @@ namespace EnglishV2.Models
         public int Id { get; set; }
         public string QuestionContent { get; set; }
         public string Suggestions { get; set; }
-        public int Answer { get; set; }
-        public int ExamId { get; set; }
-        public string ExamName { get; set; }
+        public string Answer { get; set; }
         public int TypeQuestionId { get; set; }
         public string TypeQuestionName { get; set; }
         public bool IsDelete { get; set; }
@@ -34,8 +32,7 @@ namespace EnglishV2.Models
         public int Id { get; set; }
         public string QuestionContent { get; set; }
         public string Suggestions { get; set; }
-        public string Answer4 { get; set; }
-        public int Answer { get; set; }
+        public string Answer { get; set; }
         public int TypeQuestionId { get; set; }
         public string TypeQuestionName { get; set; }
         public bool IsDelete { get; set; }
@@ -45,7 +42,7 @@ namespace EnglishV2.Models
         public int Id { get; set; }
         public string QuestionContent { get; set; }
         public string Suggestions { get; set; }
-        public int Answer { get; set; }
+        public string Answer { get; set; }
         //public string ExamName { get; set; }
         public int TypeQuestionId { get; set; }
         public string TypeQuestionName { get; set; }
@@ -57,7 +54,7 @@ namespace EnglishV2.Models
         public int Id { get; set; }
         public string QuestionContent { get; set; }
         public string Suggestions { get; set; }
-        public int Answer { get; set; }
+        public string Answer { get; set; }
         public int TypeQuestionId { get; set; }
         //public string TypeQuestionName { get; set; }
         public bool IsDelete { get; set; }

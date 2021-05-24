@@ -128,6 +128,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Mappers\ModelMapper.cs" />
     <Compile Include="Models\ApiJsonResult.cs" />
     <Compile Include="Models\EnumAnswer.cs" />
     <Compile Include="Models\ExamModel.cs" />
@@ -168,7 +169,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Mappers\" />
     <Folder Include="Mappings\" />
   </ItemGroup>
   <PropertyGroup>

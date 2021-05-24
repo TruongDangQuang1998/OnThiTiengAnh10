@@ -9,6 +9,7 @@ namespace EnglishV2.Services
     public interface IBaseService<T> where T :IBaseEntity
     {
         List<T> GetAll();
+        List<T> GetByIds(IEnumerable<int> ids);
         T GetById(int id);
         void Delete(int id);
         void Delete(List<int> ids);

@@ -41,6 +41,17 @@ namespace EnglishV2.Services
             }
             
         }
+        public List<T> GetByIds(IEnumerable<int> ids)
+        {
+            try
+            {
+                return this.Entities.Where(x => ids.Contains(x.Id)).ToList();
+            }
+            catch (DbEntityValidationException ex)
+            {
+                return null;
+            }
+        }
         public T GetById(int id)
         {
             try
