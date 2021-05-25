@@ -1,5 +1,23 @@
-﻿USE [English]
- 
+﻿USE [English3]
+ GO
+SET IDENTITY_INSERT [dbo].[UserRoles] ON 
+GO
+INSERT [dbo].[UserRoles] ([Id], [Name], [Description], [IsDelete]) VALUES (1, N'admin', NULL, 0)
+GO
+INSERT [dbo].[UserRoles] ([Id], [Name], [Description], [IsDelete]) VALUES (2, N'user', NULL, 0)
+GO
+SET IDENTITY_INSERT [dbo].[UserRoles] OFF
+GO
+SET IDENTITY_INSERT [dbo].[Users] ON 
+GO
+INSERT [dbo].[Users] ([Id], [UserName], [Password], [Name], [UserRoleId], [Description], [IsDelete]) VALUES (1, N'admin', N'123456', N'admin', 1, NULL, 0)
+GO
+INSERT [dbo].[Users] ([Id], [UserName], [Password], [Name], [UserRoleId], [Description], [IsDelete]) VALUES (2, N'quang', N'123456', N'quang', 2, NULL, 0)
+GO
+SET IDENTITY_INSERT [dbo].[Users] OFF
+GO
+
+
 begin
 declare @made int;
 declare @matype int;

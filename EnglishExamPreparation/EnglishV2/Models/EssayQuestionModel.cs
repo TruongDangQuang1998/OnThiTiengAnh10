@@ -16,6 +16,7 @@ namespace EnglishV2.Models
         public string UserAnswer { get; set; }
         public int TypeQuestionId { get; set; }
         public string TypeQuestionName { get; set; }
+        public bool IsCorrect { get; set; }
         public bool IsDelete { get; set; }
     }
     public class EssayQuestionListModel : ApiJsonResult
@@ -37,6 +38,7 @@ namespace EnglishV2.Models
         public string UserAnswer { get; set; }
         public int TypeQuestionId { get; set; }
         public string TypeQuestionName { get; set; }
+        public bool IsCorrect { get; set; }
         public bool IsDelete { get; set; }
     }
     public class EssayQuestionEditModel

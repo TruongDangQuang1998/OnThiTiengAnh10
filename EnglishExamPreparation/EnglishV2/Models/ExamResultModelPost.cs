@@ -7,5 +7,17 @@ namespace EnglishV2.Models
 {
     public class ExamResultModelPost
     {
+        public ExamResultModelPost()
+        {
+            ModelQuestionAnswers = new List<ModelQuestionAnswer>();
+        }
+        public int UserId { get; set; }
+        public int ExamId { get; set; }
+        public List<ModelQuestionAnswer> ModelQuestionAnswers { get; set; }
+    }
+    public class ModelQuestionAnswer
+    {
+        public int QuestionId { get; set; }
+        public string UserAnswer { get; set; }
     }
 }

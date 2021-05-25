@@ -26,21 +26,21 @@ namespace EnglishV2.Controllers
             _multipleChoiceQuestionService = new MultipleChoiceQuestionService();
         }
         //public IHttpActionResult
-        [Route("GetAll")]
+        [Route("ExamGetAll")]
         [SwaggerResponse(200, "Returns the result of get list Line", typeof(ExamListModel))]
         [SwaggerResponse(500, "Internal Server Error")]
         [SwaggerResponse(400, "Bad Request")]
         [SwaggerResponse(401, "Not Authorizated")]
         [AllowAnonymous]
         [HttpGet]
-        public IHttpActionResult GetAll()
+        public IHttpActionResult GetAll(int userId)
         {
             var model = new ExamListModel();
             try
             {
                 var exams = _examService.GetAll();
                 var typeQuestions = _typeQuestionService.GetAll();
-                var examResults = _examResultService.GetAll();
+                var examResults = _examResultService.GetByUserId(userId);
                 var essayQuestions = _essayQuestionService.GetAll();
                 var multipleChoiceQuestions = _multipleChoiceQuestionService.GetAll();
                 
@@ -79,12 +79,21 @@ namespace EnglishV2.Controllers
                                 TypeQuesitonName = multipleChoice.TypeQuestion.Name,
                                 TypeQuestionId = multipleChoice.TypeQuestionId
                             };
+                            if (examResults != null)
+                            {
+                                var resultquestion = examResults.FirstOrDefault(x => x.QuestionId == multipleChoice.Id);
+                                if (resultquestion != null)
+                                {
+                                    multipleChoiceQuestionModel.UserAnswer = int.Parse(resultquestion.UserAnswer);
+                                    examModel.CorrectAnswerNo++;
+                                }
+                            }
                             typeModel.MultipleChoiceQuestionModels.Add(multipleChoiceQuestionModel);
                         }
                         var essayTypes = essayQuestions.Where(x => x.TypeQuestionId == type.Id);
                         foreach (var essay in essayTypes)
                         {
-                            var essayModels = new EssayQuestionModel()
+                            var essayModel = new EssayQuestionModel()
                             {
                                 Id = essay.Id,
                                 Answer = essay.Answer,
@@ -94,7 +103,17 @@ namespace EnglishV2.Controllers
                                 Suggestions = essay.Suggestions,
                                 TypeQuestionName = essay.Suggestions
                             };
-                            typeModel.EssayQuestionModels.Add(essayModels);
+                            if (examResults!=null)
+                            {
+                                var resultquestion = examResults.FirstOrDefault(x => x.QuestionId == essay.Id);
+                                if (resultquestion != null)
+                                {
+                                    essayModel.UserAnswer = (string)resultquestion.UserAnswer;
+                                    essayModel.IsCorrect = false;
+                                    examModel.CorrectAnswerNo++;
+                                }
+                            }
+                            typeModel.EssayQuestionModels.Add(essayModel);
                         }
                         examModel.TypeQuestionModels.Add(typeModel);
                     }
@@ -110,7 +129,7 @@ namespace EnglishV2.Controllers
         }
 
 
-        [Route("GetAllTittle")]
+        [Route("ExamGetAllTittle")]
         [SwaggerResponse(200, "Returns the result of get list Line", typeof(ExamTittleListModel))]
         [SwaggerResponse(500, "Internal Server Error")]
         [SwaggerResponse(400, "Bad Request")]
@@ -142,48 +161,104 @@ namespace EnglishV2.Controllers
                 return new HttpApiActionResult(HttpStatusCode.BadRequest, model);
             }
         }
-
+        [Route("ExamGetById")]
+        [SwaggerResponse(200, "Returns the result of get list Line", typeof(ExamDetailModel))]
+        [SwaggerResponse(500, "Internal Server Error")]
+        [SwaggerResponse(400, "Bad Request")]
+        [SwaggerResponse(401, "Not Authorizated")]
+        [AllowAnonymous]
         [HttpGet]
-        public IHttpActionResult GetById(int id)
+        public IHttpActionResult GetById(int id,int userId)
         {
-            var model = new ExamDetailModel();
+            var  examModel = new ExamDetailModel();
             try
             {
-                var examResult = _examService.GetById(id);
-                var examModel = new ExamDetailModel()
-                {
-                    Id = examResult.Id,
-                    Description = examResult.Description,
-                    Name = examResult.Name,
-                    IsDelete = examResult.IsDelete,
+                var exam = _examService.GetById(id);
+                var typeQuestions = _typeQuestionService.GetAll();
+                var examResults = _examResultService.GetByUserId(userId);
+                var essayQuestions = _essayQuestionService.GetAll();
+                var multipleChoiceQuestions = _multipleChoiceQuestionService.GetAll();
 
-                };
-                //foreach (var question in examResult.Questions)
-                //{
-                //    examModel.Questions.Add(new QuestionModel()
-                //    {
-                //        Id = question.Id,
-                //        Answer = question.Answer,
-                //        Answer1 = question.Answer1,
-                //        Answer2 = question.Answer2,
-                //        Answer3 = question.Answer3,
-                //        Answer4 = question.Answer4,
-                //        ExamId = question.ExamId,
-                //        ExamName = question.Exam.Name,
-                //        QuestionContent = question.QuestionContent,
-                //        QuestionNumber = question.QuestionNumber,
-                //        TypeQuestionId = question.TypeQuestionId,
-                //        TypeQuestionName = question.TypeQuestion.Name,
-                //        IsDelete = question.IsDelete
-                //    });
-                //}
-                model = examModel;
-                return new HttpApiActionResult(HttpStatusCode.OK, model);
+                //foreach (var exam in exams)
+                {
+                    examModel = new ExamDetailModel()
+                    {
+                        Id = exam.Id,
+                        Description = exam.Description,
+                        Name = exam.Name,
+                        IsDelete = exam.IsDelete
+                    };
+                    var types = typeQuestions.Where(x => x.ExamId == exam.Id);
+                    foreach (var type in types)
+                    {
+                        var typeModel = new TypeQuestionModel()
+                        {
+                            Id = type.Id,
+                            Description = type.Description,
+                            IsDelete = type.IsDelete,
+                            Name = type.Name
+                        };
+                        var multipleTypes = multipleChoiceQuestions.Where(x => x.TypeQuestionId == type.Id);
+                        foreach (var multipleChoice in multipleTypes)
+                        {
+                            var multipleChoiceQuestionModel = new MultipleChoiceQuestionModel()
+                            {
+                                Id = multipleChoice.Id,
+                                Answer = multipleChoice.Answer,
+                                Answer1 = multipleChoice.Answer1,
+                                Answer2 = multipleChoice.Answer2,
+                                Answer3 = multipleChoice.Answer3,
+                                Answer4 = multipleChoice.Answer4,
+                                IsDelete = multipleChoice.IsDelete,
+                                QuestionContent = multipleChoice.QuestionContent,
+                                TypeQuesitonName = multipleChoice.TypeQuestion.Name,
+                                TypeQuestionId = multipleChoice.TypeQuestionId
+                            };
+                            if (examResults != null)
+                            {
+                                var resultquestion = examResults.FirstOrDefault(x => x.QuestionId == multipleChoice.Id);
+                                if (resultquestion != null)
+                                {
+                                    multipleChoiceQuestionModel.UserAnswer = int.Parse(resultquestion.UserAnswer);
+                                    examModel.CorrectAnswerNo++;
+                                }
+                            }
+                            typeModel.MultipleChoiceQuestionModels.Add(multipleChoiceQuestionModel);
+                        }
+                        var essayTypes = essayQuestions.Where(x => x.TypeQuestionId == type.Id);
+                        foreach (var essay in essayTypes)
+                        {
+                            var essayModel = new EssayQuestionModel()
+                            {
+                                Id = essay.Id,
+                                Answer = essay.Answer,
+                                TypeQuestionId = essay.TypeQuestionId,
+                                QuestionContent = essay.QuestionContent,
+                                IsDelete = essay.IsDelete,
+                                Suggestions = essay.Suggestions,
+                                TypeQuestionName = essay.Suggestions
+                            };
+                            if (examResults != null)
+                            {
+                                var resultquestion = examResults.FirstOrDefault(x => x.QuestionId == essay.Id);
+                                if (resultquestion != null)
+                                {
+                                    essayModel.UserAnswer = (string)resultquestion.UserAnswer;
+                                    essayModel.IsCorrect = false;
+                                    examModel.CorrectAnswerNo++;
+                                }
+                            }
+                            typeModel.EssayQuestionModels.Add(essayModel);
+                        }
+                        examModel.TypeQuestionModels.Add(typeModel);
+                    }
+                    return new HttpApiActionResult(HttpStatusCode.OK, examModel);
+                }
             }
             catch (Exception ex)
             {
-                model.ErrorMessages.Add(ex.Message);
-                return new HttpApiActionResult(HttpStatusCode.BadRequest, model);
+                examModel.ErrorMessages.Add(ex.Message);
+                return new HttpApiActionResult(HttpStatusCode.BadRequest, examModel);
             }
         }
 

@@ -113,6 +113,7 @@
     <Compile Include="Controllers\ExamResultController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MultipleChoiceQuestionController.cs" />
+    <Compile Include="Controllers\SubmitExamController.cs" />
     <Compile Include="Controllers\TypeQuestionController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\UserRoleController.cs" />
@@ -134,6 +135,7 @@
     <Compile Include="Models\EnumAnswer.cs" />
     <Compile Include="Models\ExamModel.cs" />
     <Compile Include="Models\ExamResultModel.cs" />
+    <Compile Include="Models\ExamResultModelPost.cs" />
     <Compile Include="Models\ExamTittleModel.cs" />
     <Compile Include="Models\HttpApiActionResult.cs" />
     <Compile Include="Models\EssayQuestionModel.cs" />

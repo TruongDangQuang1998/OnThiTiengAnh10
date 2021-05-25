@@ -12,10 +12,12 @@ namespace EnglishV2.Models
         public int Id { get; set; }
         public int UserId { get; set; }
         public string UserName { get; set; }
-        public string EssayQuestionName { get; set; }
-        public int? EssayQuestionId { get; set; }
-        public string MultipleChoiceQuestionName { get; set; }
-        public int? MultipleChoiceQuestionId { get; set; }
+        public int QuestionId { get; set; }
+        public string UserAnswer { get; set; }
+        //public string EssayQuestionName { get; set; }
+        //public int? EssayQuestionId { get; set; }
+        //public string MultipleChoiceQuestionName { get; set; }
+        //public int? MultipleChoiceQuestionId { get; set; }
         public bool IsDelete { get; set; }
     }
     public class ExamResultListModel : ApiJsonResult
@@ -33,18 +35,22 @@ namespace EnglishV2.Models
         public int Id { get; set; }
         public int UserId { get; set; }
         public string UserName { get; set; }
-        public string EssayQuestionName { get; set; }
-        public int? EssayQuestionId { get; set; }
-        public string MultipleChoiceQuestionName { get; set; }
-        public int? MultipleChoiceQuestionId { get; set; }
+        public int QuestionId { get; set; }
+        public string UserAnswer { get; set; }
+        //public string EssayQuestionName { get; set; }
+        //public int? EssayQuestionId { get; set; }
+        //public string MultipleChoiceQuestionName { get; set; }
+        //public int? MultipleChoiceQuestionId { get; set; }
         public bool IsDelete { get; set; }
     }
     public class ExamResultEditModel
     {
         public int Id { get; set; }
         public int UserId { get; set; }
-        public int EssayQuestionId { get; set; }
-        public int MultipleChoiceQuestionId { get; set; }
+        public int QuestionId { get; set; }
+        public string UserAnswer { get; set; }
+        //public int EssayQuestionId { get; set; }
+        //public int MultipleChoiceQuestionId { get; set; }
         public bool IsDelete { get; set; }
     }
 
@@ -52,8 +58,10 @@ namespace EnglishV2.Models
     {
         public int Id { get; set; }
         public int UserId { get; set; }
-        public int EssayQuestionId { get; set; }
-        public int MultipleChoiceQuestionId { get; set; }
+        public int QuestionId { get; set; }
+        public string UserAnswer { get; set; }
+        //public int EssayQuestionId { get; set; }
+        //public int MultipleChoiceQuestionId { get; set; }
         public bool IsDelete { get; set; }
     }
     #endregion

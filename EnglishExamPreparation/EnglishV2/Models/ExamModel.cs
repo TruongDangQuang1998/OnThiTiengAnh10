@@ -16,6 +16,7 @@ namespace EnglishV2.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
+        public int CorrectAnswerNo { get; set; } = 0;
         public List<TypeQuestionModel>  TypeQuestionModels { get; set; }
         public bool IsDelete { get; set; }
         //public virtual ICollection<Question> Questions { get; set; }
@@ -39,6 +40,7 @@ namespace EnglishV2.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
+        public int CorrectAnswerNo { get; set; } = 0;
         public List<TypeQuestionModel> TypeQuestionModels { get; set; }
         public bool IsDelete { get; set; }
     }
@@ -47,6 +49,7 @@ namespace EnglishV2.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
+
         //public List<QuestionModel> Questions { get; set; }
         public bool IsDelete { get; set; }
     }

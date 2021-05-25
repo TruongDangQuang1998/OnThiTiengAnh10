@@ -16,6 +16,8 @@ namespace EnglishV2.Models
         }
         public int Id { get; set; }
         public string Name { get; set; }
+        public string TillteTypeQuestion { get; set; }
+        public string ContentTypeQuestion { get; set; }
         public string Description { get; set; }
         public bool IsDelete { get; set; }
         public List<EssayQuestionModel>  EssayQuestionModels { get; set; }
@@ -42,6 +44,8 @@ namespace EnglishV2.Models
         public string Name { get; set; }
         public string Description { get; set; }
         public bool IsDelete { get; set; }
+        public string TillteTypeQuestion { get; set; }
+        public string ContentTypeQuestion { get; set; }
         public List<EssayQuestionModel> EssayQuestionModels { get; set; }
         public List<MultipleChoiceQuestionModel> MultipleChoiceQuestionModels { get; set; }
     }
@@ -49,6 +53,8 @@ namespace EnglishV2.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public string TillteTypeQuestion { get; set; }
+        public string ContentTypeQuestion { get; set; }
         public string Description { get; set; }
         public bool IsDelete { get; set; }
         //public List<QuestionModel> Questions { get; set; }
@@ -58,6 +64,8 @@ namespace EnglishV2.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
+        public string TillteTypeQuestion { get; set; }
+        public string ContentTypeQuestion { get; set; }
         public bool IsDelete { get; set; }
     }
     #endregion

@@ -113,7 +113,8 @@ namespace EnglishV2.Services
         {
             try
             {
-
+                this.Entities.Add(entity);
+                this._context.SaveChanges();
             }
             catch (DbEntityValidationException ex)
             {

@@ -8,5 +8,6 @@ namespace EnglishV2.Services
 {
     public partial interface IExamResultService: IBaseService<ExamResult>
     {
+        List<ExamResult> GetByUserId(int userId);
     }
 }
