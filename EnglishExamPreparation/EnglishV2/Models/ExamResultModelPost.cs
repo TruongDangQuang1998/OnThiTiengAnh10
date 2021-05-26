@@ -17,6 +17,7 @@ namespace EnglishV2.Models
     }
     public class ModelQuestionAnswer
     {
+        public int IsMultipleChoiceOrEssay { get; set; }
         public int QuestionId { get; set; }
         public string UserAnswer { get; set; }
     }

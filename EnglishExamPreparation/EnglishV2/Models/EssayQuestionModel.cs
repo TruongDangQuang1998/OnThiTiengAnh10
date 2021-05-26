@@ -10,6 +10,7 @@ namespace EnglishV2.Models
     public class EssayQuestionModel
     {
         public int Id { get; set; }
+        public int QuestiongNo { get; set; }
         public string QuestionContent { get; set; }
         public string Suggestions { get; set; }
         public string Answer { get; set; }
@@ -32,6 +33,7 @@ namespace EnglishV2.Models
     public class EssayQuestionDetailModel : ApiJsonResult
     {
         public int Id { get; set; }
+        public int QuestiongNo { get; set; }
         public string QuestionContent { get; set; }
         public string Suggestions { get; set; }
         public string Answer { get; set; }

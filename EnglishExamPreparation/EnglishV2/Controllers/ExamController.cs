@@ -46,6 +46,7 @@ namespace EnglishV2.Controllers
                 
                 foreach (var exam in exams)
                 {
+                    var questionNo = 1;
                     var examModel = new ExamModel()
                     {
                         Id = exam.Id,
@@ -59,6 +60,8 @@ namespace EnglishV2.Controllers
                         var typeModel = new TypeQuestionModel()
                         {
                             Id = type.Id,
+                            TillteTypeQuestion = type.Tillte,
+                            ContentTypeQuestion = type.ContentTypeQuestion,
                             Description = type.Description,
                             IsDelete = type.IsDelete,
                             Name = type.Name
@@ -69,6 +72,7 @@ namespace EnglishV2.Controllers
                             var multipleChoiceQuestionModel = new MultipleChoiceQuestionModel()
                             {
                                 Id = multipleChoice.Id,
+                                QuestiongNo = questionNo,
                                 Answer = multipleChoice.Answer,
                                 Answer1 = multipleChoice.Answer1,
                                 Answer2 = multipleChoice.Answer2,
@@ -89,6 +93,7 @@ namespace EnglishV2.Controllers
                                 }
                             }
                             typeModel.MultipleChoiceQuestionModels.Add(multipleChoiceQuestionModel);
+                            questionNo++;
                         }
                         var essayTypes = essayQuestions.Where(x => x.TypeQuestionId == type.Id);
                         foreach (var essay in essayTypes)
@@ -96,6 +101,7 @@ namespace EnglishV2.Controllers
                             var essayModel = new EssayQuestionModel()
                             {
                                 Id = essay.Id,
+                                 QuestiongNo = questionNo,
                                 Answer = essay.Answer,
                                 TypeQuestionId = essay.TypeQuestionId,
                                 QuestionContent = essay.QuestionContent,
@@ -114,6 +120,7 @@ namespace EnglishV2.Controllers
                                 }
                             }
                             typeModel.EssayQuestionModels.Add(essayModel);
+                            questionNo++;
                         }
                         examModel.TypeQuestionModels.Add(typeModel);
                     }
@@ -181,6 +188,7 @@ namespace EnglishV2.Controllers
 
                 //foreach (var exam in exams)
                 {
+                    int questionNo = 1;
                     examModel = new ExamDetailModel()
                     {
                         Id = exam.Id,
@@ -194,6 +202,8 @@ namespace EnglishV2.Controllers
                         var typeModel = new TypeQuestionModel()
                         {
                             Id = type.Id,
+                            TillteTypeQuestion = type.Tillte,
+                            ContentTypeQuestion = type.ContentTypeQuestion,
                             Description = type.Description,
                             IsDelete = type.IsDelete,
                             Name = type.Name
@@ -204,6 +214,7 @@ namespace EnglishV2.Controllers
                             var multipleChoiceQuestionModel = new MultipleChoiceQuestionModel()
                             {
                                 Id = multipleChoice.Id,
+                                QuestiongNo = questionNo,
                                 Answer = multipleChoice.Answer,
                                 Answer1 = multipleChoice.Answer1,
                                 Answer2 = multipleChoice.Answer2,
@@ -224,6 +235,7 @@ namespace EnglishV2.Controllers
                                 }
                             }
                             typeModel.MultipleChoiceQuestionModels.Add(multipleChoiceQuestionModel);
+                            questionNo++;
                         }
                         var essayTypes = essayQuestions.Where(x => x.TypeQuestionId == type.Id);
                         foreach (var essay in essayTypes)
@@ -231,6 +243,7 @@ namespace EnglishV2.Controllers
                             var essayModel = new EssayQuestionModel()
                             {
                                 Id = essay.Id,
+                                QuestiongNo = questionNo,
                                 Answer = essay.Answer,
                                 TypeQuestionId = essay.TypeQuestionId,
                                 QuestionContent = essay.QuestionContent,
@@ -249,6 +262,7 @@ namespace EnglishV2.Controllers
                                 }
                             }
                             typeModel.EssayQuestionModels.Add(essayModel);
+                            questionNo++;
                         }
                         examModel.TypeQuestionModels.Add(typeModel);
                     }

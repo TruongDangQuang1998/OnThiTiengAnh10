@@ -39,10 +39,11 @@ namespace EnglishV2.Controllers
             try
             {
                 #region insert
-                var ttt = _examResultService.GetAll();
+                var examResults = _examResultService.GetAll();
                 foreach (var question in examResultModelPost.ModelQuestionAnswers)
                 {
-                    if (ttt.FirstOrDefault(x => x.UserId == examResultModelPost.UserId && x.QuestionId == question.QuestionId) == null)
+                    var questionDB=examResults.FirstOrDefault(x =>x.IsMultipleChoiceOrEssay == question .IsMultipleChoiceOrEssay && x.UserId == examResultModelPost.UserId && x.QuestionId == question.QuestionId);
+                    if (questionDB == null)
                     {
                         var examanswer = new ExamResult()
                         {
@@ -50,24 +51,27 @@ namespace EnglishV2.Controllers
                             IsDelete = false,
                             UserId = examResultModelPost.UserId,
                             QuestionId = question.QuestionId,
+                             IsMultipleChoiceOrEssay = question.IsMultipleChoiceOrEssay,
                             UserAnswer = question.UserAnswer
                         };
                         _examResultService.Insert(examanswer);
                     }
                     else
                     {
-                        //update
+                        questionDB.UserAnswer = question.UserAnswer;
+                        _examResultService.Update(questionDB);
                     }
                 };
                 #endregion
                 var exam = _examService.GetById(examResultModelPost.ExamId);
                 var typeQuestions = _typeQuestionService.GetAll();
-                var examResults = _examResultService.GetByUserId(examResultModelPost.UserId);
+                var examResultUsers = examResults.Where(x=>x.UserId == examResultModelPost.UserId);
                 var essayQuestions = _essayQuestionService.GetAll();
                 var multipleChoiceQuestions = _multipleChoiceQuestionService.GetAll();
 
                 //foreach (var exam in exams)
                 {
+                    var questionNo = 1;
                      examModel = new ExamDetailModel()
                     {
                         Id = exam.Id,
@@ -81,6 +85,8 @@ namespace EnglishV2.Controllers
                         var typeModel = new TypeQuestionModel()
                         {
                             Id = type.Id,
+                            TillteTypeQuestion = type.Tillte,
+                            ContentTypeQuestion = type.ContentTypeQuestion,
                             Description = type.Description,
                             IsDelete = type.IsDelete,
                             Name = type.Name
@@ -91,6 +97,7 @@ namespace EnglishV2.Controllers
                             var multipleChoiceQuestionModel = new MultipleChoiceQuestionModel()
                             {
                                 Id = multipleChoice.Id,
+                                QuestiongNo = questionNo,
                                 Answer = multipleChoice.Answer,
                                 Answer1 = multipleChoice.Answer1,
                                 Answer2 = multipleChoice.Answer2,
@@ -101,16 +108,18 @@ namespace EnglishV2.Controllers
                                 TypeQuesitonName = multipleChoice.TypeQuestion.Name,
                                 TypeQuestionId = multipleChoice.TypeQuestionId
                             };
-                            if (examResults != null)
+                            if (examResultUsers != null)
                             {
-                                var resultquestion = examResults.FirstOrDefault(x => x.QuestionId == multipleChoice.Id);
+                                var resultquestion = examResultUsers.FirstOrDefault(x => x.QuestionId == multipleChoice.Id && x.IsMultipleChoiceOrEssay ==0 );
                                 if (resultquestion != null)
                                 {
                                     multipleChoiceQuestionModel.UserAnswer = int.Parse(resultquestion.UserAnswer);
                                     examModel.CorrectAnswerNo++;
                                 }
+
                             }
-                            typeModel.MultipleChoiceQuestionModels.Add(multipleChoiceQuestionModel);
+                            typeModel.MultipleChoiceQuestionModels.Add(multipleChoiceQuestionModel); 
+                            questionNo++;
                         }
                         var essayTypes = essayQuestions.Where(x => x.TypeQuestionId == type.Id);
                         foreach (var essay in essayTypes)
@@ -118,6 +127,7 @@ namespace EnglishV2.Controllers
                             var essayModel = new EssayQuestionModel()
                             {
                                 Id = essay.Id,
+                                 QuestiongNo =questionNo,
                                 Answer = essay.Answer,
                                 TypeQuestionId = essay.TypeQuestionId,
                                 QuestionContent = essay.QuestionContent,
@@ -125,9 +135,9 @@ namespace EnglishV2.Controllers
                                 Suggestions = essay.Suggestions,
                                 TypeQuestionName = essay.Suggestions
                             };
-                            if (examResults != null)
+                            if (examResultUsers != null)
                             {
-                                var resultquestion = examResults.FirstOrDefault(x => x.QuestionId == essay.Id);
+                                var resultquestion = examResultUsers.FirstOrDefault(x => x.QuestionId == essay.Id && x.IsMultipleChoiceOrEssay ==1);
                                 if (resultquestion != null)
                                 {
                                     essayModel.UserAnswer = (string)resultquestion.UserAnswer;
@@ -136,6 +146,7 @@ namespace EnglishV2.Controllers
                                 }
                             }
                             typeModel.EssayQuestionModels.Add(essayModel);
+                            questionNo++;
                         }
                         examModel.TypeQuestionModels.Add(typeModel);
                     }

@@ -91,7 +91,7 @@ namespace EnglishV2.Services
         {
             try
             {
-
+                this._context.SaveChanges();
             }
             catch (DbEntityValidationException ex)
             {
@@ -102,7 +102,7 @@ namespace EnglishV2.Services
         {
             try
             {
-
+                
             }
             catch (DbEntityValidationException ex)
             {

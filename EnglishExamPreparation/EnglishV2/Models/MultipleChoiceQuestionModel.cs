@@ -10,6 +10,7 @@ namespace EnglishV2.Models
     public class MultipleChoiceQuestionModel
     {
         public int Id { get; set; }
+        public int QuestiongNo { get; set; }
         public string QuestionContent { get; set; }
         public string Answer1 { get; set; }
         public string Answer2 { get; set; }
@@ -34,6 +35,7 @@ namespace EnglishV2.Models
     public class MultipleChoiceQuestionDetailModel : ApiJsonResult
     {
         public int Id { get; set; }
+        public int QuestiongNo { get; set; }
         public string QuestionContent { get; set; }
         public string Answer1 { get; set; }
         public string Answer2 { get; set; }
