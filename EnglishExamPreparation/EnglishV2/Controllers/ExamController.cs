@@ -115,7 +115,8 @@ namespace EnglishV2.Controllers
                                 if (resultquestion != null)
                                 {
                                     essayModel.UserAnswer = (string)resultquestion.UserAnswer;
-                                    essayModel.IsCorrect = false;
+                                    if (essayModel.Answer.Contains(essayModel.UserAnswer))
+                                        essayModel.IsCorrect = true;
                                     examModel.CorrectAnswerNo++;
                                 }
                             }
