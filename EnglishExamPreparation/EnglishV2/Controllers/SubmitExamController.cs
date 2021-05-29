@@ -63,6 +63,9 @@ namespace EnglishV2.Controllers
                     }
                 };
                 #endregion
+
+
+
                 var exam = _examService.GetById(examResultModelPost.ExamId);
                 var typeQuestions = _typeQuestionService.GetAll();
                 var examResultUsers = examResults.Where(x=>x.UserId == examResultModelPost.UserId);
@@ -113,8 +116,17 @@ namespace EnglishV2.Controllers
                                 var resultquestion = examResultUsers.FirstOrDefault(x => x.QuestionId == multipleChoice.Id && x.IsMultipleChoiceOrEssay ==0 );
                                 if (resultquestion != null)
                                 {
-                                    multipleChoiceQuestionModel.UserAnswer = int.Parse(resultquestion.UserAnswer);
-                                    examModel.CorrectAnswerNo++;
+                                    //multipleChoiceQuestionModel.UserAnswer = int.Parse(resultquestion.UserAnswer);
+                                    //examModel.CorrectAnswerNo++;
+                                    if (int.TryParse(resultquestion.UserAnswer, out int ketqua))
+                                    {
+                                        multipleChoiceQuestionModel.UserAnswer = ketqua;
+                                        if (multipleChoiceQuestionModel.Answer == ketqua)
+                                        //multipleChoiceQuestionModel.UserAnswer = ketqua;
+                                        {
+                                            examModel.CorrectAnswerNo++;
+                                        }
+                                    }
                                 }
 
                             }
@@ -140,9 +152,15 @@ namespace EnglishV2.Controllers
                                 var resultquestion = examResultUsers.FirstOrDefault(x => x.QuestionId == essay.Id && x.IsMultipleChoiceOrEssay ==1);
                                 if (resultquestion != null)
                                 {
+                                    //essayModel.UserAnswer = (string)resultquestion.UserAnswer;
+                                    //essayModel.IsCorrect = false;
+                                    //examModel.CorrectAnswerNo++;
                                     essayModel.UserAnswer = (string)resultquestion.UserAnswer;
-                                    essayModel.IsCorrect = false;
-                                    examModel.CorrectAnswerNo++;
+                                    if (!string.IsNullOrEmpty(essayModel.UserAnswer)&& essayModel.Answer.Contains(essayModel.UserAnswer))
+                                    {
+                                        essayModel.IsCorrect = true;
+                                        examModel.CorrectAnswerNo++;
+                                    }
                                 }
                             }
                             typeModel.EssayQuestionModels.Add(essayModel);

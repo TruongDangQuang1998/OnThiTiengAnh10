@@ -69,31 +69,52 @@ namespace EnglishV2.Controllers
                         var multipleTypes = multipleChoiceQuestions.Where(x => x.TypeQuestionId == type.Id);
                         foreach (var multipleChoice in multipleTypes)
                         {
-                            var multipleChoiceQuestionModel = new MultipleChoiceQuestionModel()
+                            try
                             {
-                                Id = multipleChoice.Id,
-                                QuestiongNo = questionNo,
-                                Answer = multipleChoice.Answer,
-                                Answer1 = multipleChoice.Answer1,
-                                Answer2 = multipleChoice.Answer2,
-                                Answer3 = multipleChoice.Answer3,
-                                Answer4 = multipleChoice.Answer4,
-                                IsDelete = multipleChoice.IsDelete,
-                                QuestionContent = multipleChoice.QuestionContent,
-                                TypeQuesitonName = multipleChoice.TypeQuestion.Name,
-                                TypeQuestionId = multipleChoice.TypeQuestionId
-                            };
-                            if (examResults != null)
-                            {
-                                var resultquestion = examResults.FirstOrDefault(x => x.QuestionId == multipleChoice.Id);
-                                if (resultquestion != null)
+                                var multipleChoiceQuestionModel = new MultipleChoiceQuestionModel()
                                 {
-                                    multipleChoiceQuestionModel.UserAnswer = int.Parse(resultquestion.UserAnswer);
-                                    examModel.CorrectAnswerNo++;
+                                    Id = multipleChoice.Id,
+                                    QuestiongNo = questionNo,
+                                    Answer = multipleChoice.Answer,
+                                    Answer1 = multipleChoice.Answer1,
+                                    Answer2 = multipleChoice.Answer2,
+                                    Answer3 = multipleChoice.Answer3,
+                                    Answer4 = multipleChoice.Answer4,
+                                    IsDelete = multipleChoice.IsDelete,
+                                    QuestionContent = multipleChoice.QuestionContent,
+                                    TypeQuesitonName = multipleChoice.TypeQuestion.Name,
+                                    TypeQuestionId = multipleChoice.TypeQuestionId
+                                };
+                                if (examResults != null)
+                                {
+                                    var resultquestion = examResults.FirstOrDefault(x => x.QuestionId == multipleChoice.Id&& x.IsMultipleChoiceOrEssay == 0);
+                                    if (resultquestion != null)
+                                    {
+                                        //if (int.TryParse(resultquestion.UserAnswer,out int ketqua))
+                                        //{
+                                        //    multipleChoiceQuestionModel.UserAnswer = ketqua;
+                                        //    examModel.CorrectAnswerNo++;
+                                        //}
+
+                                        if (int.TryParse(resultquestion.UserAnswer, out int ketqua))
+                                        {
+                                            multipleChoiceQuestionModel.UserAnswer = ketqua;
+                                            if (multipleChoiceQuestionModel.Answer == ketqua)
+                                            //multipleChoiceQuestionModel.UserAnswer = ketqua;
+                                            {
+                                                examModel.CorrectAnswerNo++;
+                                            }
+                                        }
+                                    }
                                 }
+                                typeModel.MultipleChoiceQuestionModels.Add(multipleChoiceQuestionModel);
+                                questionNo++;
                             }
-                            typeModel.MultipleChoiceQuestionModels.Add(multipleChoiceQuestionModel);
-                            questionNo++;
+                            catch (Exception ex)
+                            {
+
+                                throw;
+                            }
                         }
                         var essayTypes = essayQuestions.Where(x => x.TypeQuestionId == type.Id);
                         foreach (var essay in essayTypes)
@@ -111,13 +132,15 @@ namespace EnglishV2.Controllers
                             };
                             if (examResults!=null)
                             {
-                                var resultquestion = examResults.FirstOrDefault(x => x.QuestionId == essay.Id);
+                                var resultquestion = examResults.FirstOrDefault(x => x.QuestionId == essay.Id && x.IsMultipleChoiceOrEssay == 1);
                                 if (resultquestion != null)
                                 {
                                     essayModel.UserAnswer = (string)resultquestion.UserAnswer;
-                                    if (essayModel.Answer.Contains(essayModel.UserAnswer))
+                                    if (!string.IsNullOrEmpty(essayModel.UserAnswer) && essayModel.Answer.Contains(essayModel.UserAnswer))
+                                    {
                                         essayModel.IsCorrect = true;
-                                    examModel.CorrectAnswerNo++;
+                                        examModel.CorrectAnswerNo++;
+                                    }
                                 }
                             }
                             typeModel.EssayQuestionModels.Add(essayModel);
@@ -228,11 +251,26 @@ namespace EnglishV2.Controllers
                             };
                             if (examResults != null)
                             {
-                                var resultquestion = examResults.FirstOrDefault(x => x.QuestionId == multipleChoice.Id);
+                                var resultquestion = examResults.FirstOrDefault(x => x.QuestionId == multipleChoice.Id&& x.IsMultipleChoiceOrEssay == 0);
                                 if (resultquestion != null)
                                 {
-                                    multipleChoiceQuestionModel.UserAnswer = int.Parse(resultquestion.UserAnswer);
-                                    examModel.CorrectAnswerNo++;
+                                    //multipleChoiceQuestionModel.UserAnswer = int.Parse(resultquestion.UserAnswer);
+                                    //examModel.CorrectAnswerNo++;
+                                    //if (int.TryParse(resultquestion.UserAnswer, out int ketqua))
+                                    //{
+                                    //    multipleChoiceQuestionModel.UserAnswer = ketqua;
+                                    //    examModel.CorrectAnswerNo++;
+                                    //}
+
+                                    if (int.TryParse(resultquestion.UserAnswer, out int ketqua))
+                                    {
+                                        multipleChoiceQuestionModel.UserAnswer = ketqua;
+                                        if (multipleChoiceQuestionModel.Answer == ketqua)
+                                        //multipleChoiceQuestionModel.UserAnswer = ketqua;
+                                        {
+                                            examModel.CorrectAnswerNo++;
+                                        }
+                                    }
                                 }
                             }
                             typeModel.MultipleChoiceQuestionModels.Add(multipleChoiceQuestionModel);
@@ -254,12 +292,18 @@ namespace EnglishV2.Controllers
                             };
                             if (examResults != null)
                             {
-                                var resultquestion = examResults.FirstOrDefault(x => x.QuestionId == essay.Id);
+                                var resultquestion = examResults.FirstOrDefault(x => x.QuestionId == essay.Id && x.IsMultipleChoiceOrEssay == 1);
                                 if (resultquestion != null)
                                 {
+                                    //essayModel.UserAnswer = (string)resultquestion.UserAnswer;
+                                    //essayModel.IsCorrect = false;
+                                    //examModel.CorrectAnswerNo++;
                                     essayModel.UserAnswer = (string)resultquestion.UserAnswer;
-                                    essayModel.IsCorrect = false;
-                                    examModel.CorrectAnswerNo++;
+                                    if (!string.IsNullOrEmpty(essayModel.UserAnswer) && essayModel.Answer.Contains(essayModel.UserAnswer))
+                                    {
+                                        essayModel.IsCorrect = true;
+                                        examModel.CorrectAnswerNo++;
+                                    }
                                 }
                             }
                             typeModel.EssayQuestionModels.Add(essayModel);

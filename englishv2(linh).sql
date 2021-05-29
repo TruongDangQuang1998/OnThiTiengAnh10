@@ -3,7 +3,7 @@
 
 GO
 SET IDENTITY_INSERT [dbo].[UserRoles] OFF
-SET IDENTITY_INSERT [dbo].[UserRoles] ON 
+
 GO
 INSERT [dbo].[UserRoles] ( [Name], [Description], [IsDelete]) VALUES ( N'admin', NULL, 0)
 GO
@@ -13,7 +13,6 @@ SET IDENTITY_INSERT [dbo].[UserRoles] OFF
 GO
 GO
 SET IDENTITY_INSERT [dbo].[Users] OFF
-SET IDENTITY_INSERT [dbo].[Users] ON 
 GO
 INSERT [dbo].[Users] ( [UserName], [Password], [Name], [UserRoleId], [Description], [IsDelete]) VALUES ( N'admin', N'123456', N'admin', 1, NULL, 0)
 GO

@@ -145,10 +145,12 @@
     <Compile Include="Models\UserRoleModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\BaseService.cs" />
+    <Compile Include="Services\BusinessService.cs" />
     <Compile Include="Services\EssayQuestionService.cs" />
     <Compile Include="Services\ExamResultService.cs" />
     <Compile Include="Services\ExamService.cs" />
     <Compile Include="Services\IBaseService.cs" />
+    <Compile Include="Services\IBusinessService.cs" />
     <Compile Include="Services\IEssayQuestionService.cs" />
     <Compile Include="Services\IExamResultService.cs" />
     <Compile Include="Services\IExamService.cs" />
