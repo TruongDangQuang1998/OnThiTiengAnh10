@@ -1,0 +1,26 @@
+export default {
+  App_Login: 'Đăng nhập',
+  App_Signup: 'Đắng ký',
+  App_Forgot_Password: 'Quên mật khẩu',
+  App_Setting: 'Cài đặt',
+  App_Username: 'Tài khoản',
+  App_Password: 'Mật khẩu',
+  App_YourPassword: 'Mật khẩu của bạn',
+  App_YourUsername: 'Tài khoản của bạn',
+  'no-connect-internet': 'Không có kết nối Internet',
+  App_Common_Close: 'Đóng',
+  App_Common_TryAgain: 'Thử lại',
+  App_Alert_Please_Check_NetWork: 'Vui lòng kiểm tra kết nối của bạn',
+  App_UserName_Password_Not_Empty: 'App_UserName_Password_Not_Empty',
+  App_Title_Notify: 'Thông báo',
+  App_Yes: 'Đồng ý',
+  App_UserName_Password_Not_Empty:
+    'Trường tên người dùng hoặc mật khẩu không được để trống.',
+  App_Invalid_UserName: 'Người dùng không hợp lệ!',
+  App_UserName_Password_Is_Incorrect:
+    'Tên người dùng hoặc mật khẩu không chính xác.',
+  App_Home: 'Trang chủ',
+  App_Setting: 'Cài đặt',
+  App_Night_Shift: 'Night Shift',
+  App_SignOut: 'Đăng xuất',
+};
