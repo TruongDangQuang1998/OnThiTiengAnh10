@@ -55,6 +55,32 @@ namespace EnglishV2.Controllers
             }
         }
 
+
+        [HttpGet]
+        public IHttpActionResult ResetPassword(int userId)
+        {
+            var model = new ApiJsonResult();
+            try
+            {
+
+
+                var users = _userService.GetById(userId);
+                if(users != null)
+                {
+                    users.Password = "123456";
+                }
+                _userService.Update(users);
+                return new HttpApiActionResult(HttpStatusCode.OK, model);
+            }
+            catch (Exception ex)
+            {
+                model.ErrorMessages.Add(ex.Message);
+                return new HttpApiActionResult(HttpStatusCode.BadRequest, model);
+            }
+        }
+
+
+
         [HttpGet]
         public IHttpActionResult GetById(int id)
         {
