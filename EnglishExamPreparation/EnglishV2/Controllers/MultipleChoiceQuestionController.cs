@@ -11,10 +11,10 @@ namespace EnglishV2.Controllers
 {
     public class MultipleChoiceQuestionController : ApiController
     {
-        private IMultipleChoiceQuestionService _questionService;
+        private IMultipleChoiceQuestionService  _multipleChoiceQuestionService;
         public MultipleChoiceQuestionController()
         {
-            _questionService = new MultipleChoiceQuestionService();
+            _multipleChoiceQuestionService = new MultipleChoiceQuestionService();
         }
         //public IHttpActionResult
 
@@ -24,7 +24,7 @@ namespace EnglishV2.Controllers
             var model = new MultipleChoiceQuestionListModel();
             try
             {
-                var questions = _questionService.GetAll();
+                var questions = _multipleChoiceQuestionService.GetAll();
                 //foreach (var question in questions)
                 //{
                 //    model.MultipleChoiceQuestionList.Add(new MultipleChoiceQuestionModel()
@@ -60,7 +60,7 @@ namespace EnglishV2.Controllers
             var model = new MultipleChoiceQuestionDetailModel();
             try
             {
-                var questionResult = _questionService.GetById(id);
+                var questionResult = _multipleChoiceQuestionService.GetById(id);
                 var question = new MultipleChoiceQuestionDetailModel()
                 {
                     //Id = questionResult.Id,
@@ -123,6 +123,7 @@ namespace EnglishV2.Controllers
             var res = new ApiJsonResult();
             try
             {
+
                 return new HttpApiActionResult(HttpStatusCode.OK, res);
             }
             catch (Exception ex)
@@ -153,6 +154,7 @@ namespace EnglishV2.Controllers
             var res = new ApiJsonResult();
             try
             {
+                //_mu
                 return new HttpApiActionResult(HttpStatusCode.OK, res);
             }
             catch (Exception ex)

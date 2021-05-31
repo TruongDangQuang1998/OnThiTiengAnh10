@@ -1,4 +1,5 @@
-﻿using EnglishV2.Models;
+﻿using EnglishV2.Entities;
+using EnglishV2.Models;
 using EnglishV2.Services;
 using Swashbuckle.Swagger.Annotations;
 using System;
@@ -164,6 +165,12 @@ namespace EnglishV2.Controllers
             var res = new ApiJsonResult();
             try
             {
+                var examEntuty = _examService.GetById(entity.Id);
+                {
+                    examEntuty.Name = entity.Name;
+                    examEntuty.Description = entity.Description;
+                }
+                _examService.Update(examEntuty);
                 return new HttpApiActionResult(HttpStatusCode.OK, res);
             }
             catch (Exception ex)
@@ -188,12 +195,98 @@ namespace EnglishV2.Controllers
             }
         }
 
+
+        [Route("Insert")]
+        [SwaggerResponse(200, "Returns the result of ApiJsonResult", typeof(ApiJsonResult))]
+        [SwaggerResponse(500, "Internal Server Error")]
+        [SwaggerResponse(400, "Bad Request")]
+        [SwaggerResponse(401, "Not Authorizated")]
+        [AllowAnonymous]
         [HttpPost]
         public IHttpActionResult Insert(ExamModel entity)
         {
             var res = new ApiJsonResult();
             try
             {
+                var examEntity = new Exam()
+                {
+                    Name = entity.Name,
+                    Description = entity.Description
+                };
+                var typeQuestionEntitys = new List<TypeQuestion>();
+                foreach (var  typeQuestionModel in entity.TypeQuestionModels)
+                {
+                    var typeQuestionEntity = new TypeQuestion()
+                    {
+                        ContentTypeQuestion = typeQuestionModel.ContentTypeQuestion,
+                        Description = typeQuestionModel.Description,
+                        ExamId = examEntity.Id,
+                        Name = typeQuestionModel.Name,
+                        Tillte = typeQuestionModel.TillteTypeQuestion
+                    };
+
+                    //insert
+                    var multipleChoiceQuestionEntitys = new List<MultipleChoiceQuestion>();
+                    foreach (var  multipleChoiceQuestionModel in typeQuestionModel.MultipleChoiceQuestionModels)
+                    {
+                        var multipleChoiceQuestionEntity = new MultipleChoiceQuestion()
+                        {
+                            Answer = multipleChoiceQuestionModel.Answer,
+                            Answer1 = multipleChoiceQuestionModel.Answer1,
+                            Answer2 = multipleChoiceQuestionModel.Answer2,
+                            Answer3 = multipleChoiceQuestionModel.Answer3,
+                            Answer4 = multipleChoiceQuestionModel.Answer4,
+                            IsDelete = multipleChoiceQuestionModel.IsDelete,
+                            QuestionContent = multipleChoiceQuestionModel.QuestionContent,
+                            TypeQuestionId = typeQuestionEntity.Id
+                        };
+                        multipleChoiceQuestionEntitys.Add(multipleChoiceQuestionEntity);
+                    }
+
+                    //insert 
+                    var essayQuestionEntitys = new List<EssayQuestion>();
+                    foreach (var essayQuestionModel in typeQuestionModel.EssayQuestionModels)
+                    {
+                        var essayQuestionEntity = new EssayQuestion()
+                        {
+                            Answer = essayQuestionModel.Answer,
+                            TypeQuestionId = typeQuestionEntity.Id,
+                            QuestionContent = essayQuestionModel.QuestionContent,
+                            IsDelete = essayQuestionModel.IsDelete,
+                            Suggestions = essayQuestionModel.Suggestions
+                        };
+                        essayQuestionEntitys.Add(essayQuestionEntity);
+                    }
+                    typeQuestionEntity.MultipleChoiceQuestions = multipleChoiceQuestionEntitys;
+                    typeQuestionEntity.EssayQuestions = essayQuestionEntitys;
+
+                    typeQuestionEntitys.Add(typeQuestionEntity);
+                }
+                examEntity.TypeQuestions = typeQuestionEntitys;
+                _examService.Insert(examEntity);
+
+
+                foreach (var  typeQuestion in examEntity.TypeQuestions)
+                {
+                    foreach (var multipleChoiceQuestion in typeQuestion.MultipleChoiceQuestions)
+                    {
+                        multipleChoiceQuestion.TypeQuestionId = typeQuestion.Id;
+                        _multipleChoiceQuestionService.Insert(multipleChoiceQuestion);
+                    }
+                    foreach (var essayQuestion in typeQuestion.EssayQuestions)
+                    {
+                        essayQuestion.TypeQuestionId = typeQuestion.Id;
+                        _essayQuestionService.Insert(essayQuestion);
+                    }
+                }
+
+
+
+
+
+
+
+
                 return new HttpApiActionResult(HttpStatusCode.OK, res);
             }
             catch (Exception ex)
@@ -202,7 +295,12 @@ namespace EnglishV2.Controllers
                 return new HttpApiActionResult(HttpStatusCode.BadRequest, res);
             }
         }
-
+        [Route("InsertList")]
+        [SwaggerResponse(200, "Returns the result of ApiJsonResult", typeof(ApiJsonResult))]
+        [SwaggerResponse(500, "Internal Server Error")]
+        [SwaggerResponse(400, "Bad Request")]
+        [SwaggerResponse(401, "Not Authorizated")]
+        [AllowAnonymous]
         [HttpPost]
         public IHttpActionResult Insert(List<ExamModel> entities)
         {

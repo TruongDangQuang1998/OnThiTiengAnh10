@@ -1,4 +1,5 @@
-﻿using EnglishV2.Models;
+﻿using EnglishV2.Entities;
+using EnglishV2.Models;
 using EnglishV2.Services;
 using System;
 using System.Collections.Generic;
@@ -141,6 +142,15 @@ namespace EnglishV2.Controllers
             var res = new ApiJsonResult();
             try
             {
+
+                var typeQuestionEntity = _typeQuestionService.GetById(entity.Id);
+                typeQuestionEntity.ExamId = entity.ExamId;
+                typeQuestionEntity.ContentTypeQuestion = entity.ContentTypeQuestion;
+                typeQuestionEntity.Description = entity.Description;
+                typeQuestionEntity.Name = entity.Name;
+                typeQuestionEntity.Tillte = entity.TillteTypeQuestion;
+
+                _typeQuestionService.Update(typeQuestionEntity);
                 return new HttpApiActionResult(HttpStatusCode.OK, res);
             }
             catch (Exception ex)
@@ -171,6 +181,15 @@ namespace EnglishV2.Controllers
             var res = new ApiJsonResult();
             try
             {
+                var typeQuestionEntity = new TypeQuestion()
+                {
+                    ExamId = entity.ExamId,
+                    ContentTypeQuestion = entity.ContentTypeQuestion,
+                    Description = entity.Description,
+                    Name = entity.Name,
+                    Tillte = entity.TillteTypeQuestion
+                };
+                _typeQuestionService.Insert(typeQuestionEntity);
                 return new HttpApiActionResult(HttpStatusCode.OK, res);
             }
             catch (Exception ex)

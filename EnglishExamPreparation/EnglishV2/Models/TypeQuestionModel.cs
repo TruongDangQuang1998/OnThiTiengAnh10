@@ -16,6 +16,8 @@ namespace EnglishV2.Models
         }
         public int Id { get; set; }
         public string Name { get; set; }
+        public int ExamId { get; set; }
+        public string ExamName { get; set; }
         public string TillteTypeQuestion { get; set; }
         public string ContentTypeQuestion { get; set; }
         public string Description { get; set; }
@@ -42,6 +44,8 @@ namespace EnglishV2.Models
         }
         public int Id { get; set; }
         public string Name { get; set; }
+        public int ExamId { get; set; }
+        public string ExamName { get; set; }
         public string Description { get; set; }
         public bool IsDelete { get; set; }
         public string TillteTypeQuestion { get; set; }
@@ -53,6 +57,7 @@ namespace EnglishV2.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public int ExamId { get; set; }
         public string TillteTypeQuestion { get; set; }
         public string ContentTypeQuestion { get; set; }
         public string Description { get; set; }
@@ -63,6 +68,7 @@ namespace EnglishV2.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public int ExamId { get; set; }
         public string Description { get; set; }
         public string TillteTypeQuestion { get; set; }
         public string ContentTypeQuestion { get; set; }
