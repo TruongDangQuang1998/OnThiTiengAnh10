@@ -1,5 +1,6 @@
 ﻿using EnglishV2.Models;
 using EnglishV2.Services;
+using Swashbuckle.Swagger.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +18,12 @@ namespace EnglishV2.Controllers
             _userService = new UserService();
         }
         //public IHttpActionResult
-
+        [Route("GetUserListModel")]
+        [SwaggerResponse(200, "Returns the result of UserListModel", typeof(UserListModel))]
+        [SwaggerResponse(500, "Internal Server Error")]
+        [SwaggerResponse(400, "Bad Request")]
+        [SwaggerResponse(401, "Not Authorizated")]
+        [AllowAnonymous]
         [HttpGet]
         public IHttpActionResult GetAll()
         {
@@ -25,18 +31,21 @@ namespace EnglishV2.Controllers
             try
             {
                 var users = _userService.GetAll();
-                //foreach (var user in users)
-                //{
-                //    var userModel = new UserModel() {
-                //        Id = user.Id,
-                //        Name = user.Name,
-                //        Password = user.Password,
-                //        Role = user.Role,
-                //        UserName = user.UserName,
-                //        IsDelete = user.IsDelete
-                //    };
-                //    model.UserList.Add(userModel);
-                //}
+                foreach (var user in users)
+                {
+                    var userModel = new UserModel()
+                    {
+                        Id = user.Id,
+                        Name = user.Name,
+                        Password = user.Password,
+                        UserRoleId = user.UserRoleId,
+                        Description = user.Description,
+                        UserRoleName = user.UserRole.Name,
+                        UserName = user.UserName,
+                        IsDelete = user.IsDelete
+                    };
+                    model.UserList.Add(userModel);
+                }
                 return new HttpApiActionResult(HttpStatusCode.OK, model);
             }
             catch (Exception ex)
