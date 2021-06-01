@@ -49,7 +49,7 @@ namespace EnglishV2.Controllers
 
 
 
-                var modelService = _businessService.GetExamModels(exams, typeQuestions, examResults, essayQuestions, multipleChoiceQuestions);
+                var modelService = _businessService.GetExamModels(exams.Where(x=>x.IsDelete==false).ToList(), typeQuestions, examResults, essayQuestions, multipleChoiceQuestions);
                 model.ExamList = modelService;
                 model.Total = modelService.Count();
                 return new HttpApiActionResult(HttpStatusCode.OK, model);
@@ -135,6 +135,12 @@ namespace EnglishV2.Controllers
             var res = new ApiJsonResult();
             try
             {
+                var examEntity = _examService.GetById(id);
+                if (examEntity != null)
+                {
+                    examEntity.IsDelete = true;
+                    _examService.Update(examEntity);
+                }
                 return new HttpApiActionResult(HttpStatusCode.OK, res);
             }
             catch (Exception ex)
@@ -259,25 +265,6 @@ namespace EnglishV2.Controllers
                 return new HttpApiActionResult(HttpStatusCode.BadRequest, res);
             }
         }
-
-        [HttpPut]
-        public IHttpActionResult Update(List<ExamModel> entities)
-        {
-            var res = new ApiJsonResult();
-            try
-            {
-
-
-                return new HttpApiActionResult(HttpStatusCode.OK, res);
-            }
-            catch (Exception ex)
-            {
-                res.ErrorMessages.Add(ex.Message);
-                return new HttpApiActionResult(HttpStatusCode.BadRequest, res);
-            }
-        }
-
-
         [Route("Insert")]
         [SwaggerResponse(200, "Returns the result of ApiJsonResult", typeof(ApiJsonResult))]
         [SwaggerResponse(500, "Internal Server Error")]
@@ -369,26 +356,6 @@ namespace EnglishV2.Controllers
 
 
 
-                return new HttpApiActionResult(HttpStatusCode.OK, res);
-            }
-            catch (Exception ex)
-            {
-                res.ErrorMessages.Add(ex.Message);
-                return new HttpApiActionResult(HttpStatusCode.BadRequest, res);
-            }
-        }
-        [Route("InsertList")]
-        [SwaggerResponse(200, "Returns the result of ApiJsonResult", typeof(ApiJsonResult))]
-        [SwaggerResponse(500, "Internal Server Error")]
-        [SwaggerResponse(400, "Bad Request")]
-        [SwaggerResponse(401, "Not Authorizated")]
-        [AllowAnonymous]
-        [HttpPost]
-        public IHttpActionResult Insert(List<ExamModel> entities)
-        {
-            var res = new ApiJsonResult();
-            try
-            {
                 return new HttpApiActionResult(HttpStatusCode.OK, res);
             }
             catch (Exception ex)

@@ -7,7 +7,7 @@ using System.Web.Http;
 
 namespace EnglishV2.Controllers
 {
-    public class EssayQuestionController : ApiController
-    {
-    }
+    //public class EssayQuestionController : ApiController
+    //{
+    //}
 }

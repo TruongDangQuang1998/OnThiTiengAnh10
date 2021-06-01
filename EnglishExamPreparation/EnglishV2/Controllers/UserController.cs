@@ -62,8 +62,6 @@ namespace EnglishV2.Controllers
             var model = new ApiJsonResult();
             try
             {
-
-
                 var users = _userService.GetById(userId);
                 if(users != null)
                 {
@@ -122,79 +120,79 @@ namespace EnglishV2.Controllers
             }
         }
 
-        [HttpDelete]
-        public IHttpActionResult Delete(List<int> ids)
-        {
-            var res = new ApiJsonResult();
-            try
-            {
-                return new HttpApiActionResult(HttpStatusCode.OK, res);
-            }
-            catch (Exception ex)
-            {
-                res.ErrorMessages.Add(ex.Message);
-                return new HttpApiActionResult(HttpStatusCode.BadRequest, res);
-            }
-        }
+        //[HttpDelete]
+        //public IHttpActionResult Delete(List<int> ids)
+        //{
+        //    var res = new ApiJsonResult();
+        //    try
+        //    {
+        //        return new HttpApiActionResult(HttpStatusCode.OK, res);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        res.ErrorMessages.Add(ex.Message);
+        //        return new HttpApiActionResult(HttpStatusCode.BadRequest, res);
+        //    }
+        //}
 
-        [HttpPut]
-        public IHttpActionResult Update(UserModel entity)
-        {
-            var res = new ApiJsonResult();
-            try
-            {
-                return new HttpApiActionResult(HttpStatusCode.OK, res);
-            }
-            catch (Exception ex)
-            {
-                res.ErrorMessages.Add(ex.Message);
-                return new HttpApiActionResult(HttpStatusCode.BadRequest, res);
-            }
-        }
+        //[HttpPut]
+        //public IHttpActionResult Update(UserModel entity)
+        //{
+        //    var res = new ApiJsonResult();
+        //    try
+        //    {
+        //        return new HttpApiActionResult(HttpStatusCode.OK, res);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        res.ErrorMessages.Add(ex.Message);
+        //        return new HttpApiActionResult(HttpStatusCode.BadRequest, res);
+        //    }
+        //}
 
-        [HttpPut]
-        public IHttpActionResult Update(List<UserModel> entities)
-        {
-            var res = new ApiJsonResult();
-            try
-            {
-                return new HttpApiActionResult(HttpStatusCode.OK, res);
-            }
-            catch (Exception ex)
-            {
-                res.ErrorMessages.Add(ex.Message);
-                return new HttpApiActionResult(HttpStatusCode.BadRequest, res);
-            }
-        }
+        //[HttpPut]
+        //public IHttpActionResult Update(List<UserModel> entities)
+        //{
+        //    var res = new ApiJsonResult();
+        //    try
+        //    {
+        //        return new HttpApiActionResult(HttpStatusCode.OK, res);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        res.ErrorMessages.Add(ex.Message);
+        //        return new HttpApiActionResult(HttpStatusCode.BadRequest, res);
+        //    }
+        //}
 
-        [HttpPost]
-        public IHttpActionResult Insert(UserModel entity)
-        {
-            var res = new ApiJsonResult();
-            try
-            {
-                return new HttpApiActionResult(HttpStatusCode.OK, res);
-            }
-            catch (Exception ex)
-            {
-                res.ErrorMessages.Add(ex.Message);
-                return new HttpApiActionResult(HttpStatusCode.BadRequest, res);
-            }
-        }
+        //[HttpPost]
+        //public IHttpActionResult Insert(UserModel entity)
+        //{
+        //    var res = new ApiJsonResult();
+        //    try
+        //    {
+        //        return new HttpApiActionResult(HttpStatusCode.OK, res);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        res.ErrorMessages.Add(ex.Message);
+        //        return new HttpApiActionResult(HttpStatusCode.BadRequest, res);
+        //    }
+        //}
 
-        [HttpPost]
-        public IHttpActionResult Insert(List<UserModel> entities)
-        {
-            var res = new ApiJsonResult();
-            try
-            {
-                return new HttpApiActionResult(HttpStatusCode.OK, res);
-            }
-            catch (Exception ex)
-            {
-                res.ErrorMessages.Add(ex.Message);
-                return new HttpApiActionResult(HttpStatusCode.BadRequest, res);
-            }
-        }
+        //[HttpPost]
+        //public IHttpActionResult Insert(List<UserModel> entities)
+        //{
+        //    var res = new ApiJsonResult();
+        //    try
+        //    {
+        //        return new HttpApiActionResult(HttpStatusCode.OK, res);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        res.ErrorMessages.Add(ex.Message);
+        //        return new HttpApiActionResult(HttpStatusCode.BadRequest, res);
+        //    }
+        //}
     }
 }
