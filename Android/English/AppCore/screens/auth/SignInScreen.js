@@ -23,7 +23,7 @@ import languageReducer from '../../redux/i18n';
 import {AlertSevice} from '../../components/alert/Alert';
 import {EnumIcon} from '../../constants/constant';
 import Loading from '../../components/loading/Loading';
-
+import axios from 'axios';
 const SignInScreen = (props) => {
   const {navigation, language, setLanguage} = props;
   const [data, setData] = React.useState({
@@ -111,22 +111,25 @@ const SignInScreen = (props) => {
       return;
     }
 
+    
+
     setIsLoading(true);
-    fetch(
-      `http://quangiuh.azurewebsites.net:80/api/Login?username=${userName}&password=${password}`,
-      {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-      },
-    )
-      .then((response) => response.json())
-      .then((res) => {
+    const uri = `http://quangiuh.azurewebsites.net:80/Login?username=${userName}&password=${password}`;
+    // console.log(uri, 'password');
+    let config = {
+      method: 'get',
+      url: uri,
+      headers: {},
+      data: '',
+    };
+
+    axios(config)
+      .then(function (response) {
+        console.log(response);
+        const {data} = response;
         setIsLoading(false);
-        if (res && res.result === 'Success') {
-          signIn(res);
+        if (data && data.result === 'Success') {
+          signIn(data);
         } else {
           AlertSevice.alert({
             iconType: EnumIcon.E_WARNING,
@@ -136,9 +139,8 @@ const SignInScreen = (props) => {
           });
         }
       })
-      .catch((error) => {
-        setIsLoading(false);
-        console.error(error);
+      .catch(function (error) {
+        alert(JSON.stringify(error));
       });
   };
 

@@ -14,6 +14,8 @@ import NavigationServices from '../../utils/NavigationServices';
 import {Rating} from 'react-native-ratings';
 import Loading from '../../components/loading/Loading';
 import {dataUser} from '../../constants/AuthContext';
+import {AlertSevice} from '../../components/alert/Alert';
+import {EnumIcon} from '../../constants/constant';
 
 const Home = (props) => {
   // Dummy Datas
@@ -31,10 +33,20 @@ const Home = (props) => {
   }
 
   const motoDetail = (item) => {
-    NavigationServices.navigate('DetailScreen', {
-      dataItem: item,
-      reloadHome : reloadData
-    });
+    const answerSuccess = item.correctAnswerNo;
+    if (answerSuccess) {
+      NavigationServices.navigate('DetailScreen', {
+        dataItem: item,
+        dataForReStart: item,
+        isReview: true,
+        reloadHome: reloadData,
+      });
+    } else {
+      NavigationServices.navigate('DetailScreen', {
+        dataItem: item,
+        reloadHome: reloadData,
+      });
+    }
   };
 
   const renderItem = ({item, index}) => {
@@ -76,7 +88,6 @@ const Home = (props) => {
   };
 
   function reloadData() {
-    console.log(reloadData,'reloadData')
     if (dataUser.currentUser.userId) {
       setLoading(true);
       fetch(
@@ -163,6 +174,7 @@ const styles = StyleSheet.create({
     paddingVertical: Size.defineSpace,
     paddingHorizontal: Size.defineSpace,
     justifyContent: 'center',
+    alignItems: 'center',
   },
   shadow: {
     shadowColor: '#000',
@@ -322,8 +334,9 @@ const styles = StyleSheet.create({
   text_header: {
     color: Colors.black,
     fontWeight: 'bold',
-    fontSize: 25,
+    fontSize: 20,
     color: Colors.blue,
+    textAlign: 'center',
   },
   styBold: {
     fontWeight: 'bold',

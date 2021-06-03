@@ -18,7 +18,7 @@ const EssayQuestion = (props) => {
 
     const {essayQuestionModels} = exam;
     const objAnswer = essayQuestionModels[index];
-
+    
     if (objAnswer) {
       objAnswer.userAnswer = answer;
       objAnswer.userAnswerApp = answer;
@@ -26,7 +26,7 @@ const EssayQuestion = (props) => {
       setExam({
         ...exam,
       });
-      props.onFinish && props.onFinish(objAnswer.id, answer, 1);
+      props.onFinish && props.onFinish(objAnswer.id ,objAnswer.idTask, answer, 1);
     }
   };
 
@@ -109,7 +109,6 @@ const EssayQuestion = (props) => {
   };
 
   const renderConrrectAnswer = (item, index) => {
-    console.log(item, 'sadsad');
     if (item.suggestions) {
       if (item.suggestions.indexOf('.') && item.suggestions.indexOf('_') < 0) {
         return (
@@ -139,6 +138,7 @@ const EssayQuestion = (props) => {
                         borderBottomColor: Colors.blue,
                       },
                 ]}
+                editable={false}
                 value={item.userAnswer ? item.userAnswer : ''}
                 onChangeText={(text) => choseAnswer(text, index)}
               />
@@ -179,6 +179,7 @@ const EssayQuestion = (props) => {
                         borderBottomColor: Colors.blue,
                       },
                 ]}
+                editable={false}
                 value={item.userAnswer ? item.userAnswer : ''}
                 onChangeText={(text) => choseAnswer(text, index)}
               />
@@ -215,6 +216,7 @@ const EssayQuestion = (props) => {
                       borderBottomColor: Colors.blue,
                     },
               ]}
+              editable={false}
               value={item.userAnswer ? item.userAnswer : ''}
               onChangeText={(text) => choseAnswer(text, index)}
             />
@@ -230,6 +232,9 @@ const EssayQuestion = (props) => {
 
   return (
     <View style={styles.styContent}>
+      <View style={styles.styViewName}>
+        <Text style={styles.styTilteName}>{exam.name ? exam.name : ''}</Text>
+      </View>
       <ScrollView bounces={false} contentContainerStyle={styles.styScroll}>
         {exam.contentTypeQuestion && (
           <Text style={styles.styQuestion}>{exam.contentTypeQuestion}</Text>
@@ -248,7 +253,7 @@ const EssayQuestion = (props) => {
           )}
         </View>
       </ScrollView>
-      {exam.title == 'Exercise 11' && props.isShowCorrectAnswer === false && (
+      {exam.name == 'Exercise 11' && props.isShowCorrectAnswer === false && (
         <TouchableOpacity
           style={styles.styViewSubmit}
           onPress={() => {
@@ -271,10 +276,28 @@ const styles = StyleSheet.create({
     paddingHorizontal: Size.defineSpace,
     marginTop: 5,
   },
+  styViewName: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 40,
+    borderColor: Colors.blue,
+    borderWidth: 1,
+    marginHorizontal: Size.defineSpace,
+    marginBottom: Size.defineSpace,
+    borderRadius: 7,
+  },
+  styTilteName: {
+    fontSize: Size.H1,
+    fontWeight: 'bold',
+    color: Colors.blue,
+    marginBottom: 4,
+  },
   styContent: {
     flex: 1,
     backgroundColor: Colors.gray_3,
     paddingVertical: Size.defineSpace,
+    width: Size.deviceWidth,
   },
   styScroll: {
     paddingHorizontal: Size.defineSpace,

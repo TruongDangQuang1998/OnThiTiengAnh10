@@ -18,7 +18,7 @@ import {
   dataUser,
 } from '../../constants/AuthContext';
 
-export default function App() {
+export default function SettingCreeen() {
   const {colors} = useTheme();
 
   const {signOut} = useContext(AuthContext);

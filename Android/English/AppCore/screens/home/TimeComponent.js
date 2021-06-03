@@ -7,7 +7,8 @@ import {
 } from 'react-native';
 import {Size, Colors, FONTS, StyleSheets} from '../../constants/Styles';
 
-const TimeComponent = (props) => {
+const TimeComponent = 
+  (props) => {
   const [minutesLabel, setMinutes] = useState('00');
   const [secondsLabel, setSecond] = useState('00');
 
@@ -15,7 +16,6 @@ const TimeComponent = (props) => {
     let totalSeconds = 0;
     let wachhTime = setInterval(setTime, 1000);
     function pad(val) {
-      debugger;
       let valString = val + '';
       if (valString.length < 2) {
         return '0' + valString;
@@ -25,11 +25,10 @@ const TimeComponent = (props) => {
     }
 
     function setTime() {
-      debugger;
       totalSeconds += 1;
       const secondCount = totalSeconds % 60;
       const minutesCount = parseInt(totalSeconds / 60);
-
+      // console.log(secondCount,'secondCount')
       setSecond(pad(secondCount));
       setMinutes(pad(minutesCount));
 
@@ -43,6 +42,7 @@ const TimeComponent = (props) => {
       clearInterval(wachhTime);
     };
   }, []);
+
 
   return (
     <View style={styles.headerView_Right}>

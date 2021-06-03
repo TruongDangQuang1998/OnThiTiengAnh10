@@ -11,7 +11,7 @@ import {
   ScrollView,
 } from 'react-native';
 import {Size, Colors, FONTS, StyleSheets} from '../../constants/Styles';
-import {IconRadioCheck, IconRadioUnCheck} from '../../constants/Icons';
+import {IconBack, IconRadioCheck, IconRadioUnCheck} from '../../constants/Icons';
 const PickerOption = (props) => {
   const SiZEICON = Size.iconSize1 + 1;
   const [exam, setExam] = useState(props.data);
@@ -29,7 +29,7 @@ const PickerOption = (props) => {
       ...exam,
     });
 
-    props.onFinish && props.onFinish(objAnswer.id, answerSelected, 0);
+    props.onFinish && props.onFinish(objAnswer.id ,objAnswer.idTask, answerSelected, 0);
   };
 
   const renderForAnswer = (item, index) => {
@@ -186,7 +186,13 @@ const PickerOption = (props) => {
 
   return (
     <View style={styles.styContent}>
+      <View style={styles.styViewName}>
+          <Text style={styles.styTilteName}>
+            {exam.name ?exam.name :'' }
+          </Text>
+      </View>
       <ScrollView bounces={false} contentContainerStyle={styles.styScroll}>
+
         {exam.tillteTypeQuestion && (
           <Text style={styles.styTilte}>{exam.tillteTypeQuestion}</Text>
         )}
@@ -212,6 +218,24 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: Colors.gray_3,
     paddingVertical: Size.defineSpace,
+    width: Size.deviceWidth
+  },
+  styViewName:{
+    flexDirection:'row',
+    justifyContent:'center',
+    alignItems:'center',
+    height:40,
+    borderColor: Colors.blue,
+    borderWidth: 1,
+    marginHorizontal: Size.defineSpace,
+    marginBottom: Size.defineSpace,
+    borderRadius: 7
+  },
+  styTilteName :{
+    fontSize: Size.H1,
+    fontWeight: 'bold',
+    color: Colors.blue,
+    marginBottom: 4,
   },
   styScroll: {
     paddingHorizontal: Size.defineSpace,

@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react';
 import {
   SafeAreaView,
   View,
@@ -8,13 +8,14 @@ import {
   Image,
   FlatList,
   Platform,
+  ScrollView,
 } from 'react-native';
 import {useTheme} from 'react-native-paper';
 import {Size, Colors, FONTS, StyleSheets} from '../../constants/Styles';
 import {connect} from 'react-redux';
 import NavigationServices from '../../utils/NavigationServices';
 import {IconBack} from '../../constants/Icons';
-import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
+// import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
 import PickerOption from '../../components/pickerQuestion/PickerOption';
 import EssayQuestion from '../../components/pickerQuestion/EssayQuestion';
 import TimeComponent from './TimeComponent';
@@ -22,6 +23,7 @@ import {dataUser} from '../../constants/AuthContext';
 import Loading from '../../components/loading/Loading';
 import moment from 'moment';
 import FunctionCommon from '../../utils/FunctionCommon';
+
 const DetailScreen = (props) => {
   // Dummy Datas
   const {colors} = useTheme();
@@ -31,6 +33,7 @@ const DetailScreen = (props) => {
   const [isLoading, setLoading] = useState(false);
   const [isShowCorrectAnswer, setIsShowCorrectAnswer] = useState(false);
   const timeStart = moment(new Date());
+  const refScrollPage = useRef(null);
 
   const getTimeUp = () => {
     const now = moment(new Date()), //todays date
@@ -41,7 +44,89 @@ const DetailScreen = (props) => {
     return minutes;
   };
 
-  function renderHeader() {
+  const openAgain = () => {
+    const {dataForReStart} = props.route.params;
+    if (dataForReStart) {
+      setLoading(true);
+      fetch(
+        `http://quangiuh.azurewebsites.net:80/ExamGetById?userId=${dataUser.currentUser.userId}&id=${dataForReStart.id}`,
+      )
+        .then((response) => response.json())
+        .then((res) => {
+          console.log(res, 'ExamGetById');
+          setLoading(false);
+          if (res && res.result == 'Success') {
+            const _modelQuestionAnswers = [];
+            res.typeQuestionModels.map((item) => {
+              item.essayQuestionModels.length > 0
+                ? item.essayQuestionModels.map((e) => {
+                    _modelQuestionAnswers.push({
+                      questionId: e.id,
+                      userAnswer: '',
+                      isMultipleChoiceOrEssay: 1,
+                    });
+                  })
+                : item.multipleChoiceQuestionModels.map((e) => {
+                    _modelQuestionAnswers.push({
+                      questionId: e.id,
+                      userAnswer: 0,
+                      isMultipleChoiceOrEssay: 0,
+                    });
+                  });
+            });
+
+            scrollToStart();
+
+            setDataItem(res);
+            setSubmitAnswer({
+              userId: dataUser.currentUser.userId,
+              examId: res.id,
+              modelQuestionAnswers: _modelQuestionAnswers,
+            });
+            setIsShowCorrectAnswer(false);
+          }
+        })
+        .catch((e) => console.log(e));
+    }
+  };
+
+  const scrollToStart = () => {
+    refScrollPage &&
+      refScrollPage.current &&
+      refScrollPage.current.scrollTo({x: 0, y: 0, animated: true});
+  };
+
+  const saveAnswer = (timeUp) => {
+    const {dataItem, reloadHome} = props.route.params;
+    if (dataUser.currentUser.userId && submitAnswer) {
+      console.log(JSON.stringify(submitAnswer), 'submitAnswer');
+      setLoading(true);
+      fetch('http://quangiuh.azurewebsites.net:80/Submit', {
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        method: 'POST',
+        body: JSON.stringify(submitAnswer),
+      })
+        .then((response) => response.json())
+        .then((res) => {
+          setLoading(false);
+          console.log(res, 'saveAnswersaveAnswersaveAnswer');
+          if (res && res.result == 'Success') {
+            reloadHome && reloadHome();
+            NavigationServices.navigate('ResultScreen', {
+              data: res,
+              dataForReStart: dataItem,
+              timeUp: timeUp ? timeUp : getTimeUp(),
+            });
+          }
+        })
+        .catch((e) => console.log(e));
+    }
+  };
+
+  const renderHeader = React.useMemo(() => {
     return (
       <View style={styles.header}>
         <SafeAreaView style={styles.viewSafe}>
@@ -68,8 +153,13 @@ const DetailScreen = (props) => {
                 </Text>
               )}
             </View>
+
             {!isShowCorrectAnswer ? (
-              <TimeComponent saveAnswer={saveAnswer} key={FunctionCommon.MakeId(10)} />
+              <TimeComponent
+                saveAnswer={saveAnswer}
+                isRefresh={true}
+                key={FunctionCommon.MakeId(10)}
+              />
             ) : (
               <TouchableOpacity
                 style={{
@@ -87,75 +177,30 @@ const DetailScreen = (props) => {
         </SafeAreaView>
       </View>
     );
-  }
+  }, [dataItem, isShowCorrectAnswer]);
 
-  const openAgain = () => {
-    const {dataForReStart} = props.route.params;
-    if (dataForReStart) {
-      setLoading(true);
-      fetch(
-        `http://quangiuh.azurewebsites.net:80/ExamGetById?id=${dataUser.currentUser.userId}&userId=${dataForReStart.id}`,
-      )
-        .then((response) => response.json())
-        .then((res) => {
-          console.log(res, 'ExamGetById');
-          setLoading(false);
-          if (res && res.result == 'Success') {
-            const _modelQuestionAnswers = [];
-            res.typeQuestionModels.map((item) => {
-              item.essayQuestionModels.length > 0
-                ? item.essayQuestionModels.map((e) => {
-                    _modelQuestionAnswers.push({
-                      questionId: e.id,
-                      userAnswer: '',
-                      isMultipleChoiceOrEssay: 1,
-                    });
-                  })
-                : item.multipleChoiceQuestionModels.map((e) => {
-                    _modelQuestionAnswers.push({
-                      questionId: e.id,
-                      userAnswer: 0,
-                      isMultipleChoiceOrEssay: 0,
-                    });
-                  });
-            });
-
-
-            setDataItem(res);
-            setSubmitAnswer({
-              userId: dataUser.currentUser.userId,
-              examId: res.id,
-              modelQuestionAnswers: _modelQuestionAnswers,
-            });
-            setIsShowCorrectAnswer(false);
-          }
-        })
-        .catch((e) => console.log(e));
-    }
-  };
-
-  const finishPicker = (idQuestion, answer, isMultipleChoiceOrEssay) => {
+  const finishPicker = (id, _idTask, answer, isMultipleChoiceOrEssay) => {
     const indexQuestion = submitAnswer.modelQuestionAnswers.findIndex(
-      (e) => e.questionId == idQuestion,
+      (e) => e.idTask === _idTask && e.questionId === id,
     );
-    if (indexQuestion > -1) {
+    debugger;
+
+    if (
+      indexQuestion > -1 &&
+      submitAnswer.modelQuestionAnswers[indexQuestion]
+    ) {
       submitAnswer.modelQuestionAnswers[indexQuestion] = {
-        questionId: idQuestion,
+        ...submitAnswer.modelQuestionAnswers[indexQuestion],
         userAnswer: `${answer}`,
         isMultipleChoiceOrEssay: isMultipleChoiceOrEssay,
       };
-    } else {
-      submitAnswer.modelQuestionAnswers.push({
-        questionId: idQuestion,
-        userAnswer: `${answer}`,
-        isMultipleChoiceOrEssay: isMultipleChoiceOrEssay,
-      });
     }
+    console.log(submitAnswer, 'submitAnswer');
     setSubmitAnswer(submitAnswer);
   };
 
-  const renderItemTab = (props) => {
-    const {multipleChoiceQuestionModels, id} = props.route;
+  const renderItemTab = (item) => {
+    const {multipleChoiceQuestionModels, id} = item;
     if (
       multipleChoiceQuestionModels !== null &&
       multipleChoiceQuestionModels.length > 0
@@ -163,7 +208,7 @@ const DetailScreen = (props) => {
       return (
         <PickerOption
           key={FunctionCommon.MakeId(10)}
-          data={props.route}
+          data={item}
           onFinish={finishPicker}
           saveAnswer={saveAnswer}
           isShowCorrectAnswer={isShowCorrectAnswer}
@@ -173,7 +218,7 @@ const DetailScreen = (props) => {
       return (
         <EssayQuestion
           key={FunctionCommon.MakeId(10)}
-          data={props.route}
+          data={item}
           onFinish={finishPicker}
           saveAnswer={saveAnswer}
           isShowCorrectAnswer={isShowCorrectAnswer}
@@ -182,79 +227,23 @@ const DetailScreen = (props) => {
   };
 
   const renderTab = () => {
-    const sceneMapp = {};
-    dataItem.typeQuestionModels.map((item, index) => {
-      sceneMapp[item.name] = renderItemTab;
-    });
-
-    dataItem.typeQuestionModels = dataItem.typeQuestionModels.map((item) => ({
-      ...item,
-      title: item.name,
-      key: item.name,
-    }));
-
-    const renderScene = SceneMap(sceneMapp);
-
     return (
-      <View style={styles.styTabContent}>
-        <TabView
-          navigationState={{index, routes: dataItem.typeQuestionModels}}
-          renderScene={renderScene}
-          onIndexChange={setIndex}
-          initialLayout={{width: Size.deviceWidth * 2}}
-          renderTabBar={(props) => (
-            <TabBar
-              {...props}
-              scrollEnabled={true}
-              tabStyle={{
-                width: 'auto',
-              }}
-              style={{
-                backgroundColor: Colors.white,
-              }}
-              labelStyle={{
-                color: Colors.blue,
-                fontWeight: 'bold',
-                fontSize: Size.H4,
-              }}
-              inactiveColor={Colors.gray_7}
-              activeColor={Colors.blue}
-              pressColor={Colors.gray_2}
-              indicatorStyle={{backgroundColor: Colors.blue, height: 2}}
-            />
-          )}
-        />
-      </View>
+      <ScrollView
+        horizontal
+        decelerationRate={0.88}
+        pagingEnabled
+        snapToInterval={Size.deviceWidth}
+        snapToAlignment={'center'}
+        keyboardShouldPersistTaps={'handled'}
+        showsHorizontalScrollIndicator={false}
+        ref={refScrollPage}
+        // onScroll={onScroll}
+      >
+        {dataItem.typeQuestionModels.map((item, index) => {
+          return renderItemTab(item);
+        })}
+      </ScrollView>
     );
-  };
-
-  const saveAnswer = (timeUp) => {
-    const {dataItem,reloadHome} = props.route.params;
-    if (dataUser.currentUser.userId && submitAnswer) {
-      console.log(JSON.stringify(submitAnswer),'submitAnswer')
-      setLoading(true);
-      fetch('http://quangiuh.azurewebsites.net:80/Submit', {
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        method: 'POST',
-        body: JSON.stringify(submitAnswer),
-      })
-        .then((response) => response.json())
-        .then((res) => {        
-          setLoading(false);
-          if (res && res.result == 'Success') {
-            reloadHome && reloadHome();
-            NavigationServices.navigate('ResultScreen', {
-              data: res,
-              dataForReStart: dataItem,
-              timeUp: timeUp ? timeUp : getTimeUp(),
-            });
-          }
-        })
-        .catch((e) => console.log(e));
-    }
   };
 
   useEffect(() => {
@@ -262,27 +251,52 @@ const DetailScreen = (props) => {
     if (isReview && dataItem) {
       setDataItem(dataItem);
       setIsShowCorrectAnswer(true);
+      scrollToStart();
     } else if (dataItem) {
       const _modelQuestionAnswers = [];
-      dataItem.typeQuestionModels.map((item) => {
-        item.essayQuestionModels.length > 0
-          ? item.essayQuestionModels.map((e) => {
-              _modelQuestionAnswers.push({
-                questionId: e.id,
-                userAnswer: '',
-                isMultipleChoiceOrEssay: 1,
-              });
-            })
-          : item.multipleChoiceQuestionModels.map((e) => {
-              _modelQuestionAnswers.push({
+      dataItem.typeQuestionModels = dataItem.typeQuestionModels.map((item) => {
+        if (item.essayQuestionModels.length > 0) {
+          item.essayQuestionModels = item.essayQuestionModels.map((e) => {
+            let initID = FunctionCommon.MakeId(5);
+            let initItem = {
+              idTask: initID,
+              questionId: e.id,
+              userAnswer: '',
+              isMultipleChoiceOrEssay: 1,
+            };
+            _modelQuestionAnswers.push(initItem);
+            return {...initItem, ...e};
+          });
+        } else {
+          item.multipleChoiceQuestionModels = item.multipleChoiceQuestionModels.map(
+            (e) => {
+              let initID = FunctionCommon.MakeId(5);
+              let initItem = {
+                idTask: initID,
                 questionId: e.id,
                 userAnswer: 0,
                 isMultipleChoiceOrEssay: 0,
-              });
-            });
+              };
+              _modelQuestionAnswers.push(initItem);
+              return {...initItem, ...e};
+            },
+          );
+
+          // item.multipleChoiceQuestionModels.map((e) => {
+          //   let initID = FunctionCommon.MakeId(5);
+          //   _modelQuestionAnswers.push({
+          //     idTask: initID,
+          //     questionId: e.id,
+          //     userAnswer: 0,
+          //     isMultipleChoiceOrEssay: 0,
+          //   });
+          // });
+        }
+
+        return item;
       });
+
       setDataItem(dataItem);
-      console.log(_modelQuestionAnswers,'_modelQuestionAnswers')
       setSubmitAnswer({
         userId: dataUser.currentUser.userId,
         examId: dataItem.id,
@@ -296,7 +310,8 @@ const DetailScreen = (props) => {
       style={{
         ...styles.container,
       }}>
-      {renderHeader()}
+      {renderHeader}
+
       {dataItem !== null && renderTab()}
       {isLoading && (
         <View style={styles.styLoading}>

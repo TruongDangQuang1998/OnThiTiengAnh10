@@ -26,7 +26,7 @@ namespace EnglishV2.Controllers
         [SwaggerResponse(400, "Bad Request")]
         [SwaggerResponse(401, "Not Authorizated")]
         [AllowAnonymous]
-        [HttpPost]
+        [HttpGet]
         public IHttpActionResult Login(string username, string password)
         {
             var model = new UserDetailModel();
@@ -66,47 +66,41 @@ namespace EnglishV2.Controllers
         }
 
         [Route("SignUp")]
-        [SwaggerResponse(200, "Returns the result of get user", typeof(UserDetailModel))]
+        [SwaggerResponse(200, "Returns the result of get user", typeof(ApiJsonResult))]
         [SwaggerResponse(500, "Internal Server Error")]
         [SwaggerResponse(400, "Bad Request")]
         [SwaggerResponse(401, "Not Authorizated")]
         [AllowAnonymous]
         [HttpPost]
-        public IHttpActionResult SignUp(string username,string name, string password, string confirmPassword, int userRoleId)
+        public IHttpActionResult SignUp(SignUpModel signUpModel)
         {
-            var model = new UserDetailModel();
-            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password) || string.IsNullOrEmpty(confirmPassword) )
+            var model = new ApiJsonResult();
+            if (string.IsNullOrEmpty(signUpModel.Username) || string.IsNullOrEmpty(signUpModel.Password) || string.IsNullOrEmpty(signUpModel.ConfirmPassword) )
             {
                 model.ErrorMessages.Add("Username or Password not null!");
                 return new HttpApiActionResult(HttpStatusCode.NoContent, model);
             }
             else
             {
-                if(confirmPassword == password)
+                if(signUpModel.ConfirmPassword == signUpModel.Password)
                 {
                     var users = _userService.GetAll();
                     var userRoles = _userRoleService.GetAll();
-                    var user = users.FirstOrDefault(x => x.UserName == username);
+                    var user = users.FirstOrDefault(x => x.UserName == signUpModel.Username);
                     if (user == null)
                     {
                         //model.ErrorMessages.Add("NotFound!");
-                        var role = userRoles.FirstOrDefault(x => x.Id == userRoleId);
+                        var role = userRoles.FirstOrDefault(x => x.Id == signUpModel.UserRoleId);
                         if (role != null)
                         {
                             var userCraete = new User()
                             {
-                                UserName = username,
-                                Name = name,
-                                Password = password,
-                                UserRoleId = userRoleId
+                                UserName = signUpModel.Username,
+                                Name = signUpModel.Name,
+                                Password = signUpModel.Password,
+                                UserRoleId = signUpModel.UserRoleId
                             };
                             _userService.Insert(userCraete);
-                            model.Id = userCraete.Id;
-                            model.UserName = username;
-                            model.Name = name;
-                            model.Password = password;
-                            model.UserRoleId = userRoleId;
-
                             return new HttpApiActionResult(HttpStatusCode.OK, model);
                         }
                         else
@@ -127,7 +121,6 @@ namespace EnglishV2.Controllers
                     return new HttpApiActionResult(HttpStatusCode.OK, model);
                 }
             }
-            return new HttpApiActionResult(HttpStatusCode.OK, model);
         }
     }
 }

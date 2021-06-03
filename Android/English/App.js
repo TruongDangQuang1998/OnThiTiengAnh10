@@ -116,6 +116,7 @@ const App = () => {
       signIn: async (foundUser) => {
         // setUserToken('fgkj');
         // setIsLoading(false);
+        debugger
         const userToken = String(foundUser.id);
         const userName = foundUser.userName;
 
@@ -133,7 +134,7 @@ const App = () => {
         } catch (e) {
           console.log(e, 'e');
         }
-        // console.log('user token: ', userToken);
+         console.log('user token: ', userToken);
 
         dataUser.currentUser = userData;
 
@@ -185,9 +186,9 @@ const App = () => {
         dataUser.currentUser = userData;
       }
 
-      if (_darkThemeData !== null) {
-        _isDarkTheme = JSON.parse(_darkThemeData);
-      }
+      // if (_darkThemeData !== null) {
+      //   _isDarkTheme = JSON.parse(_darkThemeData);
+      // }
     } catch (e) {
       console.log(e);
     }

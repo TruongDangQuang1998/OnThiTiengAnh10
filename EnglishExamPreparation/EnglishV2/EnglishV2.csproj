@@ -140,6 +140,7 @@
     <Compile Include="Models\HttpApiActionResult.cs" />
     <Compile Include="Models\EssayQuestionModel.cs" />
     <Compile Include="Models\MultipleChoiceQuestionModel.cs" />
+    <Compile Include="Models\SignUpModel.cs" />
     <Compile Include="Models\TypeQuestionModel.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Models\UserRoleModel.cs" />

@@ -20,7 +20,7 @@ const ResultScreen = (props) => {
     const {data, dataForReStart, timeUp} = props.route.params;
     const answerSuccess = data.correctAnswerNo;
     return (
-      <TouchableOpacity style={styles.styContain}>
+      <View style={styles.styContain}>
         {/* Image */}
         <View style={styles.styViewbox}>
           <View style={styles.styViewInfo}>
@@ -67,7 +67,7 @@ const ResultScreen = (props) => {
             <Text style={styles.stySubmitText}>Trang chủ</Text>
           </TouchableOpacity>
         </View>
-      </TouchableOpacity>
+      </View>
     );
   };
 
@@ -118,8 +118,6 @@ const styles = StyleSheet.create({
     flex: 1,
     marginBottom: Size.defineHalfSpace,
     borderRadius: StyleSheets.radius_10,
-    borderWidth: 0.5,
-    borderColor: Colors.gray_7,
     justifyContent: 'center',
     alignItems: 'center',
   },
