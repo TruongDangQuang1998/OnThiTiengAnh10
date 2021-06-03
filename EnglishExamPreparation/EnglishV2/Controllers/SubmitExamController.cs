@@ -44,7 +44,10 @@ namespace EnglishV2.Controllers
                 var examResults = _examResultService.GetAll();
                 foreach (var question in examResultModelPost.ModelQuestionAnswers)
                 {
-                    var questionDB=examResults.FirstOrDefault(x =>x.IsMultipleChoiceOrEssay == question .IsMultipleChoiceOrEssay && x.UserId == examResultModelPost.UserId && x.QuestionId == question.QuestionId);
+                    var questionDB=examResults.FirstOrDefault(x =>
+                    x.IsMultipleChoiceOrEssay == question .IsMultipleChoiceOrEssay &&
+                    x.UserId == examResultModelPost.UserId &&
+                    x.QuestionId == question.QuestionId);
                     if (questionDB == null)
                     {
                         var examanswer = new ExamResult()

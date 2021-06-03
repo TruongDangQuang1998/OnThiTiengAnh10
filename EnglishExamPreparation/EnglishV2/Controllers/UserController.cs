@@ -31,7 +31,7 @@ namespace EnglishV2.Controllers
             try
             {
                 var users = _userService.GetAll();
-                foreach (var user in users)
+                foreach (var user in users.Where(x=>x.IsDelete==false))
                 {
                     var userModel = new UserModel()
                     {
@@ -55,7 +55,12 @@ namespace EnglishV2.Controllers
             }
         }
 
-
+        [Route("ResetPassword")]
+        [SwaggerResponse(200, "Returns the result of ResetPassword", typeof(ApiJsonResult))]
+        [SwaggerResponse(500, "Internal Server Error")]
+        [SwaggerResponse(400, "Bad Request")]
+        [SwaggerResponse(401, "Not Authorizated")]
+        [AllowAnonymous]
         [HttpGet]
         public IHttpActionResult ResetPassword(int userId)
         {
@@ -76,24 +81,57 @@ namespace EnglishV2.Controllers
                 return new HttpApiActionResult(HttpStatusCode.BadRequest, model);
             }
         }
+        [Route("ChangePassword")]
+        [SwaggerResponse(200, "Returns the result of ChangePassword", typeof(ApiJsonResult))]
+        [SwaggerResponse(500, "Internal Server Error")]
+        [SwaggerResponse(400, "Bad Request")]
+        [SwaggerResponse(401, "Not Authorizated")]
+        [AllowAnonymous]
+        [HttpGet]
+        public IHttpActionResult ChangePassword(int userId,string newPassword)
+        {
+            var model = new ApiJsonResult();
+            try
+            {
+                var users = _userService.GetById(userId);
+                if (users != null)
+                {
+                    users.Password = newPassword;
+                }
+                _userService.Update(users);
+                return new HttpApiActionResult(HttpStatusCode.OK, model);
+            }
+            catch (Exception ex)
+            {
+                model.ErrorMessages.Add(ex.Message);
+                return new HttpApiActionResult(HttpStatusCode.BadRequest, model);
+            }
+        }
 
 
-
+        [Route("GetById")]
+        [SwaggerResponse(200, "Returns the result of GetById", typeof(UserDetailModel))]
+        [SwaggerResponse(500, "Internal Server Error")]
+        [SwaggerResponse(400, "Bad Request")]
+        [SwaggerResponse(401, "Not Authorizated")]
+        [AllowAnonymous]
         [HttpGet]
         public IHttpActionResult GetById(int id)
         {
             var model = new UserDetailModel();
             try
             {
-                var userResult = _userService.GetById(id);
+                var user = _userService.GetById(id);
                 var userModel = new UserDetailModel()
                 {
-                    //Id = userResult.Id,
-                    //Name = userResult.Name,
-                    //Password = userResult.Password,
-                    //Role = userResult.Role,
-                    //UserName = userResult.UserName,
-                    //IsDelete = userResult.IsDelete
+                    Id = user.Id,
+                    Name = user.Name,
+                    Password = user.Password,
+                    UserRoleId = user.UserRoleId,
+                    Description = user.Description,
+                    UserRoleName = user.UserRole.Name,
+                    UserName = user.UserName,
+                    IsDelete = user.IsDelete
                 };
                 model = userModel;
                 return new HttpApiActionResult(HttpStatusCode.OK, model);
@@ -105,12 +143,24 @@ namespace EnglishV2.Controllers
             }
         }
 
+        [Route("Delete")]
+        [SwaggerResponse(200, "Returns the result of Delete User", typeof(ApiJsonResult))]
+        [SwaggerResponse(500, "Internal Server Error")]
+        [SwaggerResponse(400, "Bad Request")]
+        [SwaggerResponse(401, "Not Authorizated")]
+        [AllowAnonymous]
         [HttpDelete]
         public IHttpActionResult Delete(int id)
         {
             var res = new ApiJsonResult();
             try
             {
+                var userEntity = _userService.GetById(id);
+                if (userEntity != null)
+                {
+                    userEntity.IsDelete = true;
+                    _userService.Update(userEntity);
+                }
                 return new HttpApiActionResult(HttpStatusCode.OK, res);
             }
             catch (Exception ex)

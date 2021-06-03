@@ -129,6 +129,12 @@ namespace EnglishV2.Controllers
             }
         }
 
+        [Route("DeleteExam")]
+        [SwaggerResponse(200, "Returns the result of delete  ExamModel", typeof(ApiJsonResult))]
+        [SwaggerResponse(500, "Internal Server Error")]
+        [SwaggerResponse(400, "Bad Request")]
+        [SwaggerResponse(401, "Not Authorizated")]
+        [AllowAnonymous]
         [HttpDelete]
         public IHttpActionResult Delete(int id)
         {
@@ -150,20 +156,6 @@ namespace EnglishV2.Controllers
             }
         }
 
-        [HttpDelete]
-        public IHttpActionResult Delete(List<int> ids)
-        {
-            var res = new ApiJsonResult();
-            try
-            {
-                return new HttpApiActionResult(HttpStatusCode.OK, res);
-            }
-            catch (Exception ex)
-            {
-                res.ErrorMessages.Add(ex.Message);
-                return new HttpApiActionResult(HttpStatusCode.BadRequest, res);
-            }
-        }
 
         [Route("UpdateExam")]
         [SwaggerResponse(200, "Returns the result of get  ExamModel", typeof(ApiJsonResult))]
@@ -177,86 +169,62 @@ namespace EnglishV2.Controllers
             var res = new ApiJsonResult();
             try
             {
-                //var examEntuty = _examService.GetById(entity.Id);
-                //{
-                //    examEntuty.Name = entity.Name;
-                //    examEntuty.Description = entity.Description;
-                //}
-                //_examService.Update(examEntuty);
                 var examEntity = _examService.GetById(entity.Id);
-                
+                if (examEntity != null)
+                {
+                    examEntity.Description = entity.Description;
+                    examEntity.Name = entity.Name;
+                    _examService.Update(examEntity);
 
-                //var typeQuestionEntitys = new List<TypeQuestion>();
-                //foreach (var typeQuestionModel in entity.TypeQuestionModels)
-                //{
-                //    var typeQuestionEntity = new TypeQuestion()
-                //    {
-                //        Id = typeQuestionModel.Id,
-                //        ContentTypeQuestion = typeQuestionModel.ContentTypeQuestion,
-                //        Description = typeQuestionModel.Description,
-                //        ExamId = examEntity.Id,
-                //        Name = typeQuestionModel.Name,
-                //        Tillte = typeQuestionModel.TillteTypeQuestion
-                //    };
-
-                //    //insert
-                //    var multipleChoiceQuestionEntitys = new List<MultipleChoiceQuestion>();
-                //    foreach (var multipleChoiceQuestionModel in typeQuestionModel.MultipleChoiceQuestionModels)
-                //    {
-                        
-                //        var multipleChoiceQuestionEntity = new MultipleChoiceQuestion()
-                //        {
-                //            Id  = multipleChoiceQuestionModel.Id,
-                //            Answer = multipleChoiceQuestionModel.Answer,
-                //            Answer1 = multipleChoiceQuestionModel.Answer1,
-                //            Answer2 = multipleChoiceQuestionModel.Answer2,
-                //            Answer3 = multipleChoiceQuestionModel.Answer3,
-                //            Answer4 = multipleChoiceQuestionModel.Answer4,
-                //            IsDelete = multipleChoiceQuestionModel.IsDelete,
-                //            QuestionContent = multipleChoiceQuestionModel.QuestionContent,
-                //            TypeQuestionId = typeQuestionEntity.Id
-                //        };
-                //        _multipleChoiceQuestionService.Update(multipleChoiceQuestionEntitys);
-                //        //multipleChoiceQuestionEntitys.Add(multipleChoiceQuestionEntity);
-                //    }
-
-                //    //insert 
-                //    var essayQuestionEntitys = new List<EssayQuestion>();
-                //    foreach (var essayQuestionModel in typeQuestionModel.EssayQuestionModels)
-                //    {
-                //        var essayQuestionEntity = new EssayQuestion()
-                //        {
-                //             Id = essayQuestionModel.Id,
-                //            Answer = essayQuestionModel.Answer,
-                //            TypeQuestionId = typeQuestionEntity.Id,
-                //            QuestionContent = essayQuestionModel.QuestionContent,
-                //            IsDelete = essayQuestionModel.IsDelete,
-                //            Suggestions = essayQuestionModel.Suggestions
-                //        };
-                //        _essayQuestionService.Update(essayQuestionEntity);
-                //    }
-                //    typeQuestionEntity.MultipleChoiceQuestions = multipleChoiceQuestionEntitys;
-                //    typeQuestionEntity.EssayQuestions = essayQuestionEntitys;
-
-                //    _typeQuestionService.Update(typeQuestionEntity);
-                //}
-                //examEntity.TypeQuestions = typeQuestionEntitys;
-                //_examService.Insert(examEntity);
-
-
-                //foreach (var typeQuestion in examEntity.TypeQuestions)
-                //{
-                //    foreach (var multipleChoiceQuestion in typeQuestion.MultipleChoiceQuestions)
-                //    {
-                //        multipleChoiceQuestion.TypeQuestionId = typeQuestion.Id;
-                //        _multipleChoiceQuestionService.Insert(multipleChoiceQuestion);
-                //    }
-                //    foreach (var essayQuestion in typeQuestion.EssayQuestions)
-                //    {
-                //        essayQuestion.TypeQuestionId = typeQuestion.Id;
-                //        _essayQuestionService.Insert(essayQuestion);
-                //    }
-                //}
+                    foreach (var typeQuestionModel in entity.TypeQuestionModels)
+                    {
+                        var typeQuestionEntity = _typeQuestionService.GetById(typeQuestionModel.Id);
+                        if(typeQuestionEntity!=null)
+                        {
+                            typeQuestionEntity.ContentTypeQuestion = typeQuestionModel.ContentTypeQuestion;
+                            typeQuestionEntity.Description = typeQuestionModel.Description;
+                            typeQuestionEntity.ExamId = examEntity.Id;
+                            typeQuestionEntity.Name = typeQuestionModel.Name;
+                            typeQuestionEntity.Tillte = typeQuestionModel.TillteTypeQuestion;
+                            _typeQuestionService.Update(typeQuestionEntity);
+                            
+                            foreach (var multipleChoiceQuestionModel in typeQuestionModel.MultipleChoiceQuestionModels)
+                            {
+                                var multipleChoiceQuestionEntity = _multipleChoiceQuestionService.GetById(multipleChoiceQuestionModel.Id);
+                                if (multipleChoiceQuestionEntity != null)
+                                {
+                                    multipleChoiceQuestionEntity.Answer = multipleChoiceQuestionModel.Answer;
+                                    multipleChoiceQuestionEntity.Answer1 = multipleChoiceQuestionModel.Answer1;
+                                    multipleChoiceQuestionEntity.Answer2 = multipleChoiceQuestionModel.Answer2;
+                                    multipleChoiceQuestionEntity.Answer3 = multipleChoiceQuestionModel.Answer3;
+                                    multipleChoiceQuestionEntity.Answer4 = multipleChoiceQuestionModel.Answer4;
+                                    multipleChoiceQuestionEntity.IsDelete = multipleChoiceQuestionModel.IsDelete;
+                                    multipleChoiceQuestionEntity.QuestionContent = multipleChoiceQuestionModel.QuestionContent;
+                                    multipleChoiceQuestionEntity.TypeQuestionId = typeQuestionEntity.Id;
+                                    _multipleChoiceQuestionService.Update(multipleChoiceQuestionEntity);
+                                }
+                                
+                            }
+                            foreach (var essayQuestionModel in typeQuestionModel.EssayQuestionModels)
+                            {
+                                var essayQuestionEntity = _essayQuestionService.GetById(essayQuestionModel.Id);
+                                if (essayQuestionEntity != null)
+                                {
+                                    essayQuestionEntity.Answer = essayQuestionModel.Answer;
+                                    essayQuestionEntity.TypeQuestionId = typeQuestionEntity.Id;
+                                    essayQuestionEntity.QuestionContent = essayQuestionModel.QuestionContent;
+                                    essayQuestionEntity.IsDelete = essayQuestionModel.IsDelete;
+                                    essayQuestionEntity.Suggestions = essayQuestionModel.Suggestions;
+                                    _essayQuestionService.Update(essayQuestionEntity);
+                                }
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    res.ErrorMessages.Add("Exam Not Found!");
+                }
                 return new HttpApiActionResult(HttpStatusCode.OK, res);
             }
             catch (Exception ex)
