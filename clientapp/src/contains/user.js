@@ -1,0 +1,7 @@
+export const LOGIN = "LOGIN";
+export const REGISTER = "REGISTER";
+export const UPDATE_STATUS_LOGIN = "UPDATE_STATUS_LOGIN";
+export const UPDATE_STATUS_REGISTER = "UPDATE_STATUS_REGISTER";
+export const LOGOUT = "LOGOUT";
+export const GETCURRENTUSER = "GETCURRENTUSER";
+export const GETLISTUSER = "GETLISTUSER";
