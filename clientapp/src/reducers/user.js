@@ -14,8 +14,8 @@ const initialState = {
 export default (state = initialState, { type, payload }) => {
     switch (type) {
         case user.LOGIN: {
+            console.log(payload);
             if (typeof payload === "boolean") {
-                console.log("accc");
                 return { ...state, isLoginSuccess: false };
             }
             if (payload.result === "Success") {
@@ -23,11 +23,17 @@ export default (state = initialState, { type, payload }) => {
                     "id": payload.id,
                     "name": payload.name,
                     "userName": payload.userName,
-                    "userRoleId": 1
+                    "userRoleId": payload.userRoleId,
                 }
-              //  history.push("/");
+
                 return { ...state, isLoginSuccess: true, currentUser: userInfo };
             }
+        }
+        case user.LOGOUT: {
+            return {
+                ...state,
+                currentUser: {},
+            };
         }
         case user.REGISTER: {
             console.log(payload);

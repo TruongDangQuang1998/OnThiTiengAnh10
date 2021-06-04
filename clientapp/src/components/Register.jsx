@@ -87,7 +87,7 @@ export default function Register() {
                                     <button type="submit" className="btn btn-primary btn-user btn-block">
                                         Register Account
               </button>
-                                    <hr />
+                    
                    
                                 </form>
                                 <hr />

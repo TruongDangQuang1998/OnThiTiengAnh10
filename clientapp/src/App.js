@@ -11,8 +11,22 @@ import LeftMenu from './components/LeftMenu'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import Exam from './components/Exam'
+import * as userManage from "./actions/user";
 
 function App() {
+    const dispatch = useDispatch();
+
+    const { isLoginSuccess } = useSelector((state) => state.user);
+    const { isRegisterSuccess } = useSelector((state) => state.user);
+
+    useEffect(() => {
+       dispatch(userManage.update_status_login())
+    }, []);
+
+    useEffect(() => {
+       dispatch(userManage.update_status_register())
+    }, []);
+    
 
 
     return (

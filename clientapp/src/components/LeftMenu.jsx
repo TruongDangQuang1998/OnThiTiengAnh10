@@ -1,6 +1,12 @@
 import React from 'react'
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import * as userManage from "../actions/user";
 export default function LeftMenu() {
+
+
+  const { currentUser } = useSelector((state) => state.user);
+  console.log(currentUser);
   return (
     <div>
       <ul className="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
@@ -29,17 +35,18 @@ export default function LeftMenu() {
           </Link>
         </li>
 
-
-        {/* Nav Item - Tables */}
-        <li className="nav-item">
-          <a className="nav-link" href="#">
-            <i className="fas fa-fw fa-table" />
-            <span>User</span></a>
-        </li>
-        {/* Divider */}
+        {currentUser.userRoleId === 1
+          ? (
+            <li className="nav-item">
+              <a className="nav-link" href="#">
+                <i className="fas fa-fw fa-table" />
+                <span>User</span></a>
+            </li>
+          )
+          : ""
+        }
 
       </ul>
-      {/* End of Sidebar */}
     </div>
 
   )
