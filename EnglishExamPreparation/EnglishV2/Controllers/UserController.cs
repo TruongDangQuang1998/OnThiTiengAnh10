@@ -87,7 +87,7 @@ namespace EnglishV2.Controllers
         [SwaggerResponse(400, "Bad Request")]
         [SwaggerResponse(401, "Not Authorizated")]
         [AllowAnonymous]
-        [HttpGet]
+        [HttpPost]
         public IHttpActionResult ChangePassword(int userId,string newPassword)
         {
             var model = new ApiJsonResult();
