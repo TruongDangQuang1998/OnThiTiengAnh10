@@ -5,11 +5,14 @@ import { useDispatch, useSelector } from "react-redux";
 import * as userManage from "../actions/exam";
 
 export default function TableTitle() {
+
     const dispatch = useDispatch();
+
     const getListTiltleExam = useSelector((state) => state.exam.listTitleExam);
+    
     useEffect(() => {
         dispatch(userManage.getAllTitlExam());
-    }, [])
+    }, []);
     return (
         <div>
             <div className="container-fluid">

@@ -1,33 +1,45 @@
 import React, { useState, useEffect } from 'react'
 import history from '../history';
+import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from "react-redux";
 import * as userManage from "../actions/user";
 
 export default function Login() {
     const dispatch = useDispatch();
 
+    const { currentUser } = useSelector((state) => state.user);
+    const { isLoginSuccess} = useSelector((state) => state.user);
+
+    const [statusLogin,setStatusLogin] = useState(null);
     const [info, setInfo] = useState({
         userName: "",
         password: "",
     });
-
-    const { isLoginSuccess} = useSelector((state) => state.user);
-    const { currentUser } = useSelector((state) => state.user);
-
-    const [statusLogin,setStatusLogin] = useState(null);
-    useEffect(() => {
+    
+    useEffect(() => {  
         setStatusLogin(isLoginSuccess);
+       
     }, [isLoginSuccess]);
    
     const onChange = (e) => {
         const { name, value } = e.target;
         setInfo({ ...info, [name]: value });
     };
+
     const onCreate = (e) => {      
         e.preventDefault();
         dispatch(userManage.update_status_login());
         dispatch(userManage.login(info));
     };
+
+    const checkLogin = () => {
+        if (currentUser
+            && Object.keys(currentUser).length !== 0) {
+            history.push("/");
+        }
+    }
+    checkLogin();
+
     return (
         <div>
             <div className="">
@@ -56,16 +68,14 @@ export default function Login() {
                                                     <button type="submit" className="btn btn-primary btn-user btn-block">
                                                         Login
                       </button>
-                                                    <hr />
-
+                                                    
                                                 </form>
                                                 <hr />
                                                 <div className="text-center">
-                                                    <a className="small" href="forgot-password.html">Forgot Password?</a>
+                                                    <td> <Link to={`/register`} className=""> Bấm vào đây để đăng kí</Link></td>
+                                                    
                                                 </div>
-                                                <div className="text-center">
-                                                    <a className="small" href="register.html">Create an Account!</a>
-                                                </div>
+                                             
                                             </div>
                                         </div>
                                     </div>

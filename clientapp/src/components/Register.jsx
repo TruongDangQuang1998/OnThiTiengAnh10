@@ -1,39 +1,54 @@
 import React, { useState, useEffect } from 'react'
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import history from '../history';
 import * as userManage from "../actions/user";
+import {Link} from "react-router-dom"
 
 export default function Register() {
+
     const dispatch = useDispatch();
+
+    const [messeage, setMesseage] = useState("");
+    const [statusRegister, setStatusRegister] = useState(null);
+
+    const { currentUser } = useSelector((state) => state.user);
+    const { messeageRegister } = useSelector((state) => state.user);
+    const { isRegisterSuccess } = useSelector((state) => state.user);
 
     const [createUser, setCreateUser] = useState({
         userName: "",
         name: "",
         password: "",
         confirmPassword: "",
-        userRoleId: 1,
+        userRoleId: 0,
     });
+
     const onChange = (e) => {
         const { name, value } = e.target;
         setCreateUser({ ...createUser, [name]: value });
     };
+
     const onCreate = (e) => {
         e.preventDefault();
         dispatch(userManage.register(createUser));
         dispatch(userManage.update_status_register());
     };
 
-    const { isRegisterSuccess } = useSelector((state) => state.user);
-    const { messeageRegister } = useSelector((state) => state.user);
-    const [statusRegister, setStatusRegister] = useState(null);
-    const [messeage, setMesseage] = useState("");
-    console.log(messeage,isRegisterSuccess)
     useEffect(() => {
         setStatusRegister(isRegisterSuccess);
         setMesseage(messeageRegister);
     }, [isRegisterSuccess, messeageRegister]);
 
 
+    const checkLogin = () => {
+        if (currentUser
+            && Object.keys(currentUser).length !== 0) {
+            history.push("/");
+        }
+    }
+    checkLogin();
+    
     return (
         <div className="container">
             <div className="card o-hidden border-0 shadow-lg my-5">
@@ -77,10 +92,8 @@ export default function Register() {
                                 </form>
                                 <hr />
                                 <div className="text-center">
-                                    <a className="small" href="forgot-password.html">Forgot Password?</a>
-                                </div>
-                                <div className="text-center">
-                                    <a className="small" href="login.html">Already have an account? Login!</a>
+                                    <td> <Link to={`/login`} className=""> Bấm vào đây để đăng nhập</Link></td>
+
                                 </div>
                             </div>
                         </div>

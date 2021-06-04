@@ -7,42 +7,43 @@ import ContentPage from './ContentPage'
 import history from '../history';
 import titlelist from './TableTitle'
 import { Route, Router, Switch } from "react-router-dom";
+import Exam from './Exam'
 
-export default function MainPage() {
+export default function MainPage(props) {
 
+    const { currentUser } = useSelector((state) => state.user);
 
+    const checkLogin = () => {
+        if (currentUser
+            && Object.keys(currentUser).length === 0 && currentUser.constructor === Object)
+        {
+            history.push("/login");
+        }
+    }
+    checkLogin();
+    
     return (
         <Router history={history}>
-            <div id="page-top">
-                <div id="wrapper">
-                    <LeftMenu></LeftMenu>
-                    <div id="content-wrapper" className="d-flex flex-column">
-                        <div id="content">
-                            <Navbar></Navbar>
-                            <Switch>
-                                <Route exact path="/title" component={titlelist} />
-                                <Route exact path="/exam" component={titlelist} />
-                            </Switch>
-                            <Footer></Footer>
-                        </div></div>
+            <div>
+                <div id="page-top">
+                    <div id="wrapper">
+                        <LeftMenu></LeftMenu>
+                        <div id="content-wrapper" className="d-flex flex-column">
+                            <div id="content">
+                                <Navbar></Navbar>
+                                {props.children}
+                                <Footer></Footer>
+
+                            </div></div>
+                    </div>
                 </div>
             </div>
 
         </Router>
-        // <div>
-        //     <div id="page-top">
-        //         <div id="wrapper">
-        //             <LeftMenu></LeftMenu>
-        //             <div id="content-wrapper" className="d-flex flex-column">
-        //                 <div id="content">
-        //                     <Navbar></Navbar>
-        //                     {/* <Route exact path="/titleList" component={titlelist} /> */}
-        //                     <Footer></Footer>
 
-        //                 </div></div>
-        //         </div>
-        //     </div>
-        // </div>
+
+
+
     )
 }
 

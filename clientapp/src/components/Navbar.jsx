@@ -1,13 +1,11 @@
-import React, { useState, useEffect } from 'react'
-import { useHistory } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import * as userManage from "../actions/user";
-import {
- Link
-} from "react-router-dom";
+import React from 'react'
+import { useSelector } from "react-redux";
+
 
 export default function Navbar() {
+
   const { currentUser } = useSelector((state) => state.user);
+
     return (
     <div>
   <nav className="navbar navbar-expand navbar-light bg-white topbar  static-top shadow">

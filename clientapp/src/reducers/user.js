@@ -1,4 +1,6 @@
 import * as user from "../contains/user"
+import history from '../history';
+
 const initialState = {
     currentUser: {},
     listUsers: [],
@@ -23,6 +25,7 @@ export default (state = initialState, { type, payload }) => {
                     "userName": payload.userName,
                     "userRoleId": 1
                 }
+              //  history.push("/");
                 return { ...state, isLoginSuccess: true, currentUser: userInfo };
             }
         }
