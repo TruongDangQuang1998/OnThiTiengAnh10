@@ -2,7 +2,6 @@ import api from '../api/api'
 import * as types from "../contains/user";
 import history from '../history';
 
-
 export const register = (value) => async (dispatch) => {
     try { 
         const data = await api.User.register(value);
@@ -15,6 +14,7 @@ export const register = (value) => async (dispatch) => {
       
     }
 };
+
 export const login = (value) => async (dispatch) => {
     try { 
         const data = await api.User.login(value);
@@ -22,14 +22,14 @@ export const login = (value) => async (dispatch) => {
             type: types.LOGIN,
             payload:data,      
         });   
-         history.push("/");
+          history.push("/");
     } catch (error) {
       
     }
 };
+
 export const logout = () => async (dispatch) => {
     try { 
-        localStorage.removeItem("__token");
         dispatch({
             type: types.LOGOUT,
             payload:"",      
@@ -39,6 +39,7 @@ export const logout = () => async (dispatch) => {
     
     }
 };
+
 export const update_status_login = () => async (dispatch) => {
     try { 
         
@@ -51,6 +52,7 @@ export const update_status_login = () => async (dispatch) => {
     
     }
 };
+
 export const update_status_register = () => async (dispatch) => {
     try {
 
@@ -63,6 +65,7 @@ export const update_status_register = () => async (dispatch) => {
 
     }
 };
+
 export const get_info_user = () => async (dispatch) => {
     try {
         const data = await api.User.get_info_user()
@@ -75,6 +78,7 @@ export const get_info_user = () => async (dispatch) => {
         
     }
 };
+
 export const get_list_user = () => async (dispatch) => {
     try {
         const data = await api.User.getlistuser();
