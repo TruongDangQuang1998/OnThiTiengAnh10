@@ -17,7 +17,7 @@ export default function Exam({ match }) {
     useEffect(() => {
         dispatch(examManage.getExamById({ "examId": id, "userId": currentUser.id }));
     }, [id]);
-    
+
     return (
         <Delayed waitBeforeShow={4000}>
             <div id="page-top">
@@ -54,24 +54,29 @@ export default function Exam({ match }) {
 
                                                                                 <ul className="answer-list">
                                                                                     <li key={index}>
-                                                                                        <input type="radio" name={item.id} id={item.answer1} />
+
                                                                                         <label htmlFor={item.answer1}>
-                                                                                            <i className="icon icon_radio" /> {item.answer1}</label>
+                                                                                            <i className="icon  " />A. {item.answer1}</label>
                                                                                     </li>
                                                                                     <li key={index}>
-                                                                                        <input type="radio" name={item.id} id={item.answer2} />
+
                                                                                         <label htmlFor={item.answer2}>
-                                                                                            <i className="icon icon_radio" /> {item.answer2}</label>
+                                                                                            <i className="icon  " />B. {item.answer2}</label>
                                                                                     </li>
                                                                                     <li key={index}>
-                                                                                        <input type="radio" name={item.id} id={item.answer3} />
+
                                                                                         <label htmlFor={item.answer3}>
-                                                                                            <i className="icon icon_radio" /> {item.answer3}</label>
+                                                                                            <i className="icon  " />C. {item.answer3}</label>
                                                                                     </li>
                                                                                     <li key={index}>
-                                                                                        <input type="radio" name={item.id} id={item.answer4} />
+
                                                                                         <label htmlFor={item.answer4}>
-                                                                                            <i className="icon icon_radio" /> {item.answer4}</label>
+                                                                                            <i className="icon  " />D. {item.answer4}</label>
+                                                                                    </li>
+                                                                                    <li key={index}>
+
+                                                                                        <label htmlFor={item.answer4} style={{color:"blue"}}>
+                                                                                            <i className="icon  " />Answer. {item.answer}</label>
                                                                                     </li>
 
 
@@ -119,7 +124,7 @@ export default function Exam({ match }) {
             </div>
 
         </Delayed>
-     
+
 
     )
 }

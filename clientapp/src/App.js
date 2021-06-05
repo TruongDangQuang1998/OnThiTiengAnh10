@@ -11,7 +11,10 @@ import LeftMenu from './components/LeftMenu'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import Exam from './components/Exam'
+import UserList from './components/UserList'
 import * as userManage from "./actions/user";
+import ChangePassword from './components/ChangePassword'
+
 
 function App() {
     const dispatch = useDispatch();
@@ -35,12 +38,16 @@ function App() {
                 
                 <Switch>
                     <Route exact path="/register" component={register} />
-                    <Route exact path="/login" component={login} />              
+                    <Route exact path="/login" component={login} />   
+                    <Route exact path="/changePassword" component={ChangePassword}/>
+                   
                     <Mainpage>
                         <Route component={({ match }) =>
                             <div>
                                 <Route exact path='/' component={titlelist} />
+                                <Route exact path='/user_list' component={UserList} />
                                 <Route exact path="/exam/:id" render={({ match }) => <Exam match={match} />} />                           
+                                
                             </div>
                         } />
                     </Mainpage>

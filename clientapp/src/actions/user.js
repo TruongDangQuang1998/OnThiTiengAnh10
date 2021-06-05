@@ -81,10 +81,37 @@ export const get_info_user = () => async (dispatch) => {
 
 export const get_list_user = () => async (dispatch) => {
     try {
-        const data = await api.User.getlistuser();
+        const data = await api.User.getUserList();
         dispatch({
             type: types.GETLISTUSER,
             payload: data,
+        });
+       
+    } catch (error) {
+       
+    }
+};
+
+export const delete_user = (id) => async (dispatch) => {
+    try {
+        const data = await api.User.deleteUser(id);
+        dispatch({
+            type: types.DELETE_USER,
+            payload: id,
+        });
+       
+    } catch (error) {
+       
+    }
+};
+
+export const changePassword = (value) => async (dispatch) => {
+    try {
+      
+         const data = await api.User.changePassword(value);
+        dispatch({
+            type: types.CHANGE_PASSWORD,
+            payload: "",
         });
        
     } catch (error) {

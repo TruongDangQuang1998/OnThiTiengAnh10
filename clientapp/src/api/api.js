@@ -26,8 +26,16 @@ const User = {
         });
     },
 
-    getlistuser : async (data) => {
-        return await axios.get("/api/User/listUser", config).then(r => { return r.data });
+    getUserList : async () => {
+        return await axios.get("/GetUserListModel").then(r => { return r.data });
+    },
+
+    deleteUser : async (id) => {
+        return await axios.delete(`/Delete?id=${id}`).then(r => { return r.data });
+    },
+
+    changePassword : async (data) => {
+        return await axios.post(`ChangePassword?userId=${data.userId}&newPassword=${data.newPw}`).then(r => { return r.data });
     }
 }
 const Exam = {

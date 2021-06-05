@@ -14,7 +14,7 @@ const initialState = {
 export default (state = initialState, { type, payload }) => {
     switch (type) {
         case user.LOGIN: {
-            console.log(payload);
+  
             if (typeof payload === "boolean") {
                 return { ...state, isLoginSuccess: false };
             }
@@ -25,6 +25,7 @@ export default (state = initialState, { type, payload }) => {
                     "userName": payload.userName,
                     "userRoleId": payload.userRoleId,
                 }
+                localStorage.setItem("id",payload.id);
 
                 return { ...state, isLoginSuccess: true, currentUser: userInfo };
             }
@@ -36,7 +37,7 @@ export default (state = initialState, { type, payload }) => {
             };
         }
         case user.REGISTER: {
-            console.log(payload);
+ 
             if (payload.result==="Error") {
                 return {
                     ...state,
@@ -60,21 +61,19 @@ export default (state = initialState, { type, payload }) => {
             return { ...state, isRegisterSuccess: null, messeageRegister: "" };
 
         }
-        case user.LOGOUT: {
-            return {
-                ...state,
-                isLoginSuccess: false,
-                currentUser: {},
-            };
-        }
-        case user.GETCURRENTUSER: {
-            return {
-                ...state, currentUser: payload
-
-            };
-        }
+     
+    
         case user.GETLISTUSER: {
-            state.listUsers = payload;
+
+            return { ...state, listUsers: payload.userList };
+        }
+
+        case user.DELETE_USER: {
+            state.listUsers = [...state.listUsers].filter(x=>x.id != payload);
+            return { ...state };
+        }
+        case user.CHANGE_PASSWORD: {
+            
             return { ...state };
         }
         default:
