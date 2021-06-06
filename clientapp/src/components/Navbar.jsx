@@ -1,5 +1,6 @@
 import React from 'react'
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux"
+import {Link} from 'react-router-dom'
 import * as userManage from "../actions/user";
 
 export default function Navbar() {
@@ -33,10 +34,10 @@ export default function Navbar() {
               <img className="img-profile rounded-circle" src="img/undraw_profile.svg" />
             </a>
             <div className="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-              <a className="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+              <Link to="/changePassword" className="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                 <i className="fas fa-lock fa-sm fa-fw mr-2 text-gray-400" />
             Đổi mật khẩu
-          </a>
+          </Link>
               <div className="dropdown-divider" />
 
               <button className="dropdown-item" href="#" data-toggle="modal"  onClick={onLogOut}>

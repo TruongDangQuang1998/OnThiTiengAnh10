@@ -3,3 +3,5 @@
 /EnglishExamPreparation/.vs
 /EnglishExamPreparation/EnglishV2/*
 /EnglishExamPreparation/English/*
+/node_modules
+ ../node_modules/
