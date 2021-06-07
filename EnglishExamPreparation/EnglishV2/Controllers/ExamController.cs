@@ -13,6 +13,7 @@ namespace EnglishV2.Controllers
 {
     public class ExamController : ApiController
     {
+        private IUserService _userService;
         private IExamService _examService;
         private ITypeQuestionService _typeQuestionService;
         private IExamResultService _examResultService;
@@ -27,6 +28,7 @@ namespace EnglishV2.Controllers
             _essayQuestionService = new EssayQuestionService();
             _multipleChoiceQuestionService = new MultipleChoiceQuestionService();
             _businessService = new BusinessService();
+            _userService = new UserService();
         }
         //public IHttpActionResult
         [Route("ExamGetAll")]
@@ -107,19 +109,27 @@ namespace EnglishV2.Controllers
             try
             {
                 var exam = _examService.GetById(id);
-                var typeQuestions = _typeQuestionService.GetAll();
-                var examResults = _examResultService.GetByUserId(userId);
-                var essayQuestions = _essayQuestionService.GetAll();
-                var multipleChoiceQuestions = _multipleChoiceQuestionService.GetAll();
+                if (exam != null)
+                {
+                    var typeQuestions = _typeQuestionService.GetAll();
+                    var examResults = _examResultService.GetByUserId(userId);
+                    var essayQuestions = _essayQuestionService.GetAll();
+                    var multipleChoiceQuestions = _multipleChoiceQuestionService.GetAll();
 
 
-                var modelService = _businessService.GetExamModel(exam, typeQuestions, examResults, essayQuestions, multipleChoiceQuestions);
-                examModel.CorrectAnswerNo = modelService.CorrectAnswerNo;
-                examModel.Description = modelService.Description;
-                examModel.Id = modelService.Id;
-                examModel.IsDelete = modelService.IsDelete;
-                examModel.Name = modelService.Name;
-                examModel.TypeQuestionModels = modelService.TypeQuestionModels;
+                    var modelService = _businessService.GetExamModel(exam, typeQuestions, examResults, essayQuestions, multipleChoiceQuestions);
+                    examModel.CorrectAnswerNo = modelService.CorrectAnswerNo;
+                    examModel.Description = modelService.Description;
+                    examModel.Id = modelService.Id;
+                    examModel.IsDelete = modelService.IsDelete;
+                    examModel.Name = modelService.Name;
+                    examModel.TypeQuestionModels = modelService.TypeQuestionModels;
+                }
+                else
+                {
+                    examModel.ErrorMessages.Add("Exam Not Found.");
+                    return new HttpApiActionResult(HttpStatusCode.NotFound, examModel);
+                }
                 return new HttpApiActionResult(HttpStatusCode.OK, examModel);
             }
             catch (Exception ex)
@@ -146,6 +156,11 @@ namespace EnglishV2.Controllers
                 {
                     examEntity.IsDelete = true;
                     _examService.Update(examEntity);
+                }
+                else
+                {
+                    res.ErrorMessages.Add("Exam Not Found.");
+                    return new HttpApiActionResult(HttpStatusCode.NotFound, res);
                 }
                 return new HttpApiActionResult(HttpStatusCode.OK, res);
             }
@@ -332,5 +347,61 @@ namespace EnglishV2.Controllers
                 return new HttpApiActionResult(HttpStatusCode.BadRequest, res);
             }
         }
+
+        [Route("GetExamResultByExamId")]
+        [SwaggerResponse(200, "Returns the result of ApiJsonResult", typeof(ExamListModel2))]
+        [SwaggerResponse(500, "Internal Server Error")]
+        [SwaggerResponse(400, "Bad Request")]
+        [SwaggerResponse(401, "Not Authorizated")]
+        [AllowAnonymous]
+        [HttpPost]
+        public IHttpActionResult GetExamResultByExamId(int examId)
+        {
+            var examModels = new ExamListModel2();
+            try
+            {
+                var exam = _examService.GetById(examId);
+                if (exam != null)
+                {
+                    var users = _userService.GetAll().Where(x=>x.UserRoleId == 2);
+                    var typeQuestions = _typeQuestionService.GetAll();
+                    var essayQuestions = _essayQuestionService.GetAll();
+                    var multipleChoiceQuestions = _multipleChoiceQuestionService.GetAll();
+
+                    foreach (var user in users)
+                    {
+                        var examModel = new ExamModel2();
+                        var examResults = _examResultService.GetByUserId(user.Id);
+                        var modelService = _businessService.GetExamModel(exam, typeQuestions, examResults, essayQuestions, multipleChoiceQuestions);
+                        examModel.CorrectAnswerNo = modelService.CorrectAnswerNo;
+                        examModel.Description = modelService.Description;
+                        examModel.Id = modelService.Id;
+                        examModel.IsDelete = modelService.IsDelete;
+                        examModel.Name = modelService.Name;
+                        examModel.TypeQuestionModels = modelService.TypeQuestionModels;
+                        examModel.UserId = user.Id;
+                        examModel.UserName = user.UserName;
+
+                        examModels.ExamList.Add(examModel);
+                    }
+                    examModels.Total = examModels.ExamList.Count();
+                    return new HttpApiActionResult(HttpStatusCode.OK, examModels);
+                }
+                else
+                {
+                    examModels.ErrorMessages.Add("Exam Not Found.");
+                    return new HttpApiActionResult(HttpStatusCode.NotFound, examModels);
+                }
+            }
+            catch (Exception ex)
+            {
+                examModels.ErrorMessages.Add(ex.Message);
+                return new HttpApiActionResult(HttpStatusCode.BadRequest, examModels);
+            }
+        }
+
+
+
+
     }
 }

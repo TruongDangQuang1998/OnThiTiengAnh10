@@ -2,7 +2,7 @@ import React, { useState, useEffect, Fragment } from 'react'
 import history from '../history';
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import * as userManage from "../actions/user";
+import * as userManage from "../actions/examResultListExam";
 
 export default function UserList() {
 

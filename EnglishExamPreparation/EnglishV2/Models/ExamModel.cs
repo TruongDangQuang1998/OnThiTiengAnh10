@@ -31,6 +31,32 @@ namespace EnglishV2.Models
         public List<ExamModel> ExamList { get; set; }
         public int Total { get; set; }
     }
+    public class ExamListModel2 : ApiJsonResult
+    {
+        public ExamListModel2()
+        {
+            ExamList = new List<ExamModel2>();
+            Total = 0;
+        }
+        public List<ExamModel2> ExamList { get; set; }
+        public int Total { get; set; }
+    }
+    public class ExamModel2
+    {
+        public ExamModel2()
+        {
+            TypeQuestionModels = new List<TypeQuestionModel>();
+        }
+        public int UserId { get; set; }
+        public string UserName { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public int CorrectAnswerNo { get; set; } = 0;
+        public List<TypeQuestionModel> TypeQuestionModels { get; set; }
+        public bool IsDelete { get; set; }
+        //public virtual ICollection<Question> Questions { get; set; }
+    }
     public class ExamDetailModel : ApiJsonResult
     {
         public ExamDetailModel()

@@ -48,6 +48,31 @@ export default function LeftMenu() {
           )
           : ""
         }
+        {currentUser && currentUser.userRoleId === 1
+          ? (
+
+            <li className="nav-item">
+              <Link to={`/exam_result_ist_exam`} className=" nav-link mb-0">
+                <i className="fas fa-fw fa-chart-area" />
+                <span>Kết quả theo Đề</span>
+              </Link>
+            </li>
+          )
+          : ""
+        }
+
+        {currentUser && currentUser.userRoleId === 1
+          ? (
+
+            <li className="nav-item">
+              <Link to={`/exam_result_ist_user`} className=" nav-link mb-0">
+                <i className="fas fa-fw fa-chart-area" />
+                <span>Kết quả theo Uesr</span>
+              </Link>
+            </li>
+          )
+          : ""
+        }
 
       </ul>
     </div>

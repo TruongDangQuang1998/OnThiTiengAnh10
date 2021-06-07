@@ -98,6 +98,11 @@ namespace EnglishV2.Controllers
                 {
                     users.Password = newPassword;
                 }
+                else
+                {
+                    model.ErrorMessages.Add("Exam Not Found.");
+                    return new HttpApiActionResult(HttpStatusCode.NotFound, model);
+                }
                 _userService.Update(users);
                 return new HttpApiActionResult(HttpStatusCode.OK, model);
             }
@@ -122,19 +127,27 @@ namespace EnglishV2.Controllers
             try
             {
                 var user = _userService.GetById(id);
-                var userModel = new UserDetailModel()
+                if (user != null)
                 {
-                    Id = user.Id,
-                    Name = user.Name,
-                    Password = user.Password,
-                    UserRoleId = user.UserRoleId,
-                    Description = user.Description,
-                    UserRoleName = user.UserRole.Name,
-                    UserName = user.UserName,
-                    IsDelete = user.IsDelete
-                };
-                model = userModel;
-                return new HttpApiActionResult(HttpStatusCode.OK, model);
+                    var userModel = new UserDetailModel()
+                    {
+                        Id = user.Id,
+                        Name = user.Name,
+                        Password = user.Password,
+                        UserRoleId = user.UserRoleId,
+                        Description = user.Description,
+                        UserRoleName = user.UserRole.Name,
+                        UserName = user.UserName,
+                        IsDelete = user.IsDelete
+                    };
+                    model = userModel;
+                    return new HttpApiActionResult(HttpStatusCode.OK, model);
+                }
+                else
+                {
+                    model.ErrorMessages.Add("User Not Found.");
+                    return new HttpApiActionResult(HttpStatusCode.NotFound, model);
+                }
             }
             catch (Exception ex)
             {
@@ -160,6 +173,11 @@ namespace EnglishV2.Controllers
                 {
                     userEntity.IsDelete = true;
                     _userService.Update(userEntity);
+                }
+                else
+                {
+                    res.ErrorMessages.Add("User Not Found.");
+                    return new HttpApiActionResult(HttpStatusCode.NotFound, res);
                 }
                 return new HttpApiActionResult(HttpStatusCode.OK, res);
             }

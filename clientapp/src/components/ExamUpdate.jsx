@@ -1,10 +1,10 @@
 import React, { useState, useEffect, Fragment } from 'react'
 import history from '../history';
 import { useDispatch, useSelector } from "react-redux";
-import * as examManage from "../actions/exam";
+import * as examManage from "../actions/examUpdate";
 import Delayed from './Deplayed';
 
-export default function Exam({ match }) {
+export default function ExamUpdate({ match }) {
 
     const { id } = match.params;
 
@@ -55,8 +55,6 @@ export default function Exam({ match }) {
                                                                                 <ul className="answer-list">
                                                                                     <li key={index}>
 
-                                                                                        {/* <label htmlFor={item.answer1}> */}
-                                                                                           {/* <input name="answer1" onChange={handleOnChange()}/> */}
                                                                                         <label htmlFor={item.answer1}>
                                                                                             <i className="icon  " />A. {item.answer1}</label>
                                                                                     </li>

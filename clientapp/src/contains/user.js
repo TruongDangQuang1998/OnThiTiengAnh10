@@ -6,4 +6,5 @@ export const LOGOUT = "LOGOUT";
 export const GETCURRENTUSER = "GETCURRENTUSER";
 export const GETLISTUSER = "GETLISTUSER";
 export const DELETE_USER = "DELETE_USER";
+export const RESET_PASSWORD = "RESET_PASSWORD";
 export const CHANGE_PASSWORD = "CHANGE_PASSWORD";

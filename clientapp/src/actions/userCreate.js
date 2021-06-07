@@ -1,8 +1,8 @@
 import api from '../api/api'
-import * as types from "../contains/user";
+import * as types from "../contains/userCreate";
 import history from '../history';
 
-export const register = (value) => async (dispatch) => {
+export const userCreate = (value) => async (dispatch) => {
     try { 
         const data = await api.User.register(value);
         dispatch({

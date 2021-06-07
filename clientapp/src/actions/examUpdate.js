@@ -1,5 +1,5 @@
 import api from '../api/api'
-import * as types from "../contains/exam";
+import * as types from "../contains/examUpdate";
 import history from '../history';
 
 
