@@ -47,6 +47,7 @@ function App() {
                         <Route component={({ match }) =>
                             <div>
                                 <Route exact path='/' component={titlelist} />
+                                <Route exact path='exam_result_list_exam' component={titlelist} />
                                 <Route exact path='/user_list' component={UserList} />
                                 <Route exact path="/exam/:id" render={({ match }) => <Exam match={match} />} />   
                                 <Route exact path="/examUpdate/:id" render={({ match }) => <Exam match={match} />} />                         

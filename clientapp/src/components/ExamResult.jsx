@@ -77,6 +77,11 @@ export default function Exam({ match }) {
                                                                                     </li>
                                                                                     <li key={index}>
 
+                                                                                    <label htmlFor={item.answer4} style={{color:"blue"}}>
+                                                                                        <i className="icon  " />User Answer: {item.userAnswer}</label>
+                                                                                    </li>
+                                                                                    <li key={index}>
+
                                                                                         <label htmlFor={item.answer4} style={{color:"blue"}}>
                                                                                             <i className="icon  " />Answer: {item.answer}</label>
                                                                                     </li>

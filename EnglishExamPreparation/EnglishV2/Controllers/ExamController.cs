@@ -354,7 +354,7 @@ namespace EnglishV2.Controllers
         [SwaggerResponse(400, "Bad Request")]
         [SwaggerResponse(401, "Not Authorizated")]
         [AllowAnonymous]
-        [HttpPost]
+        [HttpGet]
         public IHttpActionResult GetExamResultByExamId(int examId)
         {
             var examModels = new ExamListModel2();

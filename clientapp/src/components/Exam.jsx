@@ -75,6 +75,7 @@ export default function Exam({ match }) {
                                                                                         <label htmlFor={item.answer4}>
                                                                                             <i className="icon  " />D. {item.answer4}</label>
                                                                                     </li>
+                                                                                    
                                                                                     <li key={index}>
 
                                                                                         <label htmlFor={item.answer4} style={{color:"blue"}}>
