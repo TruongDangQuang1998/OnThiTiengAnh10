@@ -42,6 +42,7 @@ export default function UserList() {
                                     <tr>
                                         <th>No.</th>
                                         <th>UserName</th>
+                                        <th>Kết quả</th>
                                     </tr>
                                 </thead>
 

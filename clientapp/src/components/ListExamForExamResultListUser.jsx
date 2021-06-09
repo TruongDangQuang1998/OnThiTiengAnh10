@@ -36,6 +36,7 @@ export default function TableTitle() {
                                     <tr>
                                         <th>No.</th>
                                         <th>Name</th>
+                                        <th>Kết quả</th>
                                         <th>Description</th>
                                         {/* <th>Update</th>
                                         <th>Delete</th> */}
@@ -50,6 +51,7 @@ export default function TableTitle() {
                                                     <td>{index + 1}</td>
                                                     <td> <Link to={`/exam/${item.id}`} className="text-hover-primary mb-0">{item.name}</Link></td>
                                                     <td>{item.description}</td>
+                                                    <td>{item.userAnwser}</td>
                                                     {/* <td>
                                                         <button className="btn btn-secondary" onClick={() => updateExam(item.id)}
                                                          >Chỉnh sửa <i class="fas fa-edit" aria-hidden="true"></i></button>
