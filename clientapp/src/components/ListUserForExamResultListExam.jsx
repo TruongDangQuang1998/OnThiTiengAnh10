@@ -3,27 +3,21 @@ import history from '../history';
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import * as userManage from "../actions/user";
+import * as examManage from "../actions/exam";
 
-export default function UserList() {
+export default function ListUserForExamResultListExam({match}) {
+    const { id } = match.params;
 
     const dispatch = useDispatch();
 
-    const user = useSelector((state) => state.user.listUsers);
+
+    const list = useSelector((state) => state.exam.getListResultUserByExamID);
+    console.log(list)
 
     useEffect(() => {
-        dispatch(userManage.get_list_user());
-    },[]);
-
-    useEffect(() => {
-        dispatch(userManage.get_list_user());
-    }, [user]);
-
-    const onDelete=(id)=>{
-        dispatch(userManage.delete_user(id));
-    }
-    const onResetPassword=(id)=>{
-        dispatch(userManage.reset_password_user(id));
-    }
+        dispatch(examManage.getListUserByExamID(id));
+    }, [id]);
+    
 
     return (
         <div>
@@ -48,11 +42,12 @@ export default function UserList() {
 
                                 <tbody>
                                     {
-                                        user && user.map((item, index) => {
+                                        list.examList && list.examList.map((item, index) => {
                                             return (
-                                                <tr key={item.id}>
-                                                    <td>{index+1}</td>
+                                                <tr key={index}>
+                                                    <td>{item.userId}</td>
                                                     <td>{item.userName}</td>
+                                                    <td>{item.correctAnswerNo}</td>
                                                 </tr>
                                             )
                                         })

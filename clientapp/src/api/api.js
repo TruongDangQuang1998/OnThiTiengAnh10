@@ -56,6 +56,14 @@ const Exam = {
         var url = `/ExamGetById?id=${data.examId}&userId=${data.userId}`;
         return await axios.get(url).then((res) => res.data);
     },
+    getListUserExamById: async (id) => {
+        var url = `GetExamResultByExamId?examId=${id}`;
+        return await axios.get(url).then((res) => res.data);
+    },
+    getListExamByUserId: async (id) => {
+        var url = `/ExamGetAll?userId=${id}`;
+        return await axios.get(url).then((res) => res.data);
+    },
     deleteExam : async (id) => {
         return await axios.delete(`/DeleteExam?id=${id}`).then(r => { return r.data });
     },

@@ -56,3 +56,29 @@ export const updateExam = (id) => async (dispatch) => {
     }
 };
 
+export const getListUserByExamID = (id) => async (dispatch) => {
+    try {
+
+        const data = await api.Exam.getListUserExamById(id);
+        dispatch({
+            type: types.GET_LIST_USER_RESULT_BY_EXAM_ID,
+            payload: data,
+        });
+
+    } catch (error) {
+
+    }
+};
+export const getListExamByUserID = (id) => async (dispatch) => {
+    try {
+
+        const data = await api.Exam.getListExamByUserId(id);
+        dispatch({
+            type: types.GET_LIST_EXAM_RESULT_BY_USER_ID,
+            payload: data,
+        });
+
+    } catch (error) {
+
+    }
+};

@@ -51,7 +51,9 @@ export default function UserList() {
                                             return (
                                                 <tr key={item.id}>
                                                     <td>{index+1}</td>
-                                                    <td>{item.userName}</td>
+                                                    
+                                                    {/* <td>{item.userName}</td> */}
+                                                    <td> <Link to={`/exam_result_list_user/${item.id}`} className="text-hover-primary mb-0">{item.name}</Link></td>
                                                 </tr>
                                             )
                                         })

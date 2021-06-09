@@ -52,7 +52,7 @@ export default function LeftMenu() {
           ? (
 
             <li className="nav-item">
-              <Link to={`/exam_result_ist_exam`} className=" nav-link mb-0">
+              <Link to={`/exam_result_list_exam`} className=" nav-link mb-0">
                 <i className="fas fa-fw fa-chart-area" />
                 <span>Kết quả theo Đề</span>
               </Link>
@@ -65,7 +65,7 @@ export default function LeftMenu() {
           ? (
 
             <li className="nav-item">
-              <Link to={`/exam_result_ist_user`} className=" nav-link mb-0">
+              <Link to={`/exam_result_list_user`} className=" nav-link mb-0">
                 <i className="fas fa-fw fa-chart-area" />
                 <span>Kết quả theo Uesr</span>
               </Link>

@@ -16,7 +16,11 @@ import UserList from './components/UserList'
 import * as userManage from "./actions/user";
 import ChangePassword from './components/ChangePassword'
 import userCreate from './components/UserCreate'
-
+import ExamResultListExam from './components/ExamResultListExam'
+import ListUserForExamResultListExam from './components/ListUserForExamResultListExam'
+import ExamResultListUser from './components/ExamResultListUser'
+import ChuaBietDatTenGi from './components/ChuaBietDatTenGi'
+import ShowAnswer from './components/ShowAnswer'
 
 function App() {
     const dispatch = useDispatch();
@@ -47,9 +51,13 @@ function App() {
                         <Route component={({ match }) =>
                             <div>
                                 <Route exact path='/' component={titlelist} />
-                                <Route exact path='exam_result_list_exam' component={titlelist} />
+                                <Route exact path='/exam_result_list_user/:id' render={({ match }) => <ChuaBietDatTenGi match={match} />} />
+                                <Route exact path='/exam_result_list_exam/:id' render={({ match }) => <ListUserForExamResultListExam match={match} />} />
+                                <Route exact path='/exam_result_list_exam' component={ExamResultListExam} />
+                                <Route exact path='/exam_result_list_user' component={ExamResultListUser} />
                                 <Route exact path='/user_list' component={UserList} />
                                 <Route exact path="/exam/:id" render={({ match }) => <Exam match={match} />} />   
+                                <Route exact path="/show_answer/:id" render={({ match }) => <ShowAnswer match={match} />} />
                                 <Route exact path="/examUpdate/:id" render={({ match }) => <Exam match={match} />} />                         
                                 {/* <Route exact path='/userCreate' component={UserCreate} /> */}
                             </div>
