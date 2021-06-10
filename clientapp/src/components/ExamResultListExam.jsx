@@ -42,7 +42,7 @@ export default function ExamResultListExam() {
                                             return (
                                                 <tr key={item.id}>
                                                     <td>{index + 1}</td>
-                                                    <td> <Link to={`/exam_result_list_exam/${item.id}`} className="text-hover-primary mb-0">{item.name}</Link></td>
+                                                    <td> <Link to={`/exam_result_list_exam/${item.id}`+"/"+`${item.name}`} className="text-hover-primary mb-0">{item.name}</Link></td>
                                                     <td>{item.description}</td>
                                                     {/* <td>
                                                         <button className="btn btn-secondary" onClick={() => updateExam(item.id)}

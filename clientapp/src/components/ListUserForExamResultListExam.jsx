@@ -6,7 +6,7 @@ import * as userManage from "../actions/user";
 import * as examManage from "../actions/exam";
 
 export default function ListUserForExamResultListExam({match}) {
-    const { id } = match.params;
+    const { id, examName } = match.params;
 
     const dispatch = useDispatch();
 
@@ -23,7 +23,7 @@ export default function ListUserForExamResultListExam({match}) {
         <div>
             <div className="container-fluid">
                 {/* Page Heading */}
-                <h1 className="h3 mb-2 text-gray-800">Danh sách User</h1>
+                <h1 className="h3 mb-2 text-gray-800">Danh sách User-{examName}</h1>
 
                 <div className="card shadow mb-4">
                     <div className="card-header py-3">
@@ -47,7 +47,7 @@ export default function ListUserForExamResultListExam({match}) {
                                                 <tr key={index}>
                                                     <td>{index+1}</td>
                                                     {/* <td>{item.userName}</td> */}
-                                                    <td> <Link to={`/show_answer/${item.id}`} className="text-hover-primary mb-0">{item.name}</Link></td>
+                                                    <td> <Link to={`/show_answer/${id}/${item.id}/${item.userName}`} className="text-hover-primary mb-0">{item.userName}</Link></td>
                                                     <td>{item.correctAnswerNo}</td>
                                                 </tr>
                                             )

@@ -6,7 +6,7 @@ import Delayed from './Deplayed';
 
 export default function ShowAnswer({ match }) {
 
-    const { id } = match.params;
+    const { id,userId,userName } = match.params;
 
     const dispatch = useDispatch();
 
@@ -15,7 +15,7 @@ export default function ShowAnswer({ match }) {
     const exam = useSelector((state) => state.exam.examSelected);
 
     useEffect(() => {
-        dispatch(examManage.getExamById({ "examId": id, "userId": currentUser.id }));
+        dispatch(examManage.getExamById({ "examId": id, "userId": userId }));
     }, [id]);
 
     console.log(exam);
@@ -29,7 +29,7 @@ export default function ShowAnswer({ match }) {
 
                             {exam && <div className="question-content-wrap">
                                 <p className="text-justify-center" style={{ textAlign: "center" }}>
-                                    <b>{exam.name + "-" + exam.description}</b>
+                                    <b>{userName + "-"+exam.name + "-" + exam.description}</b>
 
                                 </p>
                                 <div className="row">

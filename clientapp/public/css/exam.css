@@ -7540,9 +7540,9 @@ footer#footer.footer-style-2 {
     transition: all .3s ease 0s
 }
 
-.question-content-wrap .question-content .answer .answer-list li input {
+/* .question-content-wrap .question-content .answer .answer-list li input {
     display: none
-}
+} */
 
 .question-content-wrap .question-content .answer .answer-list li input:checked~label .icon_radio {
     background-color: #05aab1;

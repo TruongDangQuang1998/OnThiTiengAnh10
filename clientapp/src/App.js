@@ -20,8 +20,9 @@ import userCreate from './components/UserCreate'
 import ExamResultListExam from './components/ExamResultListExam'
 import ListUserForExamResultListExam from './components/ListUserForExamResultListExam'
 import ExamResultListUser from './components/ExamResultListUser'
-import ChuaBietDatTenGi from './components/ChuaBietDatTenGi'
+import ListExamForExamResultListUser from './components/ListExamForExamResultListUser'
 import ShowAnswer from './components/ShowAnswer'
+
 
 function App() {
     const dispatch = useDispatch();
@@ -52,13 +53,13 @@ function App() {
                         <Route component={({ match }) =>
                             <div>
                                 <Route exact path='/' component={titlelist} />
-                                <Route exact path='/exam_result_list_user/:id' render={({ match }) => <ChuaBietDatTenGi match={match} />} />
-                                <Route exact path='/exam_result_list_exam/:id' render={({ match }) => <ListUserForExamResultListExam match={match} />} />
+                                <Route exact path='/exam_result_list_user/:id/:userName' render={({ match }) => <ListExamForExamResultListUser match={match} />} />
+                                <Route exact path='/exam_result_list_exam/:id/:examName' render={({ match }) => <ListUserForExamResultListExam match={match} />} />
                                 <Route exact path='/exam_result_list_exam' component={ExamResultListExam} />
                                 <Route exact path='/exam_result_list_user' component={ExamResultListUser} />
                                 <Route exact path='/user_list' component={UserList} />
                                 <Route exact path="/exam/:id" render={({ match }) => <Exam match={match} />} />   
-                                <Route exact path="/show_answer/:id" render={({ match }) => <ShowAnswer match={match} />} />
+                                <Route exact path="/show_answer/:id/:userId/:userName" render={({ match }) => <ShowAnswer match={match} />} />
                                 <Route exact path="/examUpdate/:id" render={({ match }) => <ExamUpdate match={match} />} />                         
                                 <Route exact path="/examInsert/:id" render={({ match }) => <ExamInsert match={match} />} />                         
                                 {/* <Route exact path='/userCreate' component={UserCreate} /> */}

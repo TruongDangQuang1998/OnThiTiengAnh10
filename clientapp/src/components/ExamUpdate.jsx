@@ -18,6 +18,7 @@ export default function ExamUpdate({ match }) {
         dispatch(examManage.getExamById({ "examId": id, "userId": currentUser.id }));
     }, [id]);
 
+    console.log(exam);
     return (
         <Delayed waitBeforeShow={4000}>
             <div id="page-top">
@@ -52,12 +53,14 @@ export default function ExamUpdate({ match }) {
 
                                                                             <Fragment key={index}>
                                                                                 <p><b> Question {item.questiongNo}.{item.questionContent}</b></p>
-
+                                                                                {/* <input type="text" value={item.answer1} name={item.answer1} /> */}
                                                                                 <ul className="answer-list">
                                                                                     <li key={index}>
 
-                                                                                        <label htmlFor={item.answer1}>
-                                                                                            <i className="icon  " />A. {item.answer1}</label>
+                                                                                        {/* <label htmlFor={item.answer1}>
+                                                                                            <i className="icon  " />A. {item.answer1}</label> */}
+
+                                                                                        A.<input type="text" value={item.answer1} name={item.answer1} />
                                                                                     </li>
                                                                                     <li key={index}>
 
@@ -72,7 +75,7 @@ export default function ExamUpdate({ match }) {
                                                                                     <li key={index}>
 
                                                                                         <label htmlFor={item.answer4}>
-                                                                                            <i className="icon  " />D. {item.answer4}</label>
+                                                                                           D. {item.answer4}</label>
                                                                                     </li>
                                                                                     <li key={index}>
 
