@@ -69,6 +69,9 @@ const Exam = {
     },
     updateExam : async (id) => {
         return await axios.delete(`/UpdateExam?id=${id}`).then(r => { return r.data });
+    },
+    insertExam : async (id) => {
+        return await axios.delete(`/InsertExam?id=${id}`).then(r => { return r.data });
     }
 }
 export default { User, Exam };

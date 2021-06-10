@@ -12,9 +12,10 @@ export default function TableTitle() {
         dispatch(examManage.delete_exam(id));
     }
     const updateExam=(id)=>{
-        //chuyển page
         history.push(`/examUpdate/${id}`)
-        // dispatch(examManage.delete_exam(id));
+    }
+    const insertExam=()=>{
+        history.push(`/examInsert/${1}`)
     }
     useEffect(() => {
         dispatch(examManage.getAllTitlExam());
@@ -66,8 +67,7 @@ export default function TableTitle() {
                                         
                                     }
                                 </tbody>
-                                <button className="btn btn-secondary" 
-                                // onClick={() => onResetPassword(item.id)} 
+                                <button className="btn btn-secondary" onClick={() => insertExam()} 
                                 >Tạo Đề <i class="fas fa-folder-plus" aria-hidden="true"></i></button>
                             </table>
                         </div>

@@ -12,6 +12,7 @@ import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import Exam from './components/Exam'
 import ExamUpdate from './components/ExamUpdate'
+import ExamInsert from './components/ExamInsert'
 import UserList from './components/UserList'
 import * as userManage from "./actions/user";
 import ChangePassword from './components/ChangePassword'
@@ -58,7 +59,8 @@ function App() {
                                 <Route exact path='/user_list' component={UserList} />
                                 <Route exact path="/exam/:id" render={({ match }) => <Exam match={match} />} />   
                                 <Route exact path="/show_answer/:id" render={({ match }) => <ShowAnswer match={match} />} />
-                                <Route exact path="/examUpdate/:id" render={({ match }) => <Exam match={match} />} />                         
+                                <Route exact path="/examUpdate/:id" render={({ match }) => <ExamUpdate match={match} />} />                         
+                                <Route exact path="/examInsert/:id" render={({ match }) => <ExamInsert match={match} />} />                         
                                 {/* <Route exact path='/userCreate' component={UserCreate} /> */}
                             </div>
                         } />

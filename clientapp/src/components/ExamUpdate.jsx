@@ -27,9 +27,10 @@ export default function ExamUpdate({ match }) {
                         <div className="container">
 
                             {exam && <div className="question-content-wrap">
+                            <p className="text-justify-center" style={{ textAlign: "center" ,fontSize:20}}>
+                                <b>CHỈNH SỬA ĐỀ THI</b></p>
                                 <p className="text-justify-center" style={{ textAlign: "center" }}>
                                     <b>{exam.name + "-" + exam.description}</b>
-
                                 </p>
                                 <div className="row">
                                     <div className="col-md-10 col-md-push-1">
