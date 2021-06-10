@@ -24,6 +24,7 @@ export default function UserList() {
     const onResetPassword=(id)=>{
         dispatch(userManage.reset_password_user(id));
     }
+    // const 
 
     return (
         <div>

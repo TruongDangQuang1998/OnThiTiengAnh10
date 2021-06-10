@@ -6,18 +6,59 @@ import Delayed from './Deplayed';
 
 export default function ExamUpdate({ match }) {
 
+    
     const { id } = match.params;
-
+    
     const dispatch = useDispatch();
-
+    
     const { currentUser } = useSelector((state) => state.user);
-
+    
     const exam = useSelector((state) => state.exam.examSelected);
-
+    
     useEffect(() => {
         dispatch(examManage.getExamById({ "examId": id, "userId": currentUser.id }));
     }, [id]);
-
+    
+    function handleOnChange(asdf) {
+        console.log(asdf, asdf.dataset, asdf.dataset.answerKey);
+        exam.typeQuestionModels[asdf.dataset.questionIndex].multipleChoiceQuestionModels[asdf.dataset.answerIndex][asdf.dataset.answerKey] = asdf.value;
+        console.log("before ", exam.typeQuestionModels);
+        console.log("exam", exam);
+    }
+    function handleOnChange1(asdf) {
+        console.log(asdf );
+        exam.typeQuestionModels[asdf.dataset.contenttypequestionIndex].contentTypeQuestion = asdf.value;
+        console.log("exam", exam);
+    }
+    function handleOnChange2(asdf) {
+        console.log(asdf );
+        exam.typeQuestionModels[asdf.dataset.tilltetypequestionIndex].tillteTypeQuestion = asdf.value;
+        console.log("exam", exam);
+    }
+    function handleOnChange3(asdf) {
+        console.log(asdf );
+        exam.typeQuestionModels[asdf.dataset.questionIndex].essayQuestionModels[asdf.dataset.answerIndex][asdf.dataset.questionKey] = asdf.value;
+        
+        console.log("exam", exam);
+    }
+    function handleOnChange4(asdf) {
+        console.log(asdf );
+        exam.typeQuestionModels[asdf.dataset.questionIndex].essayQuestionModels[asdf.dataset.answerIndex][asdf.dataset.suggestionsKey] = asdf.value;
+        
+        console.log("exam", exam);
+    }
+    function handleOnChange5(asdf) {
+        console.log(asdf );
+        exam.typeQuestionModels[asdf.dataset.questionIndex].essayQuestionModels[asdf.dataset.answerIndex][asdf.dataset.answerKey] = asdf.value;
+        
+        console.log("exam", exam);
+    }
+    function handleOnChange6(asdf) {
+        console.log(asdf );
+        exam.typeQuestionModels[asdf.dataset.questionIndex].multipleChoiceQuestionModels[asdf.dataset.answerIndex][asdf.dataset.questionKey] = asdf.value;
+        
+        console.log("exam", exam);
+    }
     console.log(exam);
     return (
         <Delayed waitBeforeShow={4000}>
@@ -38,49 +79,62 @@ export default function ExamUpdate({ match }) {
                                         <div className="question-content">
                                             <form method="post" action="https://toeic24.vn/exam/submit?part=5">
                                                 <input type="hidden" name="_token" defaultValue="4KESDZBYDWF5synt38QJChO1vY3I6uaJoAeA6rZC" />
-                                                {exam.typeQuestionModels && exam.typeQuestionModels.map((item1, index) => {
+                                                {exam.typeQuestionModels && exam.typeQuestionModels.map((item1, index2) => {
                                                     return (
-                                                        <Fragment key={index}>
+                                                        <Fragment key={index2}>
                                                             <p className="text-justify">
-                                                                <b>{index + 1}/{item1.tillteTypeQuestion}</b>
+                                                                {index2 + 1}
+                                                               <textarea onChange={(e) => handleOnChange2(e.target)}  data-tillteTypeQuestion-index={index2}   >{item1.tillteTypeQuestion}</textarea> 
+                                                               {/* {item1.tillteTypeQuestion} */}
                                                             </p>
 
                                                             {(item1.essayQuestionModels.length === 0) ? (
                                                                 <div className="answer">
-                                                                    <p>{(item1.contentTypeQuestion !== null) ? item1.contentTypeQuestion : ""}</p>
+
+                        <textarea onChange={(e) => handleOnChange1(e.target)} data-contentTypeQuestion-index={index2}>{(item1.contentTypeQuestion !== null) ? item1.contentTypeQuestion : " "}
+                            </textarea> 
                                                                     {item1.multipleChoiceQuestionModels.map((item, index) => {
                                                                         return (
+                                                                            <Fragment key={index + index2 + 1}>
+                                                                                <p><b> Question
+                                                                                     {item.questiongNo}.
 
-                                                                            <Fragment key={index}>
-                                                                                <p><b> Question {item.questiongNo}.{item.questionContent}</b></p>
+                                                                                     <textarea type="text" style={{height:'30px'}} onChange={(e) => handleOnChange6(e.target)} data-question-index={index2} data-answer-index={index} data-question-key="questionContent" defaultValue={item.questionContent} name={item.questionContent} />
+                                                                                     {/* {item.questionContent} */}
+                                                                                     </b>
+                                                                                     </p>
                                                                                 {/* <input type="text" value={item.answer1} name={item.answer1} /> */}
                                                                                 <ul className="answer-list">
-                                                                                    <li key={index}>
+                                                                                    <li>
 
                                                                                         {/* <label htmlFor={item.answer1}>
                                                                                             <i className="icon  " />A. {item.answer1}</label> */}
 
-                                                                                        A.<input type="text" value={item.answer1} name={item.answer1} />
+                                                                                        A. <textarea style={{height:'30px'}} type="text" onChange={(e) => handleOnChange(e.target)} data-question-index={index2} data-answer-index={index} data-answer-key="answer1" defaultValue={item.answer1} name={item.answer1} />
                                                                                     </li>
-                                                                                    <li key={index}>
+                                                                                    <li>
+                                                                                        B. <textarea style={{height:'30px'}} type="text" onChange={(e) => handleOnChange(e.target)} data-question-index={index2} data-answer-index={index} data-answer-key="answer2" defaultValue={item.answer2} name={item.answer2} />
+                                                                                    </li>
+                                                                                    <li>
+                                                                                        C. <textarea style={{height:'30px'}} type="text" onChange={(e) => handleOnChange(e.target)} data-question-index={index2} data-answer-index={index} data-answer-key="answer3" defaultValue={item.answer3} name={item.answer3} />
+                                                                                    </li>
+                                                                                    <li>
+                                                                                        D. <textarea style={{height:'30px'}} type="text" onChange={(e) => handleOnChange(e.target)} data-question-index={index2} data-answer-index={index} data-answer-key="answer4" defaultValue={item.answer4} name={item.answer4} />
+                                                                                    </li>
+                                                                                    {/* <li>
 
-                                                                                        <label htmlFor={item.answer2}>
-                                                                                            <i className="icon  " />B. {item.answer2}</label>
-                                                                                    </li>
-                                                                                    <li key={index}>
-
-                                                                                        <label htmlFor={item.answer3}>
-                                                                                            <i className="icon  " />C. {item.answer3}</label>
-                                                                                    </li>
-                                                                                    <li key={index}>
-
-                                                                                        <label htmlFor={item.answer4}>
-                                                                                           D. {item.answer4}</label>
-                                                                                    </li>
-                                                                                    <li key={index}>
+                                                                                        <label htmlFor={item.userAnswer} style={{color:"blue"}}>
+                                                                                            <i className="icon  " />
+                                                                                            User Answer: <input type="text" onChange={(e) => handleOnChange(e.target)} data-question-index={index2} data-answer-index={index} data-answer-key="userAnswer" defaultValue={item.userAnswer} name={item.userAnswer} />
+                                                                                            </label>
+                                                                                    </li> */}
+                                                                                    <li>
 
                                                                                         <label htmlFor={item.answer4} style={{color:"blue"}}>
-                                                                                            <i className="icon  " />Answer: {item.answer}</label>
+                                                                                            <i className="icon  " />Answer: 
+                                                                                            {/* {item.answer} */}
+                                                                                            <input type="text" onChange={(e) => handleOnChange(e.target)} data-question-index={index2} data-answer-index={index} data-answer-key="answer" defaultValue={item.answer} name={item.answer} />
+                                                                                            </label>
                                                                                     </li>
 
 
@@ -95,16 +149,22 @@ export default function ExamUpdate({ match }) {
 
                                                             ) : (
                                                                 <div className="answer">
-                                                                    <p>{(item1.contentTypeQuestion !== null) ? item1.contentTypeQuestion : ""}</p>
+                                                                    {/* <input type="text" onChange={(e) => handleOnChange(e.target)} data-question-index={index2} data-answer-index={index} data-answer-key="answer3" defaultValue={item.answer3} name={item.answer3} /> */}
+                                                                    <p>{(item1.contentTypeQuestion !== null) ? item1.contentTypeQuestion : " "}</p>
                                                                     {item1.essayQuestionModels.map((item, index) => {
                                                                         return (
                                                                             <Fragment key={index}>
-                                                                                <p><b> Question {item.questiongNo}.{item.questionContent}</b></p>
-                                                                                <p>{item.suggestions}</p>
-                                                                                {/* <label htmlFor={item.answer4} style={{color:"blue"}}>
-                                                                                            <i className="icon  " />=>Answer: {item.answer}</label> */}
-                                                                                <p style={{color:"blue"}}>Answer: "{item.answer}"</p>
-                                                                                {/* <input type="text" /> */}
+                                                                                <p><b> Question {item.questiongNo}.
+                                                                                <input type="text" onChange={(e) => handleOnChange3(e.target)} data-question-index={index2} data-answer-index={index} data-question-key="questionContent" defaultValue={item.questionContent} name={item.questionContent} />
+                                                                                    </b></p>
+                                                                                <p><input type="text" onChange={(e) => handleOnChange4(e.target)} data-question-index={index2} data-answer-index={index} data-suggestions-key="suggestions" defaultValue={item.suggestions} name={item.suggestions} />
+                                                                                    </p>
+                                                                                    
+                                                                                    {/* // {item.suggestions} */}
+                                                                                <p style={{color:"blue"}}>Answer: 
+                                                                                <input type="text" onChange={(e) => handleOnChange5(e.target)} data-question-index={index2} data-answer-index={index} data-answer-key="answer" defaultValue={item.answer} name={item.answer} />
+                                                                                {/* "{item.answer}" */}
+                                                                                </p>
                                                                             </Fragment>
                                                                         )
                                                                     })
@@ -117,7 +177,7 @@ export default function ExamUpdate({ match }) {
 
                                                 })}
 
-                                                <button type="submit" style={{ bgColor: "blue" }} class="mc-btn btn-style-6">Next</button>
+                                                <button type="submit" style={{ bgColor: "blue" }} class="mc-btn btn-style-6">Save</button>
                                             </form>
                                         </div>
                                     </div>
