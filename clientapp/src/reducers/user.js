@@ -49,7 +49,7 @@ export default (state = initialState, { type, payload }) => {
                 return {
                     ...state,
                     isRegisterSuccess: true,
-                    messeageRegister: "Đăng kí thành công! Vui lòng đăng nhập lại ",
+                    messeageRegister: "Đăng kí thành công!",
                 }
             }
         }

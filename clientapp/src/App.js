@@ -22,6 +22,7 @@ import ListUserForExamResultListExam from './components/ListUserForExamResultLis
 import ExamResultListUser from './components/ExamResultListUser'
 import ListExamForExamResultListUser from './components/ListExamForExamResultListUser'
 import ShowAnswer from './components/ShowAnswer'
+import UserCreate  from './components/UserCreate';
 
 
 function App() {
@@ -63,7 +64,6 @@ function App() {
                                 <Route exact path="/show_answer/:id/:userId/:userName" render={({ match }) => <ShowAnswer match={match} />} />
                                 <Route exact path="/examUpdate/:id" render={({ match }) => <ExamUpdate match={match} />} />                         
                                 <Route exact path="/examInsert/:id" render={({ match }) => <ExamInsert match={match} />} />                         
-                                {/* <Route exact path='/userCreate' component={UserCreate} /> */}
                             </div>
                         } />
                     </Mainpage>

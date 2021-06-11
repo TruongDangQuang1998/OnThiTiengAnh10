@@ -1,7 +1,7 @@
 import axios from "axios";
 
-// axios.defaults.baseURL = "https://quangiuh.azurewebsites.net";
-axios.defaults.baseURL = "https://localhost:44329";
+axios.defaults.baseURL = "https://quangiuh.azurewebsites.net";
+// axios.defaults.baseURL = "https://localhost:44329";
 
 const config = {
     headers: {
@@ -11,8 +11,10 @@ const config = {
 };
 const User = {
     register: async (data) => {
-        var url = `/SignUp?username=${data.userName}&name=${data.name}&password=${data.password}&confirmPassword=${data.confirmPassword}&userRoleId=2`;
-        return await axios.post(url).then((res)=>res.data);
+        // var url = `/SignUp?username=${data.userName}&name=${data.name}&password=${data.password}&confirmPassword=${data.confirmPassword}&userRoleId=2`;
+        // return await axios.post(url).then((res)=>res.data);
+        
+        return await axios.post(`/SignUp`,data,config).then(r => { return r.data });
     },
 
     login: async (data) => {
@@ -39,14 +41,20 @@ const User = {
 
     changePassword : async (data) => {
         return await axios.post(`ChangePassword?userId=${data.userId}&newPassword=${data.newPw}`).then(r => { return r.data });
-    }
-}
-const UserCreate = {
+    },
     userCreate: async (data) => {
-        var url = `/SignUp?username=${data.userName}&name=${data.name}&password=${data.password}&confirmPassword=${data.confirmPassword}&userRoleId=2`;
-        return await axios.post(url).then((res)=>res.data);
+        // console.log(data);
+        // var url = `/SignUp?username=${data.userName}&name=${data.name}&password=${data.password}&confirmPassword=${data.confirmPassword}&userRoleId=${data.userRoleId}`;
+        // return await axios.post(url).then((res)=>res.data);
+        return await axios.post(`/SignUp`,data,config).then(r => { return r.data });
     }
 }
+// const UserCreate = {
+//     userCreate: async (data) => {
+//         var url = `/SignUp?username=${data.userName}&name=${data.name}&password=${data.password}&confirmPassword=${data.confirmPassword}&userRoleId=2`;
+//         return await axios.post(url).then((res)=>res.data);
+//     }
+// }
 const Exam = {
     getAlltitle: async () => {
         var url = `/ExamGetAllTittle`;
@@ -71,8 +79,8 @@ const Exam = {
     updateExam : async (value) => {
         return await axios.put(`/UpdateExam`,value,config).then(r => { return r.data });
     },
-    insertExam : async (id) => {
-        return await axios.post(`/InsertExam`,value,config).then(r => { return r.data });
+    insertExam : async (value) => {
+        return await axios.post(`/Insert`,value,config).then(r => { return r.data });
     }
 }
-export default { User, Exam };
+export default { User, Exam,  };

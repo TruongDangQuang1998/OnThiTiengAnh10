@@ -8,13 +8,14 @@ export default function TableTitle() {
     const dispatch = useDispatch();
 
     const getListTiltleExam = useSelector((state) => state.exam.listTitleExam);
-    const onDelete=(id)=>{
+    const { currentUser } = useSelector((state) => state.user);
+    const onDelete = (id) => {
         dispatch(examManage.delete_exam(id));
     }
-    const updateExam=(id)=>{
+    const updateExam = (id) => {
         history.push(`/examUpdate/${id}`)
     }
-    const insertExam=()=>{
+    const insertExam = () => {
         history.push(`/examInsert/${1}`)
     }
     useEffect(() => {
@@ -28,7 +29,7 @@ export default function TableTitle() {
 
                 <div className="card shadow mb-4">
                     <div className="card-header py-3">
-                        
+
                     </div>
                     <div className="card-body">
                         <div className="table-responsive">
@@ -38,8 +39,18 @@ export default function TableTitle() {
                                         <th>No.</th>
                                         <th>Name</th>
                                         <th>Description</th>
-                                        <th>Update</th>
-                                        <th>Delete</th>
+                                        {currentUser && currentUser.userRoleId === 1
+                                            ? 
+                                            (
+                                                <Fragment>
+                                                    <th>Update</th>
+                                                    <th>Delete</th>
+                                                </Fragment>
+
+                                            ) 
+                                            : 
+                                            ""
+                                        }
                                     </tr>
                                 </thead>
 
@@ -51,23 +62,35 @@ export default function TableTitle() {
                                                     <td>{index + 1}</td>
                                                     <td> <Link to={`/exam/${item.id}`} className="text-hover-primary mb-0">{item.name}</Link></td>
                                                     <td>{item.description}</td>
-                                                    <td>
+                                                    {currentUser && currentUser.userRoleId === 1
+                                            ? 
+                                            (
+                                                <Fragment>
+                                                   <td>
                                                         <button className="btn btn-secondary" onClick={() => updateExam(item.id)}
-                                                         >Chỉnh sửa <i class="fas fa-edit" aria-hidden="true"></i></button>
+                                                        >Chỉnh sửa <i class="fas fa-edit" aria-hidden="true"></i></button>
 
                                                         {/* <Link to={`/examUpdate/${item.id}`} className="text-hover-primary mb-0">Update</Link> */}
                                                     </td>
                                                     <td>
-                                                    <button className="btn btn-danger" onClick={() => onDelete(item.id)} >Xóa <i class="fas fa-user-times" aria-hidden="true"></i></button>
+                                                        <button className="btn btn-danger" onClick={() => onDelete(item.id)} >Xóa <i class="fas fa-user-times" aria-hidden="true"></i></button>
                                                     </td>
+                                                </Fragment>
+
+                                            ) 
+                                            : 
+                                            ""
+                                        }
+                                                    
+                                                    
                                                 </tr>
-                                                
+
                                             )
                                         })
-                                        
+
                                     }
                                 </tbody>
-                                <button className="btn btn-secondary" onClick={() => insertExam()} 
+                                <button className="btn btn-secondary" onClick={() => insertExam()}
                                 >Tạo Đề <i class="fas fa-folder-plus" aria-hidden="true"></i></button>
                             </table>
                         </div>

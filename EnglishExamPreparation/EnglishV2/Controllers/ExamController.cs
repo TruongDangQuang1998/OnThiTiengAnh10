@@ -259,6 +259,7 @@ namespace EnglishV2.Controllers
         [SwaggerResponse(401, "Not Authorizated")]
         [AllowAnonymous]
         [HttpPost]
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
         public IHttpActionResult Insert(ExamModel entity)
         {
             var res = new ApiJsonResult();

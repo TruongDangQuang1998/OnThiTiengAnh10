@@ -132,3 +132,18 @@ export const changePassword = (value) => async (dispatch) => {
 };
 
 
+
+export const createUser = (value) => async (dispatch) => {
+    try {
+      
+         const data = await api.User.userCreate(value);
+        dispatch({
+            type: types.REGISTER,
+            payload: "",
+        });
+       
+    } catch (error) {
+       
+    }
+};
+

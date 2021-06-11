@@ -31,6 +31,7 @@ export default function Register() {
 
     const onCreate = (e) => {
         e.preventDefault();
+        createUser.userRoleId = 2;
         dispatch(userManage.register(createUser));
         dispatch(userManage.update_status_register());
     };

@@ -21,8 +21,9 @@ export default function UserList() {
     const onDelete=(id)=>{
         dispatch(userManage.delete_user(id));
     }
-    const onResetPassword=(id)=>{
-        dispatch(userManage.reset_password_user(id));
+    const onCreateUser=()=>{
+        // dispatch(userManage.createUser());
+        history.push("/userCreate")
     }
     // const 
 
@@ -58,7 +59,8 @@ export default function UserList() {
                                                     <td>{item.userName}</td>
                                                     <td>{item.name}</td>
                                                     <td>
-                                                        <button className="btn btn-secondary" onClick={() => onResetPassword(item.id)} >Reset Password<i class="fas fa-user-edit" aria-hidden="true"></i></button>
+                                                        {/*  QUang xem lại hàm reset này nha. nó k tồn tại */}
+                                                        {/* <button className="btn btn-secondary" onClick={() => onResetPassword(item.id)} >Reset Password<i class="fas fa-user-edit" aria-hidden="true"></i></button> */}
                                                     </td>
                                                     <td>
                                                         <button className="btn btn-danger" onClick={() => onDelete(item.id)} >Xóa <i class="fas fa-user-times" aria-hidden="true"></i></button>
@@ -72,7 +74,7 @@ export default function UserList() {
                                 
                             </table>
                             <button className="btn btn-secondary" 
-                                // onClick={() => onResetPassword(item.id)} 
+                                onClick={() => onCreateUser()} 
                                 >Tạo Tài Khoản <i class="fas fa-user-plus" aria-hidden="true"></i></button>
                         </div>
                     </div>
