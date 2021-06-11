@@ -59,6 +59,13 @@ export default function ExamUpdate({ match }) {
         
         console.log("exam", exam);
     }
+    function handleOnSubmit(e) {
+        // e.prevent
+     
+        e.preventDefault();
+        // console.log(exam);
+        examManage.updateExam(exam);
+    }
     console.log(exam);
     return (
         <Delayed waitBeforeShow={4000}>
@@ -77,27 +84,27 @@ export default function ExamUpdate({ match }) {
                                 <div className="row">
                                     <div className="col-md-10 col-md-push-1">
                                         <div className="question-content">
-                                            <form method="post" action="https://toeic24.vn/exam/submit?part=5">
+                                            <form onSubmit={(e) => handleOnSubmit(e)}>
                                                 <input type="hidden" name="_token" defaultValue="4KESDZBYDWF5synt38QJChO1vY3I6uaJoAeA6rZC" />
                                                 {exam.typeQuestionModels && exam.typeQuestionModels.map((item1, index2) => {
                                                     return (
                                                         <Fragment key={index2}>
-                                                            <p className="text-justify">
-                                                                {index2 + 1}
-                                                               <textarea onChange={(e) => handleOnChange2(e.target)}  data-tillteTypeQuestion-index={index2}   >{item1.tillteTypeQuestion}</textarea> 
+                                                            {/* <p className="text-justify" value> */}
+                                                                Phần {index2 + 1}:Mô tả
+                                                               <textarea onChange={(e) => handleOnChange2(e.target)}  data-tillteTypeQuestion-index={index2} defaultValue={item1.tillteTypeQuestion} /> 
                                                                {/* {item1.tillteTypeQuestion} */}
-                                                            </p>
+                                                            {/* </p> */}
 
                                                             {(item1.essayQuestionModels.length === 0) ? (
-                                                                <div className="answer">
+                                                                <div className="answer"> Đoạn văn
 
                         <textarea onChange={(e) => handleOnChange1(e.target)} data-contentTypeQuestion-index={index2}>{(item1.contentTypeQuestion !== null) ? item1.contentTypeQuestion : " "}
                             </textarea> 
                                                                     {item1.multipleChoiceQuestionModels.map((item, index) => {
                                                                         return (
                                                                             <Fragment key={index + index2 + 1}>
-                                                                                <p><b> Question
-                                                                                     {item.questiongNo}.
+                                                                                <p><b> Câu:
+                                                                                     {item.questiongNo} Câu hỏi
 
                                                                                      <textarea type="text" style={{height:'30px'}} onChange={(e) => handleOnChange6(e.target)} data-question-index={index2} data-answer-index={index} data-question-key="questionContent" defaultValue={item.questionContent} name={item.questionContent} />
                                                                                      {/* {item.questionContent} */}
@@ -131,7 +138,7 @@ export default function ExamUpdate({ match }) {
                                                                                     <li>
 
                                                                                         <label htmlFor={item.answer4} style={{color:"blue"}}>
-                                                                                            <i className="icon  " />Answer: 
+                                                                                            <i className="icon  " />Đáp án: 
                                                                                             {/* {item.answer} */}
                                                                                             <input type="text" onChange={(e) => handleOnChange(e.target)} data-question-index={index2} data-answer-index={index} data-answer-key="answer" defaultValue={item.answer} name={item.answer} />
                                                                                             </label>
@@ -154,14 +161,14 @@ export default function ExamUpdate({ match }) {
                                                                     {item1.essayQuestionModels.map((item, index) => {
                                                                         return (
                                                                             <Fragment key={index}>
-                                                                                <p><b> Question {item.questiongNo}.
+                                                                                <p><b> Câu {item.questiongNo}:
                                                                                 <input type="text" onChange={(e) => handleOnChange3(e.target)} data-question-index={index2} data-answer-index={index} data-question-key="questionContent" defaultValue={item.questionContent} name={item.questionContent} />
                                                                                     </b></p>
-                                                                                <p><input type="text" onChange={(e) => handleOnChange4(e.target)} data-question-index={index2} data-answer-index={index} data-suggestions-key="suggestions" defaultValue={item.suggestions} name={item.suggestions} />
+                                                                                <p>Gợi ý:<input type="text" onChange={(e) => handleOnChange4(e.target)} data-question-index={index2} data-answer-index={index} data-suggestions-key="suggestions" defaultValue={item.suggestions} name={item.suggestions} />
                                                                                     </p>
                                                                                     
                                                                                     {/* // {item.suggestions} */}
-                                                                                <p style={{color:"blue"}}>Answer: 
+                                                                                <p style={{color:"blue"}}>Đáp án: 
                                                                                 <input type="text" onChange={(e) => handleOnChange5(e.target)} data-question-index={index2} data-answer-index={index} data-answer-key="answer" defaultValue={item.answer} name={item.answer} />
                                                                                 {/* "{item.answer}" */}
                                                                                 </p>

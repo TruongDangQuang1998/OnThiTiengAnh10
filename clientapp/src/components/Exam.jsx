@@ -116,7 +116,7 @@ export default function Exam({ match }) {
 
                                                 })}
 
-                                                <button type="submit" style={{ bgColor: "blue" }} class="mc-btn btn-style-6">Next</button>
+                                                {/* <button type="submit" style={{ bgColor: "blue" }} class="mc-btn btn-style-6">Next</button> */}
                                             </form>
                                         </div>
                                     </div>

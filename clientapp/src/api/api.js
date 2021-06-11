@@ -1,6 +1,7 @@
 import axios from "axios";
 
-axios.defaults.baseURL = "https://quangiuh.azurewebsites.net";
+// axios.defaults.baseURL = "https://quangiuh.azurewebsites.net";
+axios.defaults.baseURL = "https://localhost:44329";
 
 const config = {
     headers: {
@@ -67,11 +68,11 @@ const Exam = {
     deleteExam : async (id) => {
         return await axios.delete(`/DeleteExam?id=${id}`).then(r => { return r.data });
     },
-    updateExam : async (id) => {
-        return await axios.delete(`/UpdateExam?id=${id}`).then(r => { return r.data });
+    updateExam : async (value) => {
+        return await axios.put(`/UpdateExam`,value,config).then(r => { return r.data });
     },
     insertExam : async (id) => {
-        return await axios.delete(`/InsertExam?id=${id}`).then(r => { return r.data });
+        return await axios.post(`/InsertExam`,value,config).then(r => { return r.data });
     }
 }
 export default { User, Exam };

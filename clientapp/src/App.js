@@ -57,6 +57,7 @@ function App() {
                                 <Route exact path='/exam_result_list_exam/:id/:examName' render={({ match }) => <ListUserForExamResultListExam match={match} />} />
                                 <Route exact path='/exam_result_list_exam' component={ExamResultListExam} />
                                 <Route exact path='/exam_result_list_user' component={ExamResultListUser} />
+                                <Route exact path="/userCreate" component={userCreate} />  
                                 <Route exact path='/user_list' component={UserList} />
                                 <Route exact path="/exam/:id" render={({ match }) => <Exam match={match} />} />   
                                 <Route exact path="/show_answer/:id/:userId/:userName" render={({ match }) => <ShowAnswer match={match} />} />

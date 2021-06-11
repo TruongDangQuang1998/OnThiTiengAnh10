@@ -7,9 +7,11 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace EnglishV2.Controllers
 {
+    [EnableCors("*", "*", "*")]
     public class UserRoleController : ApiController
     {
         private UserRoleService _userRoleService;

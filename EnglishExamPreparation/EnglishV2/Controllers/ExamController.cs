@@ -8,9 +8,11 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace EnglishV2.Controllers
 {
+    [EnableCors("*", "*", "*")]
     public class ExamController : ApiController
     {
         private IUserService _userService;
@@ -181,6 +183,8 @@ namespace EnglishV2.Controllers
         [HttpPut]
         public IHttpActionResult Update(ExamModel entity)
         {
+            
+            //var entity = new ExamModel();
             var res = new ApiJsonResult();
             try
             {

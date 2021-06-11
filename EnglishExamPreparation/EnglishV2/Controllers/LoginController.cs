@@ -8,9 +8,12 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace EnglishV2.Controllers
 {
+    //[EnableCors(origins: "https://localhost:44329/", headers: "*", methods: "*")]
+    [EnableCors("*", "*", "*")]
     public class LoginController : ApiController
     {
         private IUserService _userService;

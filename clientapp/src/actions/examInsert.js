@@ -44,15 +44,25 @@ export const delete_exam = (id) => async (dispatch) => {
 };
 
 export const insertExam = (id) => async (dispatch) => {
+    // try {
+    //     const data = await api.Exam.insertExam(id);
+    //     dispatch({
+    //         type: types.INSERT_EXAM,
+    //         payload: id,
+    //     });
+       
+    // } catch (error) {
+       
+    // }
     try {
-        const data = await api.Exam.insertExam(id);
-        dispatch({
-            type: types.INSERT_EXAM,
-            payload: id,
-        });
-       
+        const data = await api.Exam.insertExam(value);
+        // dispatch({
+        //     type: types.UPDATE_EXAM,
+        //     payload: "",
+        // });
+
     } catch (error) {
-       
+        throw error;
     }
 };
 
