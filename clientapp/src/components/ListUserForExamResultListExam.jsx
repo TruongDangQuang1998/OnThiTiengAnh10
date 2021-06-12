@@ -48,7 +48,7 @@ export default function ListUserForExamResultListExam({match}) {
                                                     <td>{index+1}</td>
                                                     {/* <td>{item.userName}</td> */}
                                                     <td> <Link to={`/show_answer/${id}/${item.id}/${item.userName}`} className="text-hover-primary mb-0">{item.userName}</Link></td>
-                                                    <td>{item.correctAnswerNo}</td>
+                                                    <td>{item.correctAnswerNo}/40</td>
                                                 </tr>
                                             )
                                         })

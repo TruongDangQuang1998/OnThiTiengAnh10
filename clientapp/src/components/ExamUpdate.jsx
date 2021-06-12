@@ -162,14 +162,14 @@ export default function ExamUpdate({ match }) {
                                                                         return (
                                                                             <Fragment key={index}>
                                                                                 <p><b> Câu {item.questiongNo}:
-                                                                                <input type="text" onChange={(e) => handleOnChange3(e.target)} data-question-index={index2} data-answer-index={index} data-question-key="questionContent" defaultValue={item.questionContent} name={item.questionContent} />
+                                                                                <textarea style={{height:'30px'}} type="text" onChange={(e) => handleOnChange3(e.target)} data-question-index={index2} data-answer-index={index} data-question-key="questionContent" defaultValue={item.questionContent} name={item.questionContent} />
                                                                                     </b></p>
-                                                                                <p>Gợi ý:<input type="text" onChange={(e) => handleOnChange4(e.target)} data-question-index={index2} data-answer-index={index} data-suggestions-key="suggestions" defaultValue={item.suggestions} name={item.suggestions} />
+                                                                                <p>Gợi ý:<textarea style={{height:'30px'}} type="text" onChange={(e) => handleOnChange4(e.target)} data-question-index={index2} data-answer-index={index} data-suggestions-key="suggestions" defaultValue={item.suggestions} name={item.suggestions} />
                                                                                     </p>
                                                                                     
                                                                                     {/* // {item.suggestions} */}
                                                                                 <p style={{color:"blue"}}>Đáp án: 
-                                                                                <input type="text" onChange={(e) => handleOnChange5(e.target)} data-question-index={index2} data-answer-index={index} data-answer-key="answer" defaultValue={item.answer} name={item.answer} />
+                                                                                <textarea style={{height:'30px'}} type="text" onChange={(e) => handleOnChange5(e.target)} data-question-index={index2} data-answer-index={index} data-answer-key="answer" defaultValue={item.answer} name={item.answer} />
                                                                                 {/* "{item.answer}" */}
                                                                                 </p>
                                                                             </Fragment>

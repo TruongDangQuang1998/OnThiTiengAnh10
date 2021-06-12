@@ -161,15 +161,15 @@ export default function ExamInsert({ match }) {
                                                                         return (
                                                                             <Fragment key={index}>
                                                                                 <p><b> Câu {item.questiongNo}.
-                                                                                <input type="text" onChange={(e) => handleOnChange3(e.target)} data-question-index={index2} data-answer-index={index} data-question-key="questionContent" defaultValue='' name={item.questionContent} />
+                                                                                <textarea style={{height:'30px'}} type="text" onChange={(e) => handleOnChange3(e.target)} data-question-index={index2} data-answer-index={index} data-question-key="questionContent" defaultValue='' name={item.questionContent} />
                                                                                     </b></p>
                                                                                     Gợi ý
-                                                                                <p><input type="text" onChange={(e) => handleOnChange4(e.target)} data-question-index={index2} data-answer-index={index} data-suggestions-key="suggestions" defaultValue='' name={item.suggestions} />
+                                                                                <p><textarea style={{height:'30px'}} type="text" onChange={(e) => handleOnChange4(e.target)} data-question-index={index2} data-answer-index={index} data-suggestions-key="suggestions" defaultValue='' name={item.suggestions} />
                                                                                     </p>
                                                                                     
                                                                                     {/* // {item.suggestions} */}
                                                                                 <p style={{color:"blue"}}>Đáp án: 
-                                                                                <input type="text" onChange={(e) => handleOnChange5(e.target)} data-question-index={index2} data-answer-index={index} data-answer-key="answer" defaultValue='' name={item.answer} />
+                                                                                <textarea style={{height:'30px'}} type="text" onChange={(e) => handleOnChange5(e.target)} data-question-index={index2} data-answer-index={index} data-answer-key="answer" defaultValue='' name={item.answer} />
                                                                                 {/* "{item.answer}" */}
                                                                                 </p>
                                                                             </Fragment>

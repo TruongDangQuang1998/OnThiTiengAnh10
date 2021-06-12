@@ -48,7 +48,7 @@ export default function TableTitle({match}) {
                                                
                                                     <td>{item.id}</td>
                                                     <td> <Link to={`/show_answer/${item.id}/${id}/${userName}`} className="text-hover-primary mb-0">{item.name}</Link></td>
-                                                    <td> {item.correctAnswerNo}</td>
+                                                    <td> {item.correctAnswerNo}/40</td>
                                                 </tr>
 
                                             )

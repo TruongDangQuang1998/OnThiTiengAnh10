@@ -108,6 +108,7 @@ export default function ShowAnswer({ match }) {
                                                                                 <p>{item.suggestions}</p>
                                                                                 {/* <label htmlFor={item.answer4} style={{color:"blue"}}>
                                                                                             <i className="icon  " />=>Answer: {item.answer}</label> */}
+                                                                                <p style={{ color: "blue" }}>User Answer: "{item.userAnswer}"</p>
                                                                                 <p style={{ color: "blue" }}>Answer: "{item.answer}"</p>
                                                                                 {/* <input type="text" /> */}
                                                                             </Fragment>

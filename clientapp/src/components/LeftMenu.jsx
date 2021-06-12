@@ -67,7 +67,7 @@ export default function LeftMenu() {
             <li className="nav-item">
               <Link to={`/exam_result_list_user`} className=" nav-link mb-0">
                 <i className="fas fa-fw fa-chart-area" />
-                <span>Kết quả theo Uesr</span>
+                <span>Kết quả theo User</span>
               </Link>
             </li>
           )

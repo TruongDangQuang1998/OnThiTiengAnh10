@@ -25,6 +25,10 @@ export default function UserList() {
         // dispatch(userManage.createUser());
         history.push("/userCreate")
     }
+
+    const onResetPassword=(id)=>{
+        dispatch(userManage.reset_password_user(id));
+    }
     // const 
 
     return (
@@ -60,7 +64,7 @@ export default function UserList() {
                                                     <td>{item.name}</td>
                                                     <td>
                                                         {/*  QUang xem lại hàm reset này nha. nó k tồn tại */}
-                                                        {/* <button className="btn btn-secondary" onClick={() => onResetPassword(item.id)} >Reset Password<i class="fas fa-user-edit" aria-hidden="true"></i></button> */}
+                                                        <button className="btn btn-secondary" onClick={() => onResetPassword(item.id)} >Reset Password<i class="fas fa-user-edit" aria-hidden="true"></i></button>
                                                     </td>
                                                     <td>
                                                         <button className="btn btn-danger" onClick={() => onDelete(item.id)} >Xóa <i class="fas fa-user-times" aria-hidden="true"></i></button>
