@@ -79,7 +79,7 @@ namespace EnglishV2.Controllers
                 var essayQuestions = _essayQuestionService.GetAll();
                 var multipleChoiceQuestions = _multipleChoiceQuestionService.GetAll();
 
-                var modelService = _businessService.GetExamModel(exam, typeQuestions, examResults, essayQuestions, multipleChoiceQuestions);
+                var modelService = _businessService.GetExamModel(exam, typeQuestions, examResultUsers.ToList(), essayQuestions, multipleChoiceQuestions) ;
                 examModel.CorrectAnswerNo = modelService.CorrectAnswerNo;
                 examModel.Description = modelService.Description;
                 examModel.Id = modelService.Id;

@@ -1,4 +1,4 @@
-﻿use [English100]
+﻿use [englishdb]
 
 
 GO
@@ -845,6 +845,12 @@ set @matype = @@IDENTITY;
 SET IDENTITY_INSERT [dbo].[EssayQuestions] off
  end
 
+
+
+
+
+
+
 GO
 
 --12--
@@ -852,7 +858,7 @@ begin
 declare @made int;
 declare @matype int;
 --SET IDENTITY_INSERT [dbo].[Exams] ON 
-INSERT [dbo].[Exams] ( [Name], [Description], [IsDelete]) VALUES ( N'Đề 4', N'Đà Nẵng', 0)
+INSERT [dbo].[Exams] ( [Name], [Description], [IsDelete]) VALUES ( N'Đề Test', N'Đà Nẵng', 0)
 SET IDENTITY_INSERT [dbo].[Exams] off
 set @made = @@IDENTITY;
 
