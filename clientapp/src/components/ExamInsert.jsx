@@ -17,7 +17,7 @@ export default function ExamInsert({ match }) {
     
     useEffect(() => {
         // dispatch(examManage.getExamById({ "examId": id, "userId": currentUser.id }));
-        dispatch(examManage.getExamById({ "examId": 9, "userId":1}));
+        dispatch(examManage.getExamById({ "examId": 21, "userId":1}));
     }, [id]);
     
     function handleOnChange(asdf) {
@@ -74,7 +74,7 @@ export default function ExamInsert({ match }) {
         e.preventDefault();
         examManage.insertExam(exam);
         // const onTest = () => {
-            history.push(`/`);
+            history.push("/");
         // }
     }
     console.log(exam);
