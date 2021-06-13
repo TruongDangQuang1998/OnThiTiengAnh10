@@ -858,7 +858,7 @@ begin
 declare @made int;
 declare @matype int;
 --SET IDENTITY_INSERT [dbo].[Exams] ON 
-INSERT [dbo].[Exams] ( [Name], [Description], [IsDelete]) VALUES ( N'Đề Test', N'Đà Nẵng', 0)
+INSERT [dbo].[Exams] ( [Name], [Description], [IsDelete]) VALUES ( N'Đề 4', N'Đà Nẵng', 0)
 SET IDENTITY_INSERT [dbo].[Exams] off
 set @made = @@IDENTITY;
 
