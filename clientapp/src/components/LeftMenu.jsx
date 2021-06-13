@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
 import { useDispatch, useSelector } from "react-redux";
 import * as userManage from "../actions/user";
 export default function LeftMenu() {
@@ -25,6 +26,7 @@ export default function LeftMenu() {
 
         <div className="sidebar-heading">
           Danh sách
+          <ToastContainer />
     </div>
         {/* Nav Item - Pages Collapse Menu */}
 

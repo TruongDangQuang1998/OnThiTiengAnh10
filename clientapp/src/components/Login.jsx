@@ -3,6 +3,8 @@ import history from '../history';
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from "react-redux";
 import * as userManage from "../actions/user";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Login() {
     const dispatch = useDispatch();
@@ -30,8 +32,22 @@ export default function Login() {
         e.preventDefault();
         dispatch(userManage.update_status_login());
         dispatch(userManage.login(info));
-    };
 
+        // showToast();
+    };
+    const showToast = () => {
+        toast("I am Tostify!")
+      };
+    
+    //   return 
+    //   (
+    //     <div className="App">
+    //       <div>
+    //         <button onClick={showToast}>Show Toast !</button>
+    //         <ToastContainer />
+    //       </div>
+    //     </div>
+    //   );
     const checkLogin = () => {
         if (currentUser
             && Object.keys(currentUser).length !== 0) {

@@ -37,6 +37,7 @@ export default function UserCreate() {
         console.log(createUser);
         dispatch(userManage.createUser(createUser));
         dispatch(userManage.update_status_register());
+        history.push(`/user_list`);
     };
 
     useEffect(() => {

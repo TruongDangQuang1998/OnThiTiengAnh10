@@ -60,9 +60,22 @@ export default function ExamInsert({ match }) {
         
         console.log("exam", exam);
     }
+    function hadleOncChangeExamName(asdf){
+        console.log(asdf );
+        exam.name = asdf.value;
+        console.log("exam", exam);
+    }
+    function hadleOncChangeDescription(asdf){
+        console.log(asdf );
+        exam.description = asdf.value;
+        console.log("exam", exam);
+    }
     function handleOnSubmit(e) {
         e.preventDefault();
         examManage.insertExam(exam);
+        // const onTest = () => {
+            history.push(`/`);
+        // }
     }
     console.log(exam);
     return (
@@ -78,6 +91,9 @@ export default function ExamInsert({ match }) {
                                 <b>THÊM ĐỀ THI</b></p>
                                 <p className="text-justify-center" style={{ textAlign: "center" }}>
                                     {/* <b>{exam.name + "-" + exam.description}</b> */}
+                                    Tên đề
+                                    <p><textarea type="text" style={{height:'30px', width:'500px'}} onChange={(e) => hadleOncChangeExamName(e.target)} defaultValue='' name={exam.name} /></p>
+                                    Mô tả<p><textarea type="text" style={{height:'30px', width:'500px'}} onChange={(e) => hadleOncChangeDescription(e.target)}  defaultValue='' name={exam.description} /></p>
                                 </p>
                                 <div className="row">
                                     <div className="col-md-10 col-md-push-1">

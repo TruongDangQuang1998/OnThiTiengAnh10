@@ -20,6 +20,7 @@ export default function UserList() {
 
     const onDelete=(id)=>{
         dispatch(userManage.delete_user(id));
+        history.push("/exam_result_list_user");
     }
     const onCreateUser=()=>{
         // dispatch(userManage.createUser());

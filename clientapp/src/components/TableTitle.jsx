@@ -11,6 +11,7 @@ export default function TableTitle() {
     const { currentUser } = useSelector((state) => state.user);
     const onDelete = (id) => {
         dispatch(examManage.delete_exam(id));
+        history.push("/");
     }
     const updateExam = (id) => {
         history.push(`/examUpdate/${id}`)

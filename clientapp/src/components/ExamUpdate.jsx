@@ -65,6 +65,7 @@ export default function ExamUpdate({ match }) {
         e.preventDefault();
         // console.log(exam);
         examManage.updateExam(exam);
+        history.push(`/`);
     }
     console.log(exam);
     return (

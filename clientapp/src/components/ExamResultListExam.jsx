@@ -9,7 +9,13 @@ export default function ExamResultListExam() {
 
     const getListTiltleExam = useSelector((state) => state.exam.listTitleExam);
     console.log(getListTiltleExam)
-   
+    
+    
+
+   const onTest = () => {
+    history.push(`/`)
+}
+
     useEffect(() => {
         dispatch(examManage.getAllTitlExam());
     }, []);
@@ -51,6 +57,8 @@ export default function ExamResultListExam() {
                                                     <td>
                                                     <button className="btn btn-danger" onClick={() => onDelete(item.id)} >Xóa <i class="fas fa-user-times" aria-hidden="true"></i></button>
                                                     </td> */}
+                                                  
+                                                    {/* <button className="btn btn-danger" onClick={() => onTest()} >Test<i class="fas fa-user-times" aria-hidden="true"></i></button> */}
                                                 </tr>
                                                 
                                             )
